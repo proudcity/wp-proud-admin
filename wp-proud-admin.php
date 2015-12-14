@@ -11,6 +11,8 @@ License:            MIT License
 License URI:        http://opensource.org/licenses/MIT
 */
 
+require_once get_template_directory() . '/lib/assets.php';
+
 use Proud\Theme\Assets;
 
 //add css
