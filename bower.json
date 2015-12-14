@@ -1,0 +1,12 @@
+{
+  "name": "proud",
+  "homepage": "http://getproudcity.com",
+  "authors": [
+    "Jeff Lyon <jeff@getproudcity.com> (http://www.getproudcity.com)",
+    "Alex Schmoe <alex@getproudcity.com> (http://www.getproudcity.com)"
+  ],
+  "license": "GPL-3.0",
+  "dependencies": {
+    "proudcity-patterns": "proudcity/proudcity-patterns#master"
+  }
+}

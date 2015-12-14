@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "proud-admin.js": {
+      "files": [
+        "scripts/proud-admin.js"
+      ],
+      "bower": [""],
+      "main": true
+    },
+    "proud-admin.css": {
+      "files": [
+        "styles/proud-admin.scss"
+      ],
+      "main": true
+    }
+  },
+  "config": {
+    "devUrl": "http://localhost:8080/"
+  }
+}
