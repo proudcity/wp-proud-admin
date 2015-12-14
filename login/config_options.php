@@ -7,9 +7,9 @@ if (!current_user_can('manage_options'))
 }
 
 // variables for the field and option names
-$opt_name = 'wp_flat_admin_custom_logo_path';
-$hidden_field_name = 'wp_flat_admin_submit_hidden';
-$data_field_name = 'wp_flat_admin_custom_logo_path';
+$opt_name = 'wp_proud_admin_custom_logo_path';
+$hidden_field_name = 'wp_proud_admin_submit_hidden';
+$data_field_name = 'wp_proud_admin_custom_logo_path';
 
 $custom_url_title = get_option( 'custom_url_title' );
 if(empty($custom_url_title)){
@@ -27,7 +27,7 @@ if(isset($_POST[$data_field_name])){
     $opt_val = $_POST[ $data_field_name ];
 
     //Save the posted value in the database
-    update_option( 'wp_flat_admin_custom_logo_path', $opt_val );
+    update_option( 'wp_proud_admin_custom_logo_path', $opt_val );
     update_option( 'custom_login_logo_url', $_POST['custom_login_logo_url'] );
     update_option( 'custom_url_title', $_POST['custom_url_title'] );
 }

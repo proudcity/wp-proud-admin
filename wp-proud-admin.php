@@ -16,7 +16,7 @@ require_once get_template_directory() . '/lib/assets.php';
 use Proud\Theme\Assets;
 
 //add css
-function flat_admin_theme_style() {
+function proud_admin_theme_style() {
   // Bootstrap + proud-library styles from theme
   wp_enqueue_style('proud-vendor/css', Assets\asset_path('styles/proud-vendor.css'), false, null);
 
@@ -27,8 +27,8 @@ function flat_admin_theme_style() {
   // // Bootstrap
   // wp_enqueue_script('proud/js', Assets\asset_path('scripts/main.js'), ['jquery'], null, true);
 }
-add_action('admin_enqueue_scripts', 'flat_admin_theme_style');
-add_action('login_enqueue_scripts', 'flat_admin_theme_style');
+add_action('admin_enqueue_scripts', 'proud_admin_theme_style');
+add_action('login_enqueue_scripts', 'proud_admin_theme_style');
 
 //login screen
 include_once('login/login.php');
