@@ -1,12 +1,14 @@
 <?php
-/**
-* Plugin Name: WP Flat Admin Theme
-* Plugin URI: https://github.com/nickhargreaves/WP_FlatAdmin
-* Description: This plugin turns a Wordpress Admin theme into a nice looking dashboard based on the Flat UI kit by http://designmodo.com/flat
-* Version: 1.0.1
-* Author: Nick Hargreaves
-* Author URI: http://nickhargreaves.com
-* License: GPL2
+/*
+Plugin Name:        Proud Admin
+Plugin URI:         http://getproudcity.com
+Description:        ProudCity distribution
+Version:            1.0.0
+Author:             ProudCity
+Author URI:         http://getproudcity.com
+
+License:            MIT License
+License URI:        http://opensource.org/licenses/MIT
 */
 
 use Proud\Theme\Assets;
