@@ -4,8 +4,10 @@
       "files": [
         "scripts/proud-admin.js"
       ],
-      "bower": [""],
       "main": true
+    },
+    "jquery.js": {
+      "bower": ["jquery"]
     },
     "proud-admin.css": {
       "files": [

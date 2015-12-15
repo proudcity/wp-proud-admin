@@ -197,9 +197,9 @@ gulp.task('scripts', ['jshint'], function() {
 
   manifest.forEachDependency('js', function(dep) {
     // Hack to get rid of jquery
-    if(dep.name === 'proud-admin.js') {
-      dep.globs.shift();
-    }
+    //if(dep.name === 'proud-admin.js') {
+      //dep.globs.shift();
+    //}
     merged.add(
       gulp.src(dep.globs, {base: 'scripts'})
         .pipe(jsTasks(dep.name))
