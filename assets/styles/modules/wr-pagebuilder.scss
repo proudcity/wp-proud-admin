@@ -1,0 +1,11 @@
+
+// Fix checkboxes
+body {
+  #wr-widget-form {
+    input[type="radio"],
+    input[type="checkbox"]{
+      margin-left: -20px;
+      margin-top: 0;
+    }  
+  }
+}
