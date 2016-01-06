@@ -1,0 +1,33 @@
+#wpadminbar {
+  height: $toolbar-height !important;
+
+  #wp-admin-bar-wp-logo {
+    background: url(http://proudcity.com/images/logo-icon-white.png) 0 0 no-repeat !important;
+    background-size: $toolbar-height $toolbar-height !important;
+    margin-left: 10px; // @todo: var
+    margin-top: -2px;
+
+    a {
+      height: $toolbar-height - 2px;
+      width: $toolbar-height - 2px;
+    }
+
+    .ab-icon:before {
+      content: none !important;
+    }
+  }
+
+  #wp-admin-bar-updates,
+  #wp-admin-bar-comments,
+  #wp-admin-bar-site-name {
+    display: none;
+  }
+
+  .ab-label,
+  .ab-top-menu,
+  .ab-icon {
+    margin-top: 3px; // @todo: var/math
+  }
+
+  
+}

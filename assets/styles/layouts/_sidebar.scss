@@ -1,0 +1,66 @@
+#wpcontent,
+#wpfooter {
+  margin-left: $sidebar-width;
+}
+
+#adminmenu,
+#adminmenu .wp-submenu,
+#adminmenuback,
+#adminmenuwrap {
+  background-color: $color-sidebar-bg;
+  width: $sidebar-width;
+}
+
+#adminmenu {
+  li,
+  a {
+    background-color: $color-sidebar-bg !important;
+    background: none !important;
+    font-size: $font-size !important;
+  }
+
+  a {
+    color: $color-sidebar-link !important;
+
+    &.wp-has-current-submenu {
+      background-color: $color-sidebar-active-bg !important;
+      color: $color-sidebar-active-color !important;
+    }
+  }
+
+  div.wp-menu-name {
+    padding: $sidebar-link-padding;
+  }
+
+  .opensub .wp-submenu,
+  .dashicons-before {
+    display: none;
+  }
+  
+  .wp-has-current-submenu .wp-submenu {
+    background-color: $color-sidebar-submenu-bg !important;
+    padding-left: 15px; // @todo: var
+  }
+
+  li.menu-top:before {
+    padding-left: 10px; // @todo: var
+    color: $color-sidebar-active-bg;
+    font-size: .9em;
+    padding-top: 10px;
+    font-weight: bold;
+  }
+
+  li.menu-icon-page:before {
+    content: 'Publish';
+  }
+
+  li.menu-icon-appearance:before {
+    content: 'Personalize';
+  }
+
+  li.menu-icon-users:before {
+    content: 'Configure';
+  }
+}
+
+
