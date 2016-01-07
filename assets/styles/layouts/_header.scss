@@ -1,33 +1,48 @@
+// @todo: include this in the frontend
+html.wp-toolbar {
+  padding-top: $admin-bar-height !important;
+}
+
 #wpadminbar {
-  height: $toolbar-height !important;
+  height: $admin-bar-height !important;
 
   #wp-admin-bar-wp-logo {
     background: url(http://proudcity.com/images/logo-icon-white.png) 0 0 no-repeat !important;
-    background-size: $toolbar-height $toolbar-height !important;
+    background-size: $admin-bar-height $admin-bar-height !important;
     margin-left: 10px; // @todo: var
-    margin-top: -2px;
 
     a {
-      height: $toolbar-height - 2px;
-      width: $toolbar-height - 2px;
+      height: $admin-bar-height - 2px;
+      width: $admin-bar-height - 2px;
     }
 
     .ab-icon:before {
       content: none !important;
     }
+
+    .ab-item {
+      background: none;
+    }
+
+    .ab-sub-wrapper {
+      display: none;
+    }
   }
 
+  #wp-admin-bar-customize,
   #wp-admin-bar-updates,
   #wp-admin-bar-comments,
   #wp-admin-bar-site-name {
     display: none;
   }
 
-  .ab-label,
-  .ab-top-menu,
-  .ab-icon {
-    margin-top: 3px; // @todo: var/math
+  .ab-item {
+    margin-top: 5px !important; // @todo: var/math
   }
 
-  
+}
+
+#screen-meta-links,
+#welcome-panel {
+  display: none;
 }
