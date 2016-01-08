@@ -138,4 +138,4 @@ function add_theme_caps() {
     // would allow the author to edit others' posts for current theme only
     $role->add_cap( 'edit_others_posts' ); 
 }
-add_action( 'admin_init', 'add_theme_caps');
+add_action( 'admin_init', __NAMESPACE__ . '\\add_theme_caps');
