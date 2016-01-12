@@ -1,0 +1,32 @@
+// Taxonomy pages
+#col-left {
+  .term-slug-wrap, //@todo: do we really want to hide this?
+  .tagcloud {
+    display: none;
+  }
+}
+
+// Widget manager
+#widgets-right {
+  h2 {
+    font-size: 1em;
+  }
+}
+
+// Menu edit page
+.manage-menus,
+#nav-menus-frame {
+  label,
+  h3,
+  dt,
+  select,
+  .nav-tab-link,
+  .add-new-menu-action {
+    font-size: 13px;
+  }
+
+  .add-menu-item-tabs {
+    margin-bottom: 0;
+  }
+}
+
