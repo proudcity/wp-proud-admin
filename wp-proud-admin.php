@@ -35,13 +35,57 @@ class ProudAdmin extends \ProudPlugin {
       'plugin_path'    => __FILE__,
     ) );
 
+    $this->hook( 'admin_init', 'add_caps' );
     $this->hook( 'admin_enqueue_scripts', 'proud_admin_theme_style' );
     $this->hook( 'login_enqueue_scripts', 'proud_admin_theme_style' );
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_dashboard', 20 );
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_account', 11 );
     $this->hook( 'wp_dashboard_setup', 'remove_dashboard_meta' );
     $this->hook( 'admin_footer_text', 'dashboard_footer' );
+    $this->hook( 'admin_body_class', 'add_admin_body_classes' );
 
+    // -- Hacks
+    // Hide admin fields
+    $this->hook('init', 'removePostAdminFields');
+
+    //$this->hook( 'postbox_classes_post_wpseo_meta', 'minify_metabox' );  // This is done in js
+  }
+
+
+  /*public function minify_metabox( $classes ) {
+    array_push( $classes, 'closed' );
+    return $classes;
+  }*/
+
+  // Add permissions to Editor role
+  function add_caps( $allcaps, $cap, $args ) {
+    $editor_caps = array(                  
+      'switch_themes',
+      'edit_files',
+      'edit_theme_options',
+      'edit_job_listing',
+      'read_job_listing',
+      'delete_job_listing',
+      'edit_job_listings',
+      'edit_others_job_listings',
+      'publish_job_listings',
+      'read_private_job_listings',
+      'delete_job_listings',
+      'delete_private_job_listings',
+      'delete_published_job_listings',
+      'delete_others_job_listings',
+      'edit_private_job_listings',
+      'edit_published_job_listings',
+      'manage_job_listing_terms',
+      'edit_job_listing_terms',
+      'delete_job_listing_terms',
+      'assign_job_listing_terms',
+    );
+
+    $role = get_role( 'editor' );
+    foreach ($editor_caps as $item) {
+      $role->add_cap( $item ); 
+    }
   }
 
   //add css
@@ -56,6 +100,14 @@ class ProudAdmin extends \ProudPlugin {
     // // Bootstrap
     // wp_enqueue_script('proud/js', Assets\asset_path('scripts/main.js'), ['jquery'], null, true);
   }
+
+  // Remove extra fields on the admin pages
+  public function removePostAdminFields() {
+    remove_post_type_support( 'question', 'author' );
+    remove_post_type_support( 'question', 'comments' );
+    remove_post_type_support( 'question', 'custom-fields' );
+  }
+
 
   // Add Dashboard link
   function wp_admin_bar_dashboard($admin_bar) {
@@ -99,6 +151,7 @@ class ProudAdmin extends \ProudPlugin {
     }
   }
 
+  // Customize dashboard
   function remove_dashboard_meta() {
     //$user = wp_get_current_user();
     //if ( ! $user->has_cap( 'manage_options' ) ) {
@@ -114,9 +167,20 @@ class ProudAdmin extends \ProudPlugin {
     //}
   }
 
+  // Customize footer message
   function dashboard_footer () {
     $url = get_site_url();
     echo "<a href='http://proudcity.com' target='_blank'>ProudCity</a> is proudly powered by <a href='http://wordpress.com' target='_blank'>WordPress</a> and Open Source software. <a href='$url/wp-admin/credits.php'>Credits</a> &middot; <a href='$url/wp-admin/freedoms.php'>Freedoms</a>.";
+  }
+
+  // Add classes to distinguish between admin, normal users.
+  public function add_admin_body_classes($classes) {
+    if( current_user_can( 'manage_options' ) ) {
+      return "$classes role-admin";
+    }
+    else {
+      return "$classes role-non-admin";
+    }
   }
 
 }
@@ -126,16 +190,3 @@ new ProudAdmin;
 //login screen
 include_once('login/login.php');
 include_once('login/add_menu.php');
-
-
-
-// @todo: move
-function add_theme_caps() {
-    // gets the author role
-    $role = get_role( 'author' );
-
-    // This only works, because it accesses the class instance.
-    // would allow the author to edit others' posts for current theme only
-    $role->add_cap( 'edit_others_posts' ); 
-}
-add_action( 'admin_init', __NAMESPACE__ . '\\add_theme_caps');

@@ -1,3 +1,10 @@
 #wpwrap {
   background-color: white;
 }
+
+
+body.role-non-admin {
+  .update-nag {
+    display: none !important;
+  }
+}

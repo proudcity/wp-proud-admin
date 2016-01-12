@@ -25,16 +25,17 @@
     &.wp-has-current-submenu {
       background-color: $color-sidebar-active-bg !important;
       color: $color-sidebar-active-color !important;
-    }
+    }    
   }
 
   div.wp-menu-name {
     padding: $sidebar-link-padding;
   }
 
-  .opensub .wp-submenu,
+  li.opensub:after,
+  li.opensub>ul.wp-submenu,
   .dashicons-before {
-    display: none;
+    display: none !important;
   }
   
   .wp-has-current-submenu .wp-submenu {

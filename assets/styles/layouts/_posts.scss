@@ -1,0 +1,77 @@
+// Wysisyg
+#wp-content-editor-tools {
+  padding-top: 5px;
+
+  #wr_pb_button {
+    display: none;
+  }
+
+  #insert-media-button {
+    margin-left: 5px;
+  }
+
+  .wp-editor-tabs {
+    margin-right: 5px;
+  }
+}
+
+// Sidebar
+#side-sortables {
+  #wp_quick_menu_meta_box {
+    h3 {
+      font-size: 1em;
+    }
+  }
+
+  #pageparentdiv { // @todo: revisit this, we might want some of these features
+    display: none !important;
+  }
+
+  #submitdiv {
+    #wpseo-score {
+      display: none; // @todo: do we actually want to show SEO score?
+    }
+
+    &.closed {
+      .inside {
+        display: block;
+
+        #minor-publishing {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// Form builder popups
+#TB_window{
+
+  #TB_ajaxContent {
+    height: auto !important;
+  }
+
+  .control-box {
+    height: auto;
+
+    legend {
+      display: none;
+    }
+  }
+
+  .insert-box {
+    position: relative;
+    height: auto;
+    background: transparent;
+    border-top: 0;
+
+    .button {
+      float: none;
+      margin-top: 1em;
+    }
+  }
+}
+
+
+
+

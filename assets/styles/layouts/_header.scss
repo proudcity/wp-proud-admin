@@ -32,8 +32,9 @@ html.wp-toolbar {
   #wp-admin-bar-customize,
   #wp-admin-bar-updates,
   #wp-admin-bar-comments,
-  #wp-admin-bar-site-name {
-    display: none;
+  #wp-admin-bar-site-name,
+  #wp-admin-bar-wpseo-menu {
+    display: none !important;
   }
 
   .ab-item {
@@ -45,4 +46,30 @@ html.wp-toolbar {
 #screen-meta-links,
 #welcome-panel {
   display: none;
+}
+
+
+// Responsive
+@media screen and (max-width: 782px) {
+  html.wp-toolbar {
+    padding-top: 0 !important;
+
+    body {
+      padding-top: $admin-bar-height;
+    }
+  }
+
+  html.wp-toolbar {
+    padding-top: 0 !important;
+  }
+
+  #wpadminbar {
+    .ab-item {
+      margin-top: 0 !important; // @todo: var/math
+    }
+
+    #wp-admin-bar-wp-logo {
+      display: none !important;
+    }
+  }
 }
