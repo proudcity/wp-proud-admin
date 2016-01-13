@@ -54,8 +54,8 @@ html.wp-toolbar {
   html.wp-toolbar {
     padding-top: 0 !important;
 
-    body {
-      padding-top: $admin-bar-height;
+    #wpbody-content {
+      //padding-top: $admin-bar-height;
     }
   }
 

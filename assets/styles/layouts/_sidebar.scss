@@ -22,25 +22,44 @@
   a {
     color: $color-sidebar-link !important;
 
-    &.wp-has-current-submenu {
+    &.wp-has-current-submenu,
+    &:hover {
       background-color: $color-sidebar-active-bg !important;
       color: $color-sidebar-active-color !important;
-    }    
+    }
+  }
+
+  li.opensub {
+    &>a {
+      background-color: $color-sidebar-active-bg !important;
+      color: $color-sidebar-active-color !important;
+    }
+
+    &:after {
+      border-right-color: $color-sidebar-caret-color !important;
+    }
   }
 
   div.wp-menu-name {
     padding: $sidebar-link-padding;
   }
 
-  li.opensub:after,
-  li.opensub>ul.wp-submenu,
   .dashicons-before {
     display: none !important;
   }
+
+  .wp-submenu {
+    left: $sidebar-width
+  }
   
-  .wp-has-current-submenu .wp-submenu {
-    background-color: $color-sidebar-submenu-bg !important;
-    padding-left: 15px; // @todo: var
+  .wp-has-current-submenu {
+    &:after {
+      display: none !important;
+    }
+    .wp-submenu {
+      background-color: $color-sidebar-submenu-bg !important;
+      padding-left: 15px; // @todo: var
+    }
   }
 
   li.menu-top:before {
