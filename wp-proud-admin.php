@@ -23,6 +23,9 @@ if ( ! class_exists( 'ProudPlugin' ) ) {
   require_once( plugin_dir_path(__FILE__) . '../wp-proud-core/proud-plugin.class.php' );
 }
 
+require_once( plugin_dir_path(__FILE__) . 'dashboard/wp-proud-admin-dashboard.php' );
+
+
 class ProudAdmin extends \ProudPlugin {
 
   /**
@@ -40,7 +43,6 @@ class ProudAdmin extends \ProudPlugin {
     $this->hook( 'login_enqueue_scripts', 'proud_admin_theme_style' );
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_dashboard', 20 );
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_account', 11 );
-    $this->hook( 'wp_dashboard_setup', 'remove_dashboard_meta' );
     $this->hook( 'admin_footer_text', 'custom_footer' );
     $this->hook( 'admin_body_class', 'add_admin_body_classes' );
 
@@ -151,34 +153,11 @@ class ProudAdmin extends \ProudPlugin {
     }
   }
 
-  // Customize dashboard
-  function remove_dashboard_meta() {
-    //$user = wp_get_current_user();
-    //if ( ! $user->has_cap( 'manage_options' ) ) {
-        remove_meta_box( 'dashboard_incoming_links', 'dashboard', 'normal' );
-        remove_meta_box( 'dashboard_plugins', 'dashboard', 'normal' );
-        remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
-        remove_meta_box( 'dashboard_secondary', 'dashboard', 'normal' );
-        remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
-        remove_meta_box( 'dashboard_recent_drafts', 'dashboard', 'side' );
-        remove_meta_box( 'dashboard_recent_comments', 'dashboard', 'normal' );
-        remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
-        remove_meta_box( 'dashboard_activity', 'dashboard', 'normal');//since 3.8
-    //}
-
-        wp_add_dashboard_widget('custom_help_widget', 'Theme Support', array($this, 'custom_dashboard_help') );
-  }
-
-
-
-  function custom_dashboard_help() {
-    echo '<p>Welcome to Custom Blog Theme! Need help? Contact the developer <a href="mailto:yourusername@gmail.com">here</a>. For WordPress Tutorials visit: <a href="http://www.wpbeginner.com" target="_blank">WPBeginner</a></p>';
-  }
-
   // Customize footer message
   function custom_footer () {
     $url = get_site_url();
     echo "<a href='http://proudcity.com' target='_blank'>ProudCity</a> is proudly powered by <a href='http://wordpress.com' target='_blank'>WordPress</a> and Open Source software. <a href='$url/wp-admin/credits.php'>Credits</a> &middot; <a href='$url/wp-admin/freedoms.php'>Freedoms</a>.";
+    require_once( plugin_dir_path(__FILE__) . 'inc/olark.php' );
   }
 
   // Add classes to distinguish between admin, normal users.
@@ -198,4 +177,3 @@ new ProudAdmin;
 //login screen
 include_once('login/login.php');
 include_once('login/add_menu.php');
-include_once('dashboard/proud-admin-dashboard.php');
