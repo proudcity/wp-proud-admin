@@ -30,3 +30,25 @@
   }
 }
 
+// Menu Customizer panel
+#available-menu-items {
+  h4.accordion-section-title {
+    font-size: $base-font-size;
+    padding: 7px 15px;
+  }
+}
+#menu-to-edit {
+  .customize-control-title,
+  .assigned-menu-location,
+  .customize-control-nav_menu_auto_add {
+    display: none !important;
+  }
+
+  .menu-delete {
+    font-size: $base-font-size*.8;
+  }
+
+  .reorder {
+    font-size: $base-font-size;
+  }
+}

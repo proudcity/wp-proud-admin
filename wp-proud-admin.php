@@ -41,7 +41,7 @@ class ProudAdmin extends \ProudPlugin {
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_dashboard', 20 );
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_account', 11 );
     $this->hook( 'wp_dashboard_setup', 'remove_dashboard_meta' );
-    $this->hook( 'admin_footer_text', 'dashboard_footer' );
+    $this->hook( 'admin_footer_text', 'custom_footer' );
     $this->hook( 'admin_body_class', 'add_admin_body_classes' );
 
     // -- Hacks
@@ -165,10 +165,18 @@ class ProudAdmin extends \ProudPlugin {
         remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
         remove_meta_box( 'dashboard_activity', 'dashboard', 'normal');//since 3.8
     //}
+
+        wp_add_dashboard_widget('custom_help_widget', 'Theme Support', array($this, 'custom_dashboard_help') );
+  }
+
+
+
+  function custom_dashboard_help() {
+    echo '<p>Welcome to Custom Blog Theme! Need help? Contact the developer <a href="mailto:yourusername@gmail.com">here</a>. For WordPress Tutorials visit: <a href="http://www.wpbeginner.com" target="_blank">WPBeginner</a></p>';
   }
 
   // Customize footer message
-  function dashboard_footer () {
+  function custom_footer () {
     $url = get_site_url();
     echo "<a href='http://proudcity.com' target='_blank'>ProudCity</a> is proudly powered by <a href='http://wordpress.com' target='_blank'>WordPress</a> and Open Source software. <a href='$url/wp-admin/credits.php'>Credits</a> &middot; <a href='$url/wp-admin/freedoms.php'>Freedoms</a>.";
   }
@@ -190,3 +198,4 @@ new ProudAdmin;
 //login screen
 include_once('login/login.php');
 include_once('login/add_menu.php');
+include_once('dashboard/proud-admin-dashboard.php');
