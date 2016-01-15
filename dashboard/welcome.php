@@ -1,6 +1,6 @@
 <div class="dashboard-proud dashboard-proud-welcome">
   <div class="left">
-    <img src="http://placehold.it/450x250?text=Welcome+Video">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/GY2hBGq9DQc" frameborder="0" allowfullscreen></iframe>
   </div>
   <div class="right get-started">
     <h3>5 ways to get started</h3>

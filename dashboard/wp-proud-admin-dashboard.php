@@ -38,7 +38,7 @@ class ProudAdminDashboard extends \ProudPlugin {
     remove_meta_box( 'dashboard_activity', 'dashboard', 'normal');//since 3.8
     remove_meta_box( 'wpseo-dashboard-overview', 'dashboard', 'normal' );
 
-    wp_add_dashboard_widget('dashboard_proud_welcome', 'Welcome to ProudCity', array($this, 'welcome') );
+    wp_add_dashboard_widget('dashboard_proud_welcome', 'Make your city proud', array($this, 'welcome') );
     wp_add_dashboard_widget('dashboard_proud_help', 'Get help', array($this, 'help') );
     wp_add_dashboard_widget('dashboard_proud_news', 'Recent news', array($this, 'news') );
   }

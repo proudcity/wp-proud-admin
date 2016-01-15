@@ -10,7 +10,8 @@
       if (data.responseData.feed && data.responseData.feed.entries) {
         $news = $('#proud-dashboard-news');
         $.each(data.responseData.feed.entries, function (i, e) {
-          console.log(e);
+          //console.log(e);
+          e.description = e.description != undefined ? e.description : '';
           $news.append('<li><h3><a href="'+ e.link +'">'+ e.title +'</a></h3><p>'+ e.description +'</p></li>');
         });
       }
