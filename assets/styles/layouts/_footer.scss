@@ -1,3 +1,8 @@
 #footer-upgrade{
   display: none;
 }
+
+// Make oLark play nice with ProudBar
+#habla_window_div {
+  right: 35% !important;
+}
