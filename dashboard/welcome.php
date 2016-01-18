@@ -1,6 +1,6 @@
 <div class="dashboard-proud dashboard-proud-welcome">
   <div class="left">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/GY2hBGq9DQc" frameborder="0" allowfullscreen></iframe>
+    <iframe width="480" height="270" src="https://www.youtube.com/embed/KyjmUMX2meo" frameborder="0" allowfullscreen></iframe>
   </div>
   <div class="right get-started">
     <h3>5 ways to get started</h3>
