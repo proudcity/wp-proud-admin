@@ -1,4 +1,6 @@
 // @todo: include this in the frontend
+$admin-bar-height: 47px;
+
 html.wp-toolbar {
   padding-top: $admin-bar-height !important;
 }
@@ -7,8 +9,8 @@ html.wp-toolbar {
   height: $admin-bar-height !important;
 
   #wp-admin-bar-wp-logo {
-    background: url(//my.proudcity.com/images/IconWhite.png) 0 0 no-repeat !important;
-    background-size: $admin-bar-height $admin-bar-height !important;
+    background: url(//my.proudcity.com/images/IconWhite.png) 0 5px no-repeat !important;
+    background-size: $admin-bar-height - 10px $admin-bar-height - 10px !important;
     margin-left: 10px; // @todo: var
 
     a {
