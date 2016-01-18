@@ -21,6 +21,11 @@
     h3 {
       font-size: 1em;
     }
+
+    .possible-position-100,
+    .wp_quick_menu_advance_settings {
+      display: none;
+    }
   }
 
   #pageparentdiv { // @todo: revisit this, we might want some of these features

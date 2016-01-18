@@ -49,6 +49,19 @@ input {
   border-radius: 2px;
   color: $gray-dark;
 }
-#titlediv #title {
-  color: $gray-dark;
+
+#titlediv {
+  #title,
+  #title-prompt-text {
+    height: 5rem !important;
+    line-height: 5rem !important;
+  }
+
+  #title {
+    color: $gray-dark;
+  }
+
+  #title-prompt-text {
+    padding-top: 0;
+  }
 }
