@@ -1,0 +1,91 @@
+#wpbody-content #dashboard-widgets {
+  #postbox-container-1,
+  #postbox-container-4 {
+    width: 100% !important;
+  }
+
+  #postbox-container-2,
+  #postbox-container-3 {
+    width: 50% !important;
+  }
+
+  #postbox-container-4 {
+    margin-top: 1em;
+  }
+
+  .empty-container {
+    //display: none;
+  }
+
+  .left,
+  .right {
+    float: left;
+  }
+
+  .left {
+    margin-right: 2rem;
+  }
+
+  .dashboard-proud-welcome {
+    .get-started {
+      font-size: 1.8rem;
+      font-weight: bold;
+
+      h3 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: $brand-primary;
+      }
+
+      a {
+        background: $brand-primary;
+        color: $white;
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        margin-left: 5px;
+        font-size: 1.3rem;
+
+        &.video {
+          color: $black;
+          background-color: $gray-lighter;
+        }
+
+        &:hover {
+          background: $brand-primary-darker;
+          color: $white;
+        }
+      }
+
+      li {
+        padding: 8px;
+      }
+    }
+  }
+
+  .dashboard-proud-help {
+    text-align: center;
+
+    a {
+      background-color: $brand-primary;
+      text-decoration: none;
+      padding: 10px 20px;
+      font-size: 1.6rem;
+      border-radius: 5px;
+      font-weight: bold;
+      display: inline-block;
+      margin-right: 10px;
+      color: $white;
+
+      &:hover {
+        background-color: $brand-primary-darker;
+      }
+
+      i {
+        display: block;
+        text-align: center;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
