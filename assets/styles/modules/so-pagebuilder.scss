@@ -1,0 +1,15 @@
+.so-panels-dialog {
+
+  // Hide some of the prebuilt layout options
+  .so-sidebar-tabs {
+    li:nth-child(2),
+    li:nth-child(2),
+    li:nth-child(5) {
+       display:none;
+    }
+  }
+}
+
+.so-widget {
+  min-height: 65px !important;
+}
