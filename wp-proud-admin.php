@@ -48,7 +48,7 @@ class ProudAdmin extends \ProudPlugin {
 
     // -- Hacks
     // Hide admin fields
-    $this->hook('init', 'removePostAdminFields');
+    $this->hook('init', 'remove_post_admin_fields');
 
     //$this->hook( 'postbox_classes_post_wpseo_meta', 'minify_metabox' );  // This is done in js
   }
@@ -104,7 +104,7 @@ class ProudAdmin extends \ProudPlugin {
   }
 
   // Remove extra fields on the admin pages
-  public function removePostAdminFields() {
+  public function remove_post_admin_fields() {
     remove_post_type_support( 'question', 'author' );
     remove_post_type_support( 'question', 'comments' );
     remove_post_type_support( 'question', 'custom-fields' );
