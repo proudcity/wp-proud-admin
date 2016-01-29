@@ -30,6 +30,18 @@
   }
 }
 
+// Customizer
+#customize-theme-controls {
+  .upload-button {
+    float: none;
+  }
+  .thumbnail {
+    max-width: 100px;
+    height: auto;
+  }
+}
+
+
 // Menu Customizer panel
 #available-menu-items {
   h4.accordion-section-title {
