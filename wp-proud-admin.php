@@ -24,7 +24,7 @@ if ( ! class_exists( 'ProudPlugin' ) ) {
 }
 
 require_once( plugin_dir_path(__FILE__) . 'dashboard/wp-proud-admin-dashboard.php' );
-require_once( plugin_dir_path(__FILE__) . 'inc/options.php' );
+// @todo: require_once( plugin_dir_path(__FILE__) . 'inc/options.php' );
 
 
 class ProudAdmin extends \ProudPlugin {

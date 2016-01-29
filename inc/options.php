@@ -65,26 +65,33 @@ class ProudAdminSettingsPage
         );
 
         add_settings_section(
-            'setting_section_id', // ID
-            'My Custom Settings', // Title
+            'mailchimp', // ID
+            'Mailchimp', // Title
             array( $this, 'print_section_info' ), // Callback
             'proud-setting-admin' // Page
         );  
 
         add_settings_field(
-            'id_number', // ID
-            'ID Number', // Title 
-            array( $this, 'id_number_callback' ), // Callback
+            'mailchimp_api_key', // ID
+            'Mailchimp api key', // Title 
+            array( $this, 'mailchimp_api_key_callback' ), // Callback
             'proud-setting-admin', // Page
-            'setting_section_id' // Section           
-        );      
+            'mailchimp' // Section           
+        );
+
+        add_settings_section(
+            'search', // ID
+            'Search', // Title
+            array( $this, 'print_section_info' ), // Callback
+            'proud-setting-admin' // Page
+        ); 
 
         add_settings_field(
-            'title', 
-            'Title', 
-            array( $this, 'title_callback' ), 
+            'search_type', 
+            'Search type', 
+            array( $this, 'search_type_callback' ), 
             'proud-setting-admin', 
-            'setting_section_id'
+            'search'
         );      
     }
 
@@ -110,29 +117,30 @@ class ProudAdminSettingsPage
      */
     public function print_section_info()
     {
-        print 'Enter your settings below:';
+        //print 'Enter your settings below:';
     }
 
     /** 
      * Get the settings option array and print one of its values
      */
-    public function id_number_callback()
+    public function mailchimp_api_key_callback()
     {
         printf(
             '<input type="text" id="id_number" name="my_option_name[id_number]" value="%s" />',
-            isset( $this->options['id_number'] ) ? esc_attr( $this->options['id_number']) : ''
+            isset( $this->options['mailchimp_api_key'] ) ? esc_attr( $this->options['mailchimp_api_key']) : ''
         );
+        echo '<p class="help">The API key for connecting with your MailChimp account. <a target="_blank" href="https://admin.mailchimp.com/account/api">Get your API key here.</a></p>';
     }
 
     /** 
      * Get the settings option array and print one of its values
      */
-    public function title_callback()
+    public function search_type_callback()
     {
-        printf(
-            '<input type="text" id="title" name="my_option_name[title]" value="%s" />',
-            isset( $this->options['title'] ) ? esc_attr( $this->options['title']) : ''
-        );
+        $html = '<label><input type="radio" name=" value="default" '. $type == 'default' ? 'selected="selected"' : '' .' /> Standard site search</label>';
+        $html = '<label><input type="radio" value="google" value="" /> Embedded Google search</label>';
+        $html = '<label><input type="radio" value="solr" value="" /> Apache Solr</label>';
+        print $html;
     }
 }
 
