@@ -46,12 +46,10 @@ class ProudAlertPage
         'alert_active' => [
           '#type' => 'checkbox',
           '#title' => __pcHelp('Active'),
-          '#description' => __('The type of search to fallback on when users don\'t find what they\'re looking for in the autosuggest search and make a full site search.', 'proud-settings'),
-          '#name' => 'alert_active',
-          '#options' => array(
-            1 => __pcHelp( 'Show alert bar' ),
-          ),
-          '#value' => get_option('alert_active')
+          '#return_value' => '1',
+          '#label_above' => true,
+          '#replace_title' => __pcHelp( 'Show alert bar' ),
+          '#default_value' => get_option('alert_active'),
         ],
         'alert_severity' => [
           '#type' => 'radios',

@@ -22,7 +22,7 @@ class ProudIntegrationsSettingsPage
     public function create_menu() {
 
       // Integrations page (top level)
-      //add_menu_page('Settings', 'Settings', 'manage_options', $this->key, array($this, 'settings_page') , plugins_url('/images/icon.png', __FILE__) );
+      add_menu_page('Integrations', 'Integrations', 'manage_options', $this->key, array($this, 'settings_page') , plugins_url('/images/icon.png', __FILE__) );
       /*add_submenu_page( 
           'proudsettings',
           'Integrations',
