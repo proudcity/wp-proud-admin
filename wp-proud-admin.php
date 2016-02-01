@@ -23,8 +23,16 @@ if ( ! class_exists( 'ProudPlugin' ) ) {
   require_once( plugin_dir_path(__FILE__) . '../wp-proud-core/proud-plugin.class.php' );
 }
 
+require_once( plugin_dir_path(__FILE__) . 'wp-proud-admin-helpers.php' );
+
+
 require_once( plugin_dir_path(__FILE__) . 'dashboard/wp-proud-admin-dashboard.php' );
-// @todo: require_once( plugin_dir_path(__FILE__) . 'inc/options.php' );
+
+require_once( plugin_dir_path(__FILE__) . 'settings/integrations.php' );
+require_once( plugin_dir_path(__FILE__) . 'settings/settings.php' );
+require_once( plugin_dir_path(__FILE__) . 'settings/social.php' );
+require_once( plugin_dir_path(__FILE__) . 'settings/alert.php' );
+
 
 
 class ProudAdmin extends \ProudPlugin {
