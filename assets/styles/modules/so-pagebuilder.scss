@@ -17,6 +17,7 @@ $dialog-font-size: 15px;
       font-weight: bold;
     }
 
+    .help-block,
     textarea,
     input,
     select,
@@ -44,6 +45,10 @@ $dialog-font-size: 15px;
 
       input {
         margin-left: -20px;
+      }
+
+      .help-block {
+        margin-left: 0;
       }
     }
 
