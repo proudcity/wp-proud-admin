@@ -41,11 +41,18 @@ class ProudGeneralSettingsPage
       register_setting( $this->key, 'state' );
       register_setting( $this->key, 'lat' );
       register_setting( $this->key, 'lng' );
+
+      register_setting( $this->key, 'external_link_window' );
+      register_setting( $this->key, 'agency_label' );
     }
 
     private function build_fields(  ) {
       $this->fields = [
         
+        'search_title' => [
+          '#type' => 'html',
+          '#html' => '<h3>' . __pcHelp('Location') . '</h3>',
+        ],
         'city' => [
           '#type' => 'text',
           '#title' => __pcHelp('City'),
@@ -73,6 +80,33 @@ class ProudGeneralSettingsPage
           '#description' => __('Example: "-122.2708"'),
           '#name' => 'lng',
           '#value' => get_option('lng')
+        ],
+
+        'advanced' => [
+          '#type' => 'html',
+          '#html' => '<h3>' . __pcHelp('Advanced') . '</h3>',
+        ],
+        'external_link_window' => [
+          '#type' => 'checkbox',
+          '#name' => 'external_link_window',
+          '#title' => __pcHelp('External links'),
+          '#return_value' => '1',
+          '#label_above' => false,
+          '#replace_title' => __pcHelp( 'Open external links in a new tab' ),
+          '#value' => get_option('external_link_window', '1'),
+        ],
+        'agency_label' => [
+          '#type' => 'select',
+          '#name' => 'agency_label',
+          '#title' => __pcHelp('External links'),
+          '#return_value' => '1',
+          '#label_above' => true,
+          '#options' => array(
+            'agencies' => __pcHelp('Agency'),
+            'departments' => __pcHelp('Department'),
+            'branches' => __pcHelp('Branch'),
+          ),
+          '#value' => get_option('agency_label', 'agencies'),
         ],
 
       ];

@@ -22,15 +22,14 @@ class ProudIntegrationsSettingsPage
     public function create_menu() {
 
       // Integrations page (top level)
-      add_menu_page('Integrations', 'Integrations', 'manage_options', $this->key, array($this, 'settings_page') , plugins_url('/images/icon.png', __FILE__) );
-      /*add_submenu_page( 
+      add_submenu_page( 
           'proudsettings',
           'Integrations',
           'Integrations',
           'manage_options',
           $this->key,
           array($this, 'settings_page')
-      );*/
+      );
 
       //call register settings function
       add_action( 'admin_init', array($this, 'register_settings') );
@@ -47,6 +46,8 @@ class ProudIntegrationsSettingsPage
       register_setting( $this->key, 'payment_stripe_secret' );
 
       register_setting( $this->key, '311_service' );
+      register_setting( $this->key, '311_link_create' );
+      register_setting( $this->key, '311_link_lookup' );
     }
 
     private function build_fields(  ) {
@@ -65,7 +66,7 @@ class ProudIntegrationsSettingsPage
             'google' => __pcHelp( 'Customized Google search' ),
             'solr' => __pcHelp( 'Apache Solr search', '//proudcity.com/contact', null, array('link_text' => 'Contact us to learn more &raquo;') ),
           ),
-          '#value' => get_option('search_service')
+          '#value' => get_option('search_service', 'wordpress')
         ],
         'search_google_key' => [
           '#type' => 'text',
@@ -99,7 +100,7 @@ class ProudIntegrationsSettingsPage
             'stripe' => __pcHelp( 'Stripe' ),
             'link' => __pcHelp( 'Link out to other provider' ),
           ),
-          '#value' => get_option('payment_service')
+          '#value' => get_option('payment_service', 'link')
         ],
         'payment_stripe_type' => [
           '#type' => 'radios',
@@ -168,7 +169,37 @@ class ProudIntegrationsSettingsPage
             'seeclickfix' => __pcHelp( 'SeeClickFix' ),
             'link' => __pcHelp( 'Link out to other provider' ),
           ),
-          '#value' => get_option('311_service')
+          '#value' => get_option('311_service', 'seeclickfix')
+        ],
+        '311_link_create' => [
+          '#type' => 'text',
+          '#title' => __pcHelp('Create issue URL'),
+          '#value' => get_option('311_link_create'),
+          '#name' => '311_link_create',
+          '#states' => [
+            'visible' => [
+              '311_service' => [
+                'operator' => '==',
+                'value' => ['link'],
+                'glue' => '||'
+              ],
+            ],
+          ],
+        ],
+        '311_link_lookup' => [
+          '#type' => 'text',
+          '#title' => __pcHelp('Lookup issue URL'),
+          '#value' => get_option('311_link_lookup'),
+          '#name' => '311_link_lookup',
+          '#states' => [
+            'visible' => [
+              '311_service' => [
+                'operator' => '==',
+                'value' => ['link'],
+                'glue' => '||'
+              ],
+            ],
+          ],
         ],
 
         'social_title' => [
