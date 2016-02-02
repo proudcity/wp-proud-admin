@@ -28,12 +28,10 @@ require_once( plugin_dir_path(__FILE__) . 'wp-proud-admin-helpers.php' );
 
 require_once( plugin_dir_path(__FILE__) . 'dashboard/wp-proud-admin-dashboard.php' );
 
-/*
-require_once( plugin_dir_path(__FILE__) . 'settings/integrations.php' );
 require_once( plugin_dir_path(__FILE__) . 'settings/settings.php' );
+require_once( plugin_dir_path(__FILE__) . 'settings/integrations.php' );
 require_once( plugin_dir_path(__FILE__) . 'settings/social.php' );
 require_once( plugin_dir_path(__FILE__) . 'settings/alert.php' );
-*/
 
 
 class ProudAdmin extends \ProudPlugin {
@@ -167,7 +165,7 @@ class ProudAdmin extends \ProudPlugin {
   function custom_footer () {
     $url = get_site_url();
     echo "<a href='http://proudcity.com' target='_blank'>ProudCity</a> is proudly powered by <a href='http://wordpress.com' target='_blank'>WordPress</a> and Open Source software. <a href='$url/wp-admin/credits.php'>Credits</a> &middot; <a href='$url/wp-admin/freedoms.php'>Freedoms</a>.";
-    //require_once( plugin_dir_path(__FILE__) . 'inc/olark.php' );
+    require_once( plugin_dir_path(__FILE__) . 'inc/chat.php' );
   }
 
   // Add classes to distinguish between admin, normal users.

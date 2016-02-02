@@ -2,11 +2,7 @@
   display: none;
 }
 
-// Make oLark play nice with ProudBar
-#habla_window_div {
-  //right: 35% !important;
-
-  #olark-callout-bubble {
-    display: none !important;
-  }
+// Make chat play nice with ProudBar
+.zEWidget-launcher {
+  right: 50px !important;
 }
