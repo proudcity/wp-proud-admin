@@ -11,10 +11,11 @@ $color-sidebar-caret-color: #f1f1f1;
 
 $color-sidebar-bg: #212121; //$gray-base
 $color-sidebar-border: $color-sidebar-bg;
-$color-sidebar-link: $gray-lighter;
+$color-sidebar-link: $gray-light;
 $color-sidebar-submenu-bg: $gray-darker;
-$color-sidebar-active-bg: $gray-dark;
-$color-sidebar-active-color: $gray-darker;
+$color-sidebar-active-bg: $black;
+$color-sidebar-active-color: $white;
+$color-sidebar-submenu-link-color: $gray-lightest;
 $color-sidebar-caret-color: $gray-lighter;
 
 
@@ -52,7 +53,7 @@ $color-sidebar-caret-color: $gray-lighter;
   li.opensub {
     &>a {
       background-color: $color-sidebar-active-bg !important;
-      color: $color-sidebar-active-color !important;
+      color: $color-sidebar-submenu-link-color !important;
     }
 
     &:after {

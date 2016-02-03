@@ -1,0 +1,90 @@
+// @todo: include this in the frontend
+$admin-bar-height: 47px;
+$admin-bar-bg: $brand-primary-darker;
+
+html.wp-toolbar {
+  padding-top: $admin-bar-height !important;
+}
+
+#wpadminbar {
+  height: $admin-bar-height !important;
+  background-color: $admin-bar-bg;
+
+  a.ab-item:hover {
+    border-top: 5px solid $brand-primary;
+    background: none !important;
+    margin-top: 0 !important;
+    color: $white !important;
+  }
+
+  #wp-admin-bar-wp-logo {
+    background: url(//my.proudcity.com/images/IconWhite.png) 0 5px no-repeat !important;
+    background-size: $admin-bar-height - 10px $admin-bar-height - 10px !important;
+    margin-left: 10px; // @todo: var
+
+    a {
+      height: $admin-bar-height - 2px;
+      width: $admin-bar-height - 2px;
+    }
+
+    .ab-icon:before {
+      content: none !important;
+    }
+
+    .ab-item {
+      background: none;
+
+      &:hover {
+        border-color: $admin-bar-bg;
+      }
+    }
+
+    .ab-sub-wrapper {
+      display: none;
+    }
+  }
+
+  #wp-admin-bar-customize,
+  #wp-admin-bar-updates,
+  #wp-admin-bar-comments,
+  #wp-admin-bar-site-name,
+  #wp-admin-bar-wpseo-menu {
+    display: none !important;
+  }
+
+  .ab-item {
+    margin-top: 5px !important; // @todo: var/math
+  }
+
+}
+
+#screen-meta-links,
+#welcome-panel {
+  display: none;
+}
+
+
+// Responsive
+@media screen and (max-width: 782px) {
+  html.wp-toolbar {
+    padding-top: 0 !important;
+
+    #wpbody-content {
+      //padding-top: $admin-bar-height;
+    }
+  }
+
+  html.wp-toolbar {
+    padding-top: 0 !important;
+  }
+
+  #wpadminbar {
+    .ab-item {
+      margin-top: 0 !important; // @todo: var/math
+    }
+
+    #wp-admin-bar-wp-logo {
+      display: none !important;
+    }
+  }
+}
