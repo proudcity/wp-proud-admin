@@ -75,12 +75,12 @@
   }
 
   li.menu-icon-appearance:before {
-    content: 'Personalize';
-  }
-
-  li.menu-icon-users:before {
     content: 'Configure';
   }
+
+  //li.hide-if-no-customize:before {
+    //content: 'Configure';
+  //}
 
   #collapse-menu {
     display: none;

@@ -4,5 +4,6 @@
 
 // Make chat play nice with ProudBar
 .zEWidget-launcher {
-  right: 50px !important;
+  bottom: 55px !important;
+  z-index: 1000 !important;
 }
