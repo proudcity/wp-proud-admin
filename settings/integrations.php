@@ -47,7 +47,7 @@ class ProudIntegrationsSettingsPage
 
       register_setting( $this->key, '311_service' );
       register_setting( $this->key, '311_link_create' );
-      register_setting( $this->key, '311_link_lookup' );
+      register_setting( $this->key, '311_link_status' );
     }
 
     private function build_fields(  ) {
