@@ -46,10 +46,11 @@ class ProudAlertPage
         'alert_active' => [
           '#type' => 'checkbox',
           '#title' => __pcHelp('Active'),
+          '#name' => 'alert_active',
           '#return_value' => '1',
           '#label_above' => true,
           '#replace_title' => __pcHelp( 'Show alert bar' ),
-          '#default_value' => get_option('alert_active'),
+          '#value' => get_option('alert_active'),
         ],
         'alert_severity' => [
           '#type' => 'radios',
@@ -64,9 +65,9 @@ class ProudAlertPage
           '#value' => get_option('alert_severity'),
         ],
         'alert_message' => [
-          '#type' => 'textarea',
+          '#type' => 'editor',
           '#title' => __pcHelp('Message'),
-          '#description' => __('HTML code and tokens are allowed.  For a link: <code>'. esc_html('<a href="http://url.com">Text</a>') .'</code>.', 'proud-settings'),
+          '#description' => __pcHelp('HTML code and tokens are allowed. Should be no more than one or two sentences with a link.'),
           '#name' => 'alert_message',
           '#value' => get_option('alert_message')
         ],
