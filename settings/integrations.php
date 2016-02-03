@@ -209,8 +209,26 @@ class ProudIntegrationsSettingsPage
             '<a class="btn btn-default" href="/wp-admin/admin.php?page=wp-proud-admin%2Fsettings%social.php#">Set up social feeds &raquo</a>'
         ],
 
+        'mapbox' => [
+          '#type' => 'html',
+          '#html' => '<h3>' . __pcHelp('Custom map layer') . '</h3>',
+        ],
+        'mapbox_token' => [
+          '#type' => 'text',
+          '#title' => __pcHelp('Mapbox token'),
+          '#value' => get_option('mapbox_token'),
+          '#name' => 'mapbox_token',
+          // @todo: desc
+        ],
+        'mapbox_map' => [
+          '#type' => 'text',
+          '#title' => __pcHelp('Mapbox map id'),
+          '#value' => get_option('mapbox_map'),
+          '#name' => 'mapbox_map',
+          // @todo: desc
+        ],
       ];
-
+      
     }
 
     public function settings_page() {
