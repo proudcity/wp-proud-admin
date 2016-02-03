@@ -1,3 +1,23 @@
+
+// Calypso settings
+$color-sidebar-bg: #f7f7f7;
+$color-sidebar-border: #ebebeb;
+$color-sidebar-link: #4a4a4a;
+$color-sidebar-submenu-bg: #ebebeb;
+$color-sidebar-active-bg: #ABABAB;
+$color-sidebar-active-color: #fff;
+$color-sidebar-caret-color: #f1f1f1;
+
+
+$color-sidebar-bg: #212121; //$gray-base
+$color-sidebar-border: $color-sidebar-bg;
+$color-sidebar-link: $gray-lighter;
+$color-sidebar-submenu-bg: $gray-darker;
+$color-sidebar-active-bg: $gray-dark;
+$color-sidebar-active-color: $gray-darker;
+$color-sidebar-caret-color: $gray-lighter;
+
+
 #wpcontent,
 #wpfooter {
   margin-left: $sidebar-width;
@@ -64,10 +84,10 @@
 
   li.menu-top:before {
     padding-left: 10px; // @todo: var
-    color: $color-sidebar-active-bg;
-    font-size: .9em;
+    color: $gray-light;
+    font-size: $font-size-h3;
     padding-top: 10px;
-    font-weight: bold;
+    font-weight: 100;
   }
 
   li.menu-icon-page:before {

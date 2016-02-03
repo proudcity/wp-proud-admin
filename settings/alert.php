@@ -81,7 +81,7 @@ class ProudAlertPage
       ?>
       <div class="wrap">
         <h2>Integrations</h2>   
-        <form method="post" action="options.php">
+        <form method="post" class="proud-settings" action="options.php">
           <?php settings_fields( $this->key ); ?>
           <?php do_settings_sections( $this->key ); ?>
             <?php $form->printFields(  ); ?>

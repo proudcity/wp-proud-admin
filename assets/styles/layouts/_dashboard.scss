@@ -26,66 +26,46 @@
     margin-right: 2rem;
   }
 
-  .dashboard-proud-welcome {
-    .get-started {
-      font-size: 1.8rem;
-      font-weight: bold;
 
-      h3 {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: $brand-primary;
-      }
 
-      a {
-        background: $brand-primary;
-        color: $white;
-        text-decoration: none;
-        padding: 5px 10px;
-        border-radius: 5px;
-        margin-left: 5px;
-        font-size: 1.3rem;
+  .proud-checklist {
 
-        &.video {
-          color: $black;
-          background-color: $gray-lighter;
-        }
-
-        &:hover {
-          background: $brand-primary-darker;
-          color: $white;
-        }
-      }
-
-      li {
-        padding: 8px;
-      }
-    }
-  }
-
-  .dashboard-proud-help {
-    text-align: center;
-
-    a {
-      background-color: $brand-primary;
-      text-decoration: none;
-      padding: 10px 20px;
-      font-size: 1.6rem;
-      border-radius: 5px;
-      font-weight: bold;
+    .checklist-number {
       display: inline-block;
-      margin-right: 10px;
-      color: $white;
+      width: 80px;
+      text-align: right;
+      font-size: 60px;
+      line-height: 60px;
+      color: $gray-lighter;
+      padding-right: 10px;
+    }
 
-      &:hover {
-        background-color: $brand-primary-darker;
-      }
-
-      i {
-        display: block;
-        text-align: center;
-        margin-bottom: 5px;
+    .completed {
+      .checklist-number,
+      h3,
+      a.btn {
+        color: $brand-success;
       }
     }
+
+
   }
+
+
+}
+
+
+// @todo: it would be nice to not need this...
+#dashboard-widgets h3,
+#dashboard-widgets h4,
+#dashboard_quick_press .drafts h2 {
+  font-weight: $font-weight-h2;
+}
+
+#dashboard-widgets h3 {
+  font-size: $font-size-h3;
+}
+
+#dashboard-widgets h4 {
+  font-size: $font-size-h4;
 }

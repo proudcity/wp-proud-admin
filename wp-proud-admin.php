@@ -117,6 +117,9 @@ class ProudAdmin extends \ProudPlugin {
     wp_enqueue_script('proud-admin/js', $path . 'scripts/proud-admin.js', ['proud','jquery'], null, true);
     // // Bootstrap
     // wp_enqueue_script('proud/js', Assets\asset_path('scripts/main.js'), ['jquery'], null, true);
+
+    // Fonts
+    wp_enqueue_style('external-fonts', '//fonts.googleapis.com/css?family=Lato:400,700,300');
   }
 
   // Remove extra fields on the admin pages

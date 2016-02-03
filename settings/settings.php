@@ -125,7 +125,7 @@ class ProudGeneralSettingsPage
       ?>
       <div class="wrap">
         <h2>Integrations</h2>   
-        <form method="post" action="options.php">
+        <form class="proud-settings" method="post" action="options.php">
           <?php settings_fields( $this->key ); ?>
           <?php do_settings_sections( $this->key ); ?>
             <?php $form->printFields(  ); ?>

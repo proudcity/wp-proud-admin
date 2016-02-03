@@ -1,3 +1,6 @@
+$inline-form-label-width: 150px;
+
+
 // Search form
 .search-form {
   @extend .form-inline;
@@ -63,5 +66,65 @@ input {
 
   #title-prompt-text {
     padding-top: 0;
+  }
+}
+
+
+// Popup, settings form styling
+.so-content,
+.proud-settings {
+  .form-group {
+    margin-bottom: 40px;
+  }
+
+  label {
+    position: absolute;
+    width: $inline-form-label-width - 20px;
+    text-align: right;
+    font-weight: bold;
+  }
+
+  .help-block,
+  textarea,
+  input,
+  select,
+  div.radio,
+  div.checkbox {
+    margin-left: $inline-form-label-width;
+    max-width: 75%;
+  }
+
+  input,
+  select {
+    max-width: 350px;
+  }
+
+  div.radio,
+  div.checkbox {
+
+    label {
+      position: relative;
+      line-height: 27px;
+      width: auto;
+      font-weight: normal;
+    }
+
+    input {
+      margin-left: -20px;
+    }
+
+    .help-block {
+      margin-left: 0;
+    }
+  }
+
+  // Jumbotron img upload field
+  img.custom_media_image {
+    margin-left: $inline-form-label-width !important;
+    margin-top: 10px !important;
+    margin-right: - $inline-form-label-width + 10px !important;
+  }
+  .upload_image_button {
+    margin-top: 10px;
   }
 }

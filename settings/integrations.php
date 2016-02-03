@@ -11,9 +11,11 @@ class ProudIntegrationsSettingsPage
      */
     public function __construct()
     {
-      add_action( 'admin_menu', array($this, 'create_menu') );
       $this->key = 'integrations';
       $this->fields = null;
+
+      add_filter( 'option_page_capability_'.$this->key, array($this, 'option_page_capability') );
+      add_action( 'admin_menu', array($this, 'create_menu') );
     }
 
     // create custom plugin settings menu
@@ -33,6 +35,10 @@ class ProudIntegrationsSettingsPage
 
       //call register settings function
       add_action( 'admin_init', array($this, 'register_settings') );
+    }
+
+    function option_page_capability( $capability ) {
+      return 'edit_proud_options';
     }
 
 
@@ -211,7 +217,7 @@ class ProudIntegrationsSettingsPage
 
         'mapbox' => [
           '#type' => 'html',
-          '#html' => '<h3>' . __pcHelp('Custom map layer') . '</h3>',
+          '#html' => '<h3>' . __pcHelp('Map') . '</h3>',
         ],
         'mapbox_token' => [
           '#type' => 'text',
@@ -237,7 +243,7 @@ class ProudIntegrationsSettingsPage
       ?>
       <div class="wrap">
         <h2>Integrations</h2>   
-        <form method="post" action="options.php">
+        <form class="proud-settings" method="post" action="options.php">
           <?php settings_fields( $this->key ); ?>
           <?php do_settings_sections( $this->key ); ?>
             <?php $form->printFields(  ); ?>

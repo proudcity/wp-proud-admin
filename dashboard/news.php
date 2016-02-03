@@ -12,7 +12,7 @@
         $.each(data.responseData.feed.entries, function (i, e) {
           console.log(e);
           e.description = e.contentSnippet != undefined ? e.contentSnippet : '';
-          $news.append('<li><h3><strong><a href="'+ e.link +'">'+ e.title +'</a></strong></h3><p>'+ e.publishedDate.substring(0, 16) +'</p><p style="margin-bottom:1em;">'+ e.description +'</p></li>');
+          $news.append('<li><h5><a href="'+ e.link +'">'+ e.title +'</a></h5><p class="text-muted">'+ e.publishedDate.substring(0, 16) +'</p><p>'+ e.description +'</p></li>');
         });
       }
     }
@@ -32,4 +32,4 @@
 
 </script>
 
-<ul id="proud-dashboard-news"></ul>
+<ul id="proud-dashboard-news" class="title-list list-unstyled"></ul>
