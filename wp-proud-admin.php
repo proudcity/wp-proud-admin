@@ -46,7 +46,9 @@ class ProudAdmin extends \ProudPlugin {
       'plugin_path'    => __FILE__,
     ) );
 
-    $this->hook( 'admin_init', 'add_caps' ); // @todo: add this in register_activation_hook, implement register_deactivation_hook
+    // @todo: add this in register_activation_hook, implement register_deactivation_hook
+    // http://wordpress.stackexchange.com/questions/35165/how-do-i-create-a-custom-role-capability
+    $this->hook( 'admin_init', 'add_caps' ); 
     $this->hook( 'admin_enqueue_scripts', 'proud_admin_theme_style' );
     $this->hook( 'login_enqueue_scripts', 'proud_admin_theme_style' );
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_dashboard', 20 );

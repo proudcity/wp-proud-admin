@@ -87,7 +87,7 @@ $count = count($steps);
         <li <?php if(in_array($key, $completed)): ?>class="completed"<?php endif; ?>>
           <input type="checkbox" name="steps" value="<?php echo $key; ?>" class="pull-left" <?php if(in_array($key, $completed)): ?>checked="checked"<?php endif; ?> />
           <span class="checklist-number pull-left"><?php echo $i; ?></span>
-          <h3><?php echo $step['title']; ?> <i class="checklist-icon fa fa-fw <?php echo $step['icon']; ?>"></i></h3>
+          <h3><?php echo $step['title']; ?></h3>
           <p>
             <?php if(!empty($step['link'])): ?><a class="btn btn-default btn-xs" href="<?php echo $step['link']; ?>" title="<?php echo $step['title']?> now"><i class="fa fa-fw fa-external-link"></i>Do it</a><?php endif;?>
             <?php if(!empty($step['video'])): ?><a class="btn btn-default btn-xs video" href="#" rel="<?php echo $step['video']; ?>" title="Watch a short video demonstrating how to <?php echo strtolower($step['title'])?>"><i class="fa fa-fw fa-youtube-play"></i>Watch it</a><?php endif;?>
