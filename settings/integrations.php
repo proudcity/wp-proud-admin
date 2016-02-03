@@ -26,7 +26,7 @@ class ProudIntegrationsSettingsPage
           'proudsettings',
           'Integrations',
           'Integrations',
-          'manage_options',
+          'edit_proud_options',
           $this->key,
           array($this, 'settings_page')
       );

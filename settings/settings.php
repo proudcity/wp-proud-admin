@@ -21,7 +21,13 @@ class ProudGeneralSettingsPage
 
     public function create_menu() {
 
-      add_menu_page('Settings', 'Settings', 'manage_options', $this->key, array($this, 'settings_page') , plugins_url('/images/icon.png', __FILE__) );
+      add_menu_page(
+        'Settings', 
+        'Settings', 
+        'edit_proud_options', 
+        $this->key, array($this, 'settings_page'), 
+        plugins_url('/images/icon.png', __FILE__) 
+      );
       /*add_submenu_page( 
           'integrations',
           'General Settings',

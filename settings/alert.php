@@ -25,7 +25,7 @@ class ProudAlertPage
           'proudsettings',
           'Alert bar',
           'Alert bar',
-          'manage_options',
+          'edit_proud_options',
           $this->key,
           array($this, 'settings_page')
       );

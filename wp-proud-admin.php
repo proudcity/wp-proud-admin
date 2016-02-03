@@ -46,7 +46,7 @@ class ProudAdmin extends \ProudPlugin {
       'plugin_path'    => __FILE__,
     ) );
 
-    $this->hook( 'admin_init', 'add_caps' );
+    $this->hook( 'admin_init', 'add_caps' ); // @todo: add this in register_activation_hook, implement register_deactivation_hook
     $this->hook( 'admin_enqueue_scripts', 'proud_admin_theme_style' );
     $this->hook( 'login_enqueue_scripts', 'proud_admin_theme_style' );
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_dashboard', 20 );
@@ -90,10 +90,18 @@ class ProudAdmin extends \ProudPlugin {
       'edit_job_listing_terms',
       'delete_job_listing_terms',
       'assign_job_listing_terms',
+      'edit_proud_options',
     );
-
     $role = get_role( 'editor' );
     foreach ($editor_caps as $item) {
+      $role->add_cap( $item ); 
+    }
+
+    $administrator_caps = array(                  
+      'edit_proud_options',
+    );
+    $role = get_role( 'administrator' );
+    foreach ($administrator_caps as $item) {
       $role->add_cap( $item ); 
     }
   }

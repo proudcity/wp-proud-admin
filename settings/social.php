@@ -27,7 +27,7 @@ class ProudAdminSocialSettingsPage
           'proudsettings',
           'Social feeds',
           'Social feeds',
-          'manage_options',
+          'edit_proud_options',
           $this->key,
           array($this, 'settings_page')
       );
