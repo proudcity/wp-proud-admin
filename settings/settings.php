@@ -62,10 +62,10 @@ class ProudGeneralSettingsPage
         ],
         'state' => [
           '#type' => 'text',
-          '#title' => __pcHelp('City'),
+          '#title' => __pcHelp('State'),
           '#description' => __('Example: "California" or "South Carolina"'),
-          '#name' => 'city',
-          '#value' => get_option('city')
+          '#name' => 'state',
+          '#value' => get_option('state')
         ],
         'lat' => [
           '#type' => 'text',

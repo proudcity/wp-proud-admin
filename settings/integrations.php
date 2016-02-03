@@ -186,11 +186,11 @@ class ProudIntegrationsSettingsPage
             ],
           ],
         ],
-        '311_link_lookup' => [
+        '311_link_status' => [
           '#type' => 'text',
           '#title' => __pcHelp('Lookup issue URL'),
-          '#value' => get_option('311_link_lookup'),
-          '#name' => '311_link_lookup',
+          '#value' => get_option('311_link_status'),
+          '#name' => '311_link_status',
           '#states' => [
             'visible' => [
               '311_service' => [
