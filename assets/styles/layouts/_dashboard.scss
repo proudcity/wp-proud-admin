@@ -1,11 +1,11 @@
 #wpbody-content #dashboard-widgets {
-  #postbox-container-1,
+  #postbox-container-3,
   #postbox-container-4 {
     width: 100% !important;
   }
 
-  #postbox-container-2,
-  #postbox-container-3 {
+  #postbox-container-1,
+  #postbox-container-2 {
     width: 50% !important;
   }
 
@@ -68,4 +68,9 @@
 
 #dashboard-widgets h4 {
   font-size: $font-size-h4;
+}
+
+.metabox-holder h2.hndle {
+  font-size: 16px;
+  font-weight: bold;
 }

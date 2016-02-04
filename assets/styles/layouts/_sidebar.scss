@@ -62,11 +62,60 @@ $color-sidebar-caret-color: $gray-lighter;
   }
 
   div.wp-menu-name {
-    padding: $sidebar-link-padding;
+    //padding: $sidebar-link-padding;
   }
 
   .dashicons-before {
-    display: none !important;
+    //display: none !important;
+    img {
+      display: none;
+    }
+    &:before {
+      content: "\f15c";
+      font: normal normal normal 14px/1 FontAwesome !important;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      display: none;
+      color: $color-sidebar-link !important;
+    }
+  }
+
+  .menu-icon-page .dashicons-before:before {
+    content: "\f15b";
+    display: inline-block;
+  }
+  .menu-icon-agency .dashicons-before:before {
+    content: "\f19c";
+    display: inline-block;
+  }
+  .menu-icon-document .dashicons-before:before {
+    content: "\f15c";
+    display: inline-block;
+  }
+  .menu-icon-question .dashicons-before:before {
+    content: "\f059";
+    display: inline-block;
+  }
+  .menu-icon-payment .dashicons-before:before {
+    content: "\f09d";
+    display: inline-block;
+  }
+  .menu-icon-post .dashicons-before:before {
+    content: "\f1ea";
+    display: inline-block;
+  }
+  .menu-icon-job_listing .dashicons-before:before {
+    content: "\f0b1";
+    display: inline-block;
+  }
+  .menu-icon-staff-member .dashicons-before:before {
+    content: "\f007";
+    display: inline-block;
+  }
+  .menu-icon-event .dashicons-before:before {
+    content: "\f073";
+    display: inline-block;
   }
 
   .wp-submenu {
