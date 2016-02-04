@@ -34,26 +34,20 @@ class ProudIntegrationsSettingsPage
       );
 
       //call register settings function
-      add_action( 'admin_init', array($this, 'register_settings') );
-    }
+      //add_action( 'admin_init', array($this, 'register_settings') );
+      $this->options = [
+        'search_service',
+        'search_google_key',
 
-    function option_page_capability( $capability ) {
-      return 'edit_proud_options';
-    }
+        'payment_service',
+        'payment_stripe_type',
+        'payment_stripe_key',
+        'payment_stripe_secret',
 
-
-    public function register_settings() {
-      register_setting( $this->key, 'search_service' );
-      register_setting( $this->key, 'search_google_key' );
-
-      register_setting( $this->key, 'payment_service' );
-      register_setting( $this->key, 'payment_stripe_type' );
-      register_setting( $this->key, 'payment_stripe_key' );
-      register_setting( $this->key, 'payment_stripe_secret' );
-
-      register_setting( $this->key, '311_service' );
-      register_setting( $this->key, '311_link_create' );
-      register_setting( $this->key, '311_link_status' );
+        '311_service',
+        '311_link_create',
+        '311_link_status',
+      ];
     }
 
     private function build_fields(  ) {
@@ -234,23 +228,34 @@ class ProudIntegrationsSettingsPage
           // @todo: desc
         ],
       ];
-      
     }
 
     public function settings_page() {
+      // Do we have post?
+      if(isset($_POST['_wpnonce'])) {
+        if( wp_verify_nonce( $_POST['_wpnonce'], $this->key ) ) {
+          $this->save($_POST);
+        }
+      }
+
       $this->build_fields();
       $form = new \Proud\Core\FormHelper( $this->key, $this->fields );
-      ?>
-      <div class="wrap">
-        <h2>Integrations</h2>   
-        <form class="proud-settings" method="post" action="options.php">
-          <?php settings_fields( $this->key ); ?>
-          <?php do_settings_sections( $this->key ); ?>
-            <?php $form->printFields(  ); ?>
-          <?php submit_button(); ?>
-        </form>
-      </div>
-      <?php
+      $form->printForm ([
+        'button_text' => __pcHelp('Save'),
+        'method' => 'post',
+        'action' => '',
+        'name' => $this->key,
+        'id' => $this->key,
+      ]);
+
+    }
+
+    public function save($values) {
+      foreach ($this->options as $key) {
+        if (isset($values[$key])) {
+          update_option($key, esc_attr($values[$key]) );
+        }
+      }
     }
 }
 

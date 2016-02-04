@@ -30,15 +30,11 @@ class ProudAlertPage
           array($this, 'settings_page')
       );
 
-      //call register settings function
-      add_action( 'admin_init', array($this, 'register_settings') );
-    }
-
-
-    public function register_settings() {
-      register_setting( $this->key, 'alert_active' );
-      register_setting( $this->key, 'alert_message' );
-      register_setting( $this->key, 'alert_severity' );
+      $this->options = [
+        'alert_active',
+        'alert_message',
+        'alert_severity',
+      ];
     }
 
     private function build_fields(  ) {
@@ -76,19 +72,32 @@ class ProudAlertPage
     }
 
     public function settings_page() {
+      // Do we have post?
+      if(isset($_POST['_wpnonce'])) {
+        if( wp_verify_nonce( $_POST['_wpnonce'], $this->key ) ) {
+          $this->save($_POST);
+        }
+      }
+
       $this->build_fields();
       $form = new \Proud\Core\FormHelper( $this->key, $this->fields );
-      ?>
-      <div class="wrap">
-        <h2>Integrations</h2>   
-        <form method="post" class="proud-settings" action="options.php">
-          <?php settings_fields( $this->key ); ?>
-          <?php do_settings_sections( $this->key ); ?>
-            <?php $form->printFields(  ); ?>
-          <?php submit_button(); ?>
-        </form>
-      </div>
-      <?php
+      $form->printForm ([
+        'button_text' => __pcHelp('Save'),
+        'method' => 'post',
+        'action' => '',
+        'name' => $this->key,
+        'id' => $this->key,
+      ]);
+
+    }
+
+    public function save($values) {
+      foreach ($this->options as $key) {
+        if (isset($values[$key])) {
+          $value = $key === 'alert_message' ? wp_kses_post( $values[$key] ) : esc_attr( $values[$key] );
+          update_option( $key, $value );
+        }
+      }
     }
 }
 

@@ -32,17 +32,13 @@ class ProudAdminSocialSettingsPage
           array($this, 'settings_page')
       );
 
-      //call register settings function
-      add_action( 'admin_init', array($this, 'register_settings') );
-      add_action( 'update_option_social_feeds', array($this, 'update_social_feeds'), 10, 2 );
+      $this->options = [
+        'social_feeds',
+        'social_map',
+      ];
 
     }
 
-
-    public function register_settings() {
-      register_setting( $this->key, 'social_feeds' );
-      register_setting( $this->key, 'social_map' );
-    }
 
     private function build_fields(  ) {
       $this->fields = [
@@ -74,22 +70,37 @@ class ProudAdminSocialSettingsPage
     }
 
     public function settings_page() {
+      // Do we have post?
+      if(isset($_POST['_wpnonce'])) {
+        if( wp_verify_nonce( $_POST['_wpnonce'], $this->key ) ) {
+          $this->save($_POST);
+        }
+      }
+
       $this->build_fields();
       $form = new \Proud\Core\FormHelper( $this->key, $this->fields );
-      ?>
-      <div class="wrap">
-        <h2>Integrations</h2>   
-        <form class="proud-settings" method="post" action="options.php">
-          <?php settings_fields( $this->key ); ?>
-          <?php do_settings_sections( $this->key ); ?>
-            <?php $form->printFields(  ); ?>
-          <?php submit_button(); ?>
-        </form>
-      </div>
-      <?php
+      $form->printForm ([
+        'button_text' => __pcHelp('Save'),
+        'method' => 'post',
+        'action' => '',
+        'name' => $this->key,
+        'id' => $this->key,
+      ]);
+
     }
 
-    public function update_social_feeds( $old_value, $value ) {
+    public function save($values) {
+      foreach ($this->options as $key) {
+        if (isset($values[$key])) {
+          $value = esc_attr($values[$key]);
+          update_option( $key, $value );
+          $this->update_aggregator( $key, $value );
+        }
+      }
+    }
+
+
+    public function update_aggregator( $key, $value ) {
       $json = $this->json_string($value);
       $json = $this->json_wrapper($json, 'local');
       //print_R($json);die();
