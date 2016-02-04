@@ -1,7 +1,7 @@
 <?php 
 $steps = array(
   'editor' => array(
-    'title' => 'Familiarize yourself with The Editor',
+    'title' => 'Learn about The Editor',
     'icon' => 'fa-list-alt',
     'link' => null,
     'video' => 'H69hP7alHUw',
