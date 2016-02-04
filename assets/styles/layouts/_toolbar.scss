@@ -55,11 +55,12 @@ html.wp-toolbar {
   }
 
   #wp-admin-bar-my-item,
-  #wp-admin-bar-new-content {
+  #wp-admin-bar-new-content,
+  #wp-admin-bar-menu-toggle {
     a:before {
       margin-top: 4px;
       content: "\f0e4";
-      font: normal normal normal 14px/1 FontAwesome !important;
+      font-family: FontAwesome !important;
       font-size: inherit;
       text-rendering: auto;
       -webkit-font-smoothing: antialiased;
@@ -76,9 +77,24 @@ html.wp-toolbar {
   #wp-admin-bar-new-content a:before {
     content: "\f055";
   }
+  #wp-admin-bar-menu-toggle a:before {
+    content: "\f0c9";
+  }
 
   .ab-item {
     margin-top: 5px !important; // @todo: var/math
+    border-top: none !important;
+
+    &:before {
+      font-size: $admin-bar-height - 20px !important;
+      line-height: $admin-bar-height - 7px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+
+  #wp-admin-bar-menu-toggle a:before {
+    color: white;
   }
 
   .menupop .ab-sub-wrapper {
@@ -122,6 +138,10 @@ html.wp-toolbar {
 
     #wp-admin-bar-wp-logo {
       display: none !important;
+    }
+
+    #wp-admin-bar-menu-toggle a {
+      height: 46px;
     }
   }
 }

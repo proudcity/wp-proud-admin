@@ -33,6 +33,8 @@ $color-sidebar-caret-color: $gray-lighter;
 }
 
 #adminmenu {
+  padding-bottom: 10px;
+
   li,
   a {
     background-color: $color-sidebar-bg !important;
@@ -182,6 +184,16 @@ $color-sidebar-caret-color: $gray-lighter;
 
   #collapse-menu {
     display: none;
+  }
+}
+
+// Responsive
+@media screen and (max-width: 960px) {
+  #adminmenu {
+    li.menu-icon-page:before,
+    li.menu-icon-appearance:before {
+      content: '';
+    }
   }
 }
 
