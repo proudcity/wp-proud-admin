@@ -72,14 +72,16 @@ class ProudAlertPage
     }
 
     public function settings_page() {
+      $this->build_fields();
+
       // Do we have post?
       if(isset($_POST['_wpnonce'])) {
         if( wp_verify_nonce( $_POST['_wpnonce'], $this->key ) ) {
           $this->save($_POST);
+          $this->build_fields();
         }
       }
-
-      $this->build_fields();
+      
       $form = new \Proud\Core\FormHelper( $this->key, $this->fields );
       $form->printForm ([
         'button_text' => __pcHelp('Save'),
@@ -93,7 +95,7 @@ class ProudAlertPage
 
     public function save($values) {
       foreach ($this->options as $key) {
-        if (isset($values[$key])) {
+        if (isset($values[$key]) || $this->fields[$key]['#type'] == 'checkbox') {
           $value = $key === 'alert_message' ? wp_kses_post( $values[$key] ) : esc_attr( $values[$key] );
           update_option( $key, $value );
         }
