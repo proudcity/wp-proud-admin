@@ -50,10 +50,11 @@ class ProudGeneralSettingsPage
 
 
     private function build_fields(  ) {
+      $path = plugins_url('assets/',__FILE__);
       wp_enqueue_script( 'google-places-api', '//maps.googleapis.com/maps/api/js?key=AIzaSyBBF8futzrzbs--ZOtqQ3qd_PFnVFQYKo4&libraries=places' );
+      wp_enqueue_script( 'google-places-field', $path . 'google-places.js' );
       
       $this->fields = [
-        
         'search_title' => [
           '#type' => 'html',
           '#html' => '<h3>' . __pcHelp('Location') . '</h3>',
@@ -62,21 +63,6 @@ class ProudGeneralSettingsPage
           '#type' => 'text',
           '#title' => __pcHelp('Autopopulate'),
           '#name' => 'city_input',
-        ],
-        'city_input_script' => [
-          '#type' => 'html',
-          '#html' => 
-            "<script type='text/javascript'>(function($) {
-              google.maps.event.addDomListener(window, 'load', function () {
-                var places = new google.maps.places.Autocomplete(document.getElementById('city_input'), options);
-                google.maps.event.addListener(places, 'place_changed', function () {
-                  $('#city-input-wrapper-header').addClass('active');
-                  var place = places.getPlace();
-                  console.log(place);
-                  //window.location = 'https://demo.proudcity.com/get/' + place.address_components[2].long_name + '/' + place.address_components[0].long_name;
-                });
-              });
-            })(jQuery);</script>",
         ],
         'city' => [
           '#type' => 'text',
