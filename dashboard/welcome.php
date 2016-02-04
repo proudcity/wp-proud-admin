@@ -63,7 +63,7 @@ $steps = array(
 );
 $i = 0;
 
-$completed = array('editor', 'media');
+$completed = array('editor', 'media', 'appearance', 'integrations');
 
 $count_completed = count($completed);
 $count = count($steps);
@@ -78,13 +78,13 @@ $count = count($steps);
   </div>
 </div>
 
-<div class="dashboard-proud dashboard-proud-welcome row">
-  <div class="col-md-7 get-started">
+<div class="dashboard-proud dashboard-proud-welcome">
+  <div class="get-started">
     <h3>Getting started with ProudCity</h3>
     <ul class="title-list list-unstyled proud-checklist" id="checklist">
       <?php foreach ($steps as $key => $step): ?>
         <?php $i++; ?>
-        <li <?php if(in_array($key, $completed)): ?>class="completed"<?php endif; ?>>
+        <li class="<?php if(in_array($key, $completed)): ?>completed<?php endif; ?>">
           <input type="checkbox" name="steps" value="<?php echo $key; ?>" class="pull-left" <?php if(in_array($key, $completed)): ?>checked="checked"<?php endif; ?> />
           <span class="checklist-number pull-left"><?php echo $i; ?></span>
           <h3><?php echo $step['title']; ?></h3>
@@ -96,59 +96,7 @@ $count = count($steps);
       <?php endforeach; ?>
     </ul>
   </div>
-  <div class="col-md-5">
+  <!--<div class="col-md-5">
     <div id="player" style="width:350px;height:197px;background:black;"></div>
-  </div>
-</div>    
-
-<script>
-  // 2. This code loads the IFrame Player API code asynchronously.
-  var tag = document.createElement('script');
-
-  tag.src = "https://www.youtube.com/iframe_api";
-  var firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-  // 3. This function creates an <iframe> (and YouTube player)
-  //    after the API code downloads.
-  var player;
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-      width: '480',
-      height: '270',
-      videoId: 'KyjmUMX2meo',
-      events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-      }
-    });
-  }
-
-  // 4. The API will call this function when the video player is ready.
-  function onPlayerReady(event) {
-    //event.target.playVideo();
-  }
-
-  // 5. The API calls this function when the player's state changes.
-  //    The function indicates that when playing a video (state=1),
-  //    the player should play for six seconds and then stop.
-  var done = false;
-  function onPlayerStateChange(event) {
-  }
-  function stopVideo() {
-  }
-
-  function changeVideo(id) {
-    player.loadVideoById(id);
-  }
-
-
-  (function($) {
-
-    $('#checklist a.video').bind('click', function(e) {
-      changeVideo($(this).attr('rel'));
-      e.preventDefault();
-    })
-
-  })(jQuery);
-</script>
+  </div>-->
+</div> 
