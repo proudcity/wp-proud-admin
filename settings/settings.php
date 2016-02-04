@@ -63,7 +63,7 @@ class ProudGeneralSettingsPage
           '#title' => __pcHelp('Autopopulate'),
           '#name' => 'city_input',
         ],
-        'search_title' => [
+        'city_input_script' => [
           '#type' => 'html',
           '#html' => 
             "<script type='text/javascript'>(function($) {
@@ -76,7 +76,7 @@ class ProudGeneralSettingsPage
                   //window.location = 'https://demo.proudcity.com/get/' + place.address_components[2].long_name + '/' + place.address_components[0].long_name;
                 });
               });
-            });</script>",
+            })(jQuery);</script>",
         ],
         'city' => [
           '#type' => 'text',
