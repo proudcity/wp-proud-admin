@@ -3,9 +3,12 @@
 
 @import "loaders/load-local";
 
+@import "pattern-scss/proudcity-wp";
+@import "pattern-scss/wp/sidebar";
+
 // Local Styles
 // ---------------------------
-
+@import "pattern-scss/proudcity-wp";
 @import "common/global";
 @import "components/buttons";
 @import "components/comments";
@@ -13,7 +16,6 @@
 @import "components/grid";
 @import "components/wp-classes";
 @import "layouts/header";
-@import "layouts/sidebar";
 @import "layouts/toolbar";
 @import "layouts/footer";
 @import "layouts/pages";
