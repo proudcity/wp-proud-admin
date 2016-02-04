@@ -1,6 +1,7 @@
 // @todo: include this in the frontend
 $admin-bar-height: 47px;
 $admin-bar-bg: $brand-primary-darker;
+$admin-bar-sub-bg:  $brand-primary-darkest;
 
 html.wp-toolbar {
   padding-top: $admin-bar-height !important;
@@ -10,7 +11,8 @@ html.wp-toolbar {
   height: $admin-bar-height !important;
   background-color: $admin-bar-bg;
 
-  a.ab-item:hover {
+  a.ab-item:hover,
+  .hover a.ab-item {
     border-top: 5px solid $brand-primary;
     background: none !important;
     margin-top: 0 !important;
@@ -52,8 +54,43 @@ html.wp-toolbar {
     display: none !important;
   }
 
+  #wp-admin-bar-my-item,
+  #wp-admin-bar-new-content {
+    a:before {
+      margin-top: 4px;
+      content: "\f0e4";
+      font: normal normal normal 14px/1 FontAwesome !important;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .ab-icon {
+      display: none;
+    }
+  }
+
+  #wp-admin-bar-my-item a:before {
+    content: "\f0e4";
+  }
+  #wp-admin-bar-new-content a:before {
+    content: "\f055";
+  }
+
   .ab-item {
     margin-top: 5px !important; // @todo: var/math
+  }
+
+  .menupop .ab-sub-wrapper {
+    background-color: $admin-bar-sub-bg;
+    top: $admin-bar-height;
+
+    a {
+      border-top-color: $admin-bar-sub-bg !important;
+      &:before {
+        display: none;
+      }
+    }
   }
 
 }

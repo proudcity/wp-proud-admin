@@ -41,7 +41,7 @@ class ProudAdminDashboard extends \ProudPlugin {
     wp_add_dashboard_widget('dashboard_proud_welcome', 'Make your city proud', array($this, 'welcome') );
     wp_add_dashboard_widget('dashboard_proud_help', 'Get help', array($this, 'help') );
     wp_add_dashboard_widget('dashboard_proud_news', 'Recent news', array($this, 'news') );
-    wp_add_dashboard_widget('dashboard_proud_video', 'Video', array($this, 'video') );
+    wp_add_dashboard_widget('dashboard_proud_video', 'Player', array($this, 'video') );
   }
 
 
@@ -57,7 +57,7 @@ class ProudAdminDashboard extends \ProudPlugin {
   function news() {
     include_once( plugin_dir_path(__FILE__) . 'news.php' );
   }
-  
+
   function video() {
     include_once( plugin_dir_path(__FILE__) . 'video.php' );
   }

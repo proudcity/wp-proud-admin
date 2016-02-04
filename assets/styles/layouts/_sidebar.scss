@@ -78,6 +78,7 @@ $color-sidebar-caret-color: $gray-lighter;
       -webkit-font-smoothing: antialiased;
       display: none;
       color: $color-sidebar-link !important;
+      margin-top: 3px;
     }
   }
 
@@ -117,6 +118,24 @@ $color-sidebar-caret-color: $gray-lighter;
     content: "\f073";
     display: inline-block;
   }
+
+  .menu-icon-appearance .dashicons-before:before {
+    content: "\f1fc";
+    display: inline-block;
+  }
+  .menu-icon-menus .dashicons-before:before {
+    content: "\f0c9";
+    display: inline-block;
+  }
+  .menu-icon-media .dashicons-before:before {
+    content: "\f03e";
+    display: inline-block;
+  }
+  .toplevel_page_proudsettings .dashicons-before:before {
+    content: "\f085";
+    display: inline-block;
+  }
+
 
   .wp-submenu {
     left: $sidebar-width
