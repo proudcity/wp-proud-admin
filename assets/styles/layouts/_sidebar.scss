@@ -82,6 +82,15 @@ $color-sidebar-caret-color: $gray-lighter;
     }
   }
 
+  .menu-icon-home .dashicons-before:before {
+    content: "\f015";
+    display: inline-block;
+  }
+  .menu-icon-analytics .dashicons-before:before {
+    content: "\f1fe";
+    display: inline-block;
+  }
+
   .menu-icon-page .dashicons-before:before {
     content: "\f15b";
     display: inline-block;
