@@ -260,7 +260,7 @@ class ProudIntegrationsSettingsPage
             'This will be included on every page.'
           ),
           '#name' => 'embed_code',
-          '#value' => get_option('embed_code'),
+          '#value' => get_option('embed_code', true),
         ],
       ];
     }
@@ -288,7 +288,9 @@ class ProudIntegrationsSettingsPage
     public function save($values) {
       foreach ($this->options as $key) {
         if (isset($values[$key])) {
-          update_option($key, esc_attr($values[$key]) );
+          // @todo: we should have this go through something like wp_kses_data() for embed code
+          $value = $key === 'embed_code' ? $values[$key] : esc_attr( $values[$key] );
+          update_option($key, $value );
         }
       }
     }

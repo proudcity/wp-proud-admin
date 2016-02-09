@@ -214,6 +214,7 @@ class ProudAdmin extends \ProudPlugin {
   function add_tracking_code () {
     $ga = get_option('google_analytics_key', true);
     $embed = get_option('embed_code', true);
+    print_r($embed);die();
     require_once( plugin_dir_path(__FILE__) . 'inc/tracking-code.php' );
   }
 
