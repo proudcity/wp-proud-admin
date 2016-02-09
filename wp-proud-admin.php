@@ -56,6 +56,9 @@ class ProudAdmin extends \ProudPlugin {
     $this->hook( 'admin_footer_text', 'custom_footer' );
     $this->hook( 'admin_body_class', 'add_admin_body_classes' );
 
+    // Add Google Analytics/other embed code
+    add_filter( 'wp_footer', array($this, 'add_tracking_code') );
+
     // -- Hacks
     // Hide admin fields
     $this->hook('init', 'remove_post_admin_fields');
@@ -205,6 +208,13 @@ class ProudAdmin extends \ProudPlugin {
     else {
       return "$classes role-non-admin";
     }
+  }
+
+  // Add tracking code
+  function add_tracking_code () {
+    $ga = get_option('google_analytics_key', true);
+    $embed = get_option('embed_code', true);
+    require_once( plugin_dir_path(__FILE__) . 'inc/tracking-code.php' );
   }
 
 }
