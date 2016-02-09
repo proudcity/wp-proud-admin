@@ -94,7 +94,7 @@ class ProudAdminDashboard extends \ProudPlugin {
         'title' => 'Learn about The Editor',
         'icon' => 'fa-list-alt',
         'link' => null,
-        'video' => 'H69hP7alHUw',
+        'video' => 'v2Hm-XkZ0WY',
       ),
       'media' => array(
         'title' => 'Add imagery',
@@ -130,25 +130,25 @@ class ProudAdminDashboard extends \ProudPlugin {
         'title' => 'Add answers',
         'icon' => 'fa-list-alt',
         'link' => '/wp-admin/edit.php?post_type=question', // @todo: use get_option('page_on_front')?
-        'video' => 'NAWSHKfjCZw',
+        'video' => 'rGPs8nPEA4E',
       ),
       'payments' => array(
         'title' => 'Set up payments',
         'icon' => 'fa-credit-card',
         'link' => '/wp-admin/edit.php?post_type=payment', // @todo: use get_option('page_on_front')?
-        'video' => '_sCEkbaX6eE',
+        'video' => 'GfggmaEypdg',
       ),
       'agencies' => array(
         'title' => 'Create agencies',
         'icon' => 'fa-university',
         'link' => '/wp-admin/edit.php?post_type=agency', // @todo: use get_option('page_on_front')?
-        'video' => '_sCEkbaX6eE',
+        'video' => 'gWDzE7O5uro',
       ),
       'forms' => array(
         'title' => 'Add forms',
         'icon' => 'fa-check-square-o',
         'link' => '/wp-admin/admin.php?page=wpcf7', // @todo: use get_option('page_on_front')?
-        'video' => '_sCEkbaX6eE',
+        //'video' => '_sCEkbaX6eE',
       ),
     );
   }
