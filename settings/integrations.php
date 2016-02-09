@@ -36,6 +36,8 @@ class ProudIntegrationsSettingsPage
       //call register settings function
       //add_action( 'admin_init', array($this, 'register_settings') );
       $this->options = [
+        'google_analytics_key',
+
         'search_service',
         'search_google_key',
 
@@ -47,11 +49,30 @@ class ProudIntegrationsSettingsPage
         '311_service',
         '311_link_create',
         '311_link_status',
+
+        'mapbox_token',
+        'mapbox_map',
+
+        'embed_code',
       ];
     }
 
     private function build_fields(  ) {
       $this->fields = [
+        'analytics_title' => [
+          '#type' => 'html',
+          '#html' => '<h3>' . __pcHelp('Analytics') . '</h3>',
+        ],
+        'google_analytics_key' => [
+          '#type' => 'text',
+          '#title' => __pcHelp('Google Analytics Tracking ID'),
+          '#description' => __pcHelp(
+            'Copy the Tracking ID code that appears under Admin > Tracking info.'
+          ),
+          '#name' => 'google_analytics_key',
+          '#value' => get_option('google_analytics_key'),
+        ],
+
         'search_title' => [
           '#type' => 'html',
           '#html' => '<h3>' . __pcHelp('Search') . '</h3>',
@@ -226,6 +247,20 @@ class ProudIntegrationsSettingsPage
           '#value' => get_option('mapbox_map'),
           '#name' => 'mapbox_map',
           // @todo: desc
+        ],
+
+        'embed_title' => [
+          '#type' => 'html',
+          '#html' => '<h3>' . __pcHelp('Embed code') . '</h3>',
+        ],
+        'embed_code' => [
+          '#type' => 'textarea',
+          '#title' => __pcHelp('Additional tracking code'),
+          '#description' => __pcHelp(
+            'This will be included on every page.'
+          ),
+          '#name' => 'embed_code',
+          '#value' => get_option('embed_code'),
         ],
       ];
     }
