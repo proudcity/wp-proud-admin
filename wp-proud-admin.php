@@ -63,7 +63,23 @@ class ProudAdmin extends \ProudPlugin {
     // Hide admin fields
     $this->hook('init', 'remove_post_admin_fields');
 
+    $this->hook( 'tiny_mce_before_init', 'tiny_mce_alter' );
     //$this->hook( 'postbox_classes_post_wpseo_meta', 'minify_metabox' );  // This is done in js
+  }
+
+  /**
+   *  Alters tinymce instances for backend
+   */
+  public function tiny_mce_alter( $settings ) {
+    // Make sure tables get a class
+    $settings['table_default_attributes'] = json_encode( array(
+      'class' => 'table'
+    ) );
+    // Setup event on editor loads
+    if( empty( $settings['setup'] ) ) {
+      $settings['setup'] = 'function (ed) { ed.on("init", function(args) { jQuery("body").trigger({ type: "tinyEditorInit", ed: ed, edArgs: args }); }); }';
+    }
+    return $settings;
   }
 
 
