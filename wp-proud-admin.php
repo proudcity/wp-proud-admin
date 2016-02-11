@@ -112,11 +112,32 @@ class ProudAdmin extends \ProudPlugin {
       'delete_job_listing_terms',
       'assign_job_listing_terms',
       'edit_proud_options',
+      'manage_job_listings',
+      'gravityforms_create_form',
+      'gravityforms_delete_entries',
+      'gravityforms_delete_forms',
+      'gravityforms_edit_entries',
+      'gravityforms_edit_entry_notes',
+      'gravityforms_edit_forms',
+      'gravityforms_export_entries',
+      'gravityforms_preview_forms',
+      'gravityforms_view_entries',
+      'gravityforms_view_entry_notes',
+
     );
     $role = get_role( 'editor' );
     foreach ($editor_caps as $item) {
       $role->add_cap( $item ); 
     }
+/*
+gravityforms_api
+gravityforms_api_settings
+gravityforms_edit_settings
+gravityforms_uninstall
+gravityforms_view_addons
+gravityforms_view_settings
+gravityforms_view_updates
+*/
 
     $administrator_caps = array(                  
       'edit_proud_options',
