@@ -123,21 +123,14 @@ class ProudAdmin extends \ProudPlugin {
       'gravityforms_preview_forms',
       'gravityforms_view_entries',
       'gravityforms_view_entry_notes',
-
+      'gravityforms_mailchimp',
+      'gravityforms_stripe',
+      'gravityforms_zapier',
     );
     $role = get_role( 'editor' );
     foreach ($editor_caps as $item) {
       $role->add_cap( $item ); 
     }
-/*
-gravityforms_api
-gravityforms_api_settings
-gravityforms_edit_settings
-gravityforms_uninstall
-gravityforms_view_addons
-gravityforms_view_settings
-gravityforms_view_updates
-*/
 
     $administrator_caps = array(                  
       'edit_proud_options',
