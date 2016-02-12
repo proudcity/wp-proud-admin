@@ -132,7 +132,7 @@ class ProudAdmin extends \ProudPlugin {
       $role->add_cap( $item ); 
     }
 
-    $administrator_caps = array(                  
+    $administrator_caps = array(               
       'edit_proud_options',
     );
     $role = get_role( 'administrator' );
