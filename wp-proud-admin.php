@@ -58,6 +58,7 @@ class ProudAdmin extends \ProudPlugin {
 
     // Add Google Analytics/other embed code
     add_filter( 'wp_footer', array($this, 'add_tracking_code') );
+    add_filter( 'srm_restrict_to_capability', array($this, 'redirect_capability') );
 
     // -- Hacks
     // Hide admin fields
@@ -162,6 +163,11 @@ class ProudAdmin extends \ProudPlugin {
     remove_post_type_support( 'question', 'author' );
     remove_post_type_support( 'question', 'comments' );
     remove_post_type_support( 'question', 'custom-fields' );
+  }
+
+  // Change the cap for redirect post type creation from manage_options
+  function redirect_capability($cap) {
+    return 'edit_proud_options';
   }
 
 
