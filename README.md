@@ -1,7 +1,4 @@
-# WP Flat Admin
-This plugin turns a Wordpress admin theme into a nice looking dashboard based on the Flat UI kit by Design Modo and provides a customizable login logo and a better looking login page.
+# wp-proud-admin
+Administration theme, permissions tweaks, and ProudCity settings pages. [ProudCity](http://proudcity.com) is a Wordpress platform for modern, standards-compliant municipal websites.
 
-To simply install the plugin into your Wordpress site go to the [Wordpress page](https://wordpress.org/plugins/wp-flatadmin/)
-
-#Custom Logo
-To use your own logo go to the admin menu > Settings > WP Flat Admin. You'll be able to upload a logo or add a url. You can also change the link of the logo and the title.
+All bug reports, feature requests and other issues should be added to the [wp-proudcity Issue Queue](https://github.com/proudcity/wp-proudcity/issues).
