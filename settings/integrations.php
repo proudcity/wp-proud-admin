@@ -54,6 +54,7 @@ class ProudIntegrationsSettingsPage
         'mapbox_map',
 
         'embed_code',
+        'validation_metatags',
       ];
     }
 
@@ -262,6 +263,15 @@ class ProudIntegrationsSettingsPage
           '#name' => 'embed_code',
           '#value' => get_option('embed_code', true),
         ],
+        'metatags' => [
+          '#type' => 'textarea',
+          '#title' => __pcHelp('Metatags'),
+          '#description' => __pcHelp(
+            'These are helpful for validating domain ownership'
+          ),
+          '#name' => 'validation_metatags',
+          '#value' => get_option('validation_metatags', true),
+        ],
       ];
     }
 
@@ -289,7 +299,7 @@ class ProudIntegrationsSettingsPage
       foreach ($this->options as $key) {
         if (isset($values[$key])) {
           // @todo: we should have this go through something like wp_kses_data() for embed code
-          $value = $key === 'embed_code' ? $values[$key] : esc_attr( $values[$key] );
+          $value = ($key == 'validation_metatags' || $key == 'embed_code') ? $values[$key] : esc_attr( $values[$key] );
           update_option($key, $value );
         }
       }

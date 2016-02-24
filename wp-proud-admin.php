@@ -58,6 +58,7 @@ class ProudAdmin extends \ProudPlugin {
 
     // Add Google Analytics/other embed code
     add_filter( 'wp_footer', array($this, 'add_tracking_code') );
+    add_filter( 'wp_head', array($this, 'add_metatag_code') );
     add_filter( 'srm_restrict_to_capability', array($this, 'redirect_capability') );
 
     // -- Hacks
@@ -230,10 +231,15 @@ class ProudAdmin extends \ProudPlugin {
     }
   }
 
-  // Add tracking code
+  // Add tracking code (footer)
   function add_tracking_code () {
+    print get_option('embed_code', true);
+  }
+
+  // Add metatags (head)
+  function add_metatag_code () {
     $ga = get_option('google_analytics_key', true);
-    $embed = str_replace('\\\'', '\'', get_option('embed_code', true));
+    $metatags = get_option('validation_metatags', true);
     require_once( plugin_dir_path(__FILE__) . 'inc/tracking-code.php' );
   }
 

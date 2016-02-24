@@ -10,4 +10,4 @@
 
   </script>
 <?php endif; ?>
-<?php if ($embed) { print $embed; } ?>
+<?php if ($metatags) { print $metatags; } ?>
