@@ -92,7 +92,8 @@ class ProudAdmin extends \ProudPlugin {
 
   // Add permissions to Editor role
   function add_caps( $allcaps, $cap = null, $args = [] ) {
-    $editor_caps = array(                  
+    $editor_caps = array(
+      'activate_plugins',  //@todo: need to look at ramfications (left sidebar) before enabling             
       'switch_themes',
       'edit_files',
       'edit_theme_options',
