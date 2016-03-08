@@ -4,7 +4,7 @@ function custom_login_logo() {
     //check if set
     $logo = get_option( 'wp_proud_admin_custom_logo_path' );
     if(empty($logo)){
-        $logo = plugin_dir_url( __FILE__ )."../assets/images/dashboard-icon.png";
+        $logo = "https://my.proudcity.com/images/IconBlack.png";
     }
     ?>
     <style type="text/css">
