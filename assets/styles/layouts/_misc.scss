@@ -64,3 +64,15 @@
     font-size: $base-font-size;
   }
 }
+
+
+// Gravity forms
+.tooltip.gf_tooltip {
+  position: relative;
+  display: inline;
+}
+#gf_form_toolbar .fa-lg {
+  font-size: 1em;
+  vertical-align: 0;
+  padding: 0 3px;
+}
