@@ -7,8 +7,7 @@ Version:            1.0.0
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 
-License:            MIT License
-License URI:        http://opensource.org/licenses/MIT
+License:            Affero GPL v3
 */
 
 namespace Proud\Admin;
