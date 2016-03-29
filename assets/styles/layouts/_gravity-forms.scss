@@ -1,0 +1,10 @@
+// Show the Edit link on GravityForms entries
+body.forms_page_gf_entries #submitdiv .inside {
+  display: block;
+}
+
+// Increase the font sizes in the form builder
+.description, .gfield_description, .instruction,
+.gfield_time_ampm label, .gfield_time_hour label, .gfield_time_minute label, .ginput_complex label {
+  font-size: .8em !important;
+}
