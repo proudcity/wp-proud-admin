@@ -63,7 +63,9 @@ class ProudAdmin extends \ProudPlugin {
     // -- Hacks
     // Hide admin fields
     $this->hook('init', 'remove_post_admin_fields');
-
+    // Hide theme selection options
+    add_filter( 'wp_prepare_themes_for_js', array($this, 'filter_theme_options') );
+    
     $this->hook( 'tiny_mce_before_init', 'tiny_mce_alter' );
     //$this->hook( 'postbox_classes_post_wpseo_meta', 'minify_metabox' );  // This is done in js
   }
@@ -165,6 +167,17 @@ class ProudAdmin extends \ProudPlugin {
     remove_post_type_support( 'question', 'comments' );
     remove_post_type_support( 'question', 'custom-fields' );
   }
+
+  // Filtering theme options
+  public function filter_theme_options($prepared_themes) {
+    foreach ( $prepared_themes as $name => $theme ) {
+      if( false === strpos($name, 'wp-proud') ) {
+        unset($prepared_themes[$name]);
+      }
+    }
+    return $prepared_themes;
+  }
+  
 
   // Change the cap for redirect post type creation from manage_options
   function redirect_capability($cap) {
