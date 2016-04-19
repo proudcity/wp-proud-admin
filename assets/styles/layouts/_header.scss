@@ -1,0 +1,7 @@
+// Hide the update messages
+body:not(.role-admin) {
+  .update-nag,
+  .updated {
+    display: none;
+  }
+}
