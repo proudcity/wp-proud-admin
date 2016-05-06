@@ -16,7 +16,7 @@ $i = 0;
         <?php $i++; ?>
         <li class="<?php if(in_array($key, $completed)): ?>completed<?php endif; ?>">
           <input type="checkbox" name="steps" value="<?php echo $key; ?>" class="pull-left" <?php if(in_array($key, $completed)): ?>checked="checked"<?php endif; ?> />
-          <span class="checklist-number pull-left"><?php echo $i; ?></span>
+          <!--<span class="checklist-number pull-left"><?php echo $i; ?></span>-->
           <h3><?php echo $step['title']; ?></h3>
           <p>
             <?php if(!empty($step['link'])): ?><a class="btn btn-default btn-xs" href="<?php echo $step['link']; ?>" title="<?php echo $step['title']?> now"><i class="fa fa-fw fa-external-link"></i>Do it</a><?php endif;?>
