@@ -52,6 +52,7 @@ class ProudIntegrationsSettingsPage
 
         'mapbox_token',
         'mapbox_map',
+        'google_places_key',
 
         'embed_code',
         'validation_metatags',
@@ -249,6 +250,15 @@ class ProudIntegrationsSettingsPage
           '#name' => 'mapbox_map',
           // @todo: desc
         ],
+        'google_places_key' => [
+          '#type' => 'text',
+          '#title' => __pcHelp('Google places key'),
+          '#value' => get_option('google_places_key'),
+          '#name' => 'google_places_key',
+          '#description' => __pcHelp(
+            'This is used only for custom locations.'
+          ),
+        ],       
 
         'embed_title' => [
           '#type' => 'html',
