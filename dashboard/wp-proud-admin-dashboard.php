@@ -40,6 +40,13 @@ class ProudAdminDashboard extends \ProudPlugin {
     remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
     remove_meta_box( 'dashboard_activity', 'dashboard', 'normal');//since 3.8
     remove_meta_box( 'wpseo-dashboard-overview', 'dashboard', 'normal' );
+    remove_meta_box( 'rg_forms_dashboard', 'dashboard', 'normal' ); //gravityforms
+    remove_meta_box( 'auth0_dashboard_widget_age', 'dashboard', 'normal' );
+    remove_meta_box( 'auth0_dashboard_widget_gender', 'dashboard', 'normal' );
+    remove_meta_box( 'auth0_dashboard_widget_income', 'dashboard', 'normal' );
+    remove_meta_box( 'auth0_dashboard_widget_signups', 'dashboard', 'normal' );
+    remove_meta_box( 'auth0_dashboard_widget_Location', 'dashboard', 'normal' );
+    remove_meta_box( 'auth0_dashboard_widget_idp', 'dashboard', 'normal' );
 
     // We're using add_meta_box() instead of wp_add_dashboard_widget() so we can set positioning
     // http://wordpress.stackexchange.com/questions/69729/dashboard-widget-custom-positioning
