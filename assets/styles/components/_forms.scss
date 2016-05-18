@@ -17,21 +17,44 @@ $inline-form-label-width: 150px;
   @extend .btn-default;
 }
 
+.form-group,
 .field-group {
   position: relative;
   margin-bottom: 1em;
 
   label {
     position: absolute;
+    line-height: 40px;
   }
   input,
   textarea,
-  .description {
+  .radio,
+  .checkbox,
+  select,
+  .description,
+  .help-block {
     width: 33%;
     min-width: 200px;
     position: relative;
     margin-left: 110px;
     top: -0em;
+  }
+
+  select {
+    height: 40px;
+  }
+
+  .radio,
+  .checkbox {
+    label {
+      position: relative;
+      line-height: 25px;
+    }
+
+    input {
+      width: 16px;
+      min-width: 0;
+    }
   }
 
   .description {
