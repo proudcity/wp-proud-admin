@@ -24,20 +24,32 @@ $inline-form-label-width: 150px;
 
   label {
     position: absolute;
-    line-height: 40px;
+    padding-top: 5px;
   }
   input,
   textarea,
   .radio,
   .checkbox,
-  select,
-  .description,
-  .help-block {
-    width: 33%;
-    min-width: 200px;
+  select {
     position: relative;
     margin-left: 110px;
     top: -0em;
+  }
+
+  input,
+  textarea,
+  select {
+    width: 33%;
+    min-width: 200px;
+  }
+
+  textarea {
+    width: 50%;
+  }
+
+  .description,
+  .help-block {
+    margin-left: 110px;
   }
 
   select {
@@ -48,7 +60,7 @@ $inline-form-label-width: 150px;
   .checkbox {
     label {
       position: relative;
-      line-height: 25px;
+      padding-top: 2px;
     }
 
     input {
