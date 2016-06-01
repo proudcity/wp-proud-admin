@@ -25,6 +25,7 @@ $inline-form-label-width: 150px;
   label {
     position: absolute;
     padding-top: 5px;
+    width: 110px;
   }
   input,
   textarea,
@@ -162,4 +163,10 @@ input {
   .upload_image_button {
     margin-top: 10px;
   }
+}
+
+
+// Add event location field
+#em-event-where .col-sm-6 i {
+  display: none;
 }
