@@ -90,7 +90,12 @@ class ProudAdminSocialSettingsPage
     }
 
     public function save($values) {
+      $this->build_fields( );
       foreach ($this->options as $key) {
+        // If checkbox, and no value, set to 0
+        if($this->fields[$key]['#type'] === 'checkbox' && !isset( $values[$key] ) ) {
+          $values[$key] = 0;
+        }
         if (isset($values[$key])) {
           $value = esc_attr($values[$key]);
           update_option( $key, $value );

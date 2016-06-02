@@ -306,7 +306,12 @@ class ProudIntegrationsSettingsPage
     }
 
     public function save($values) {
+      $this->build_fields( );
       foreach ($this->options as $key) {
+        // If checkbox, and no value, set to 0
+        if($this->fields[$key]['#type'] === 'checkbox' && !isset( $values[$key] ) ) {
+          $values[$key] = 0;
+        }
         if (isset($values[$key])) {
           // @todo: we should have this go through something like wp_kses_data() for embed code
           $value = ($key == 'validation_metatags' || $key == 'embed_code') ? $values[$key] : esc_attr( $values[$key] );

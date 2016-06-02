@@ -94,8 +94,13 @@ class ProudAlertPage
     }
 
     public function save($values) {
+      $this->build_fields( );
       foreach ($this->options as $key) {
-        if (isset($values[$key]) || $this->fields[$key]['#type'] == 'checkbox') {
+        // If checkbox, and no value, set to 0
+        if($this->fields[$key]['#type'] === 'checkbox' && !isset( $values[$key] ) ) {
+          $values[$key] = 0;
+        }
+        if ( isset( $values[$key] ) ) {
           $value = $key === 'alert_message' ? wp_kses_post( $values[$key] ) : esc_attr( $values[$key] );
           update_option( $key, $value );
         }

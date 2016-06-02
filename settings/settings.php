@@ -5,6 +5,7 @@ class ProudGeneralSettingsPage
      * Holds the values to be used in the fields callbacks
      */
     private $options;
+    private $fields;
 
     /**
      * Start up
@@ -13,7 +14,6 @@ class ProudGeneralSettingsPage
     {
       add_action( 'admin_menu', array($this, 'create_menu') );
       $this->key = 'proudsettings';
-      $this->fields = null;
     }
 
     // create custom plugin settings menu
@@ -49,10 +49,13 @@ class ProudGeneralSettingsPage
     }
 
 
-    private function build_fields(  ) {
-      $path = plugins_url('assets/',__FILE__);
-      wp_enqueue_script( 'google-places-api', '//maps.googleapis.com/maps/api/js?key=AIzaSyBBF8futzrzbs--ZOtqQ3qd_PFnVFQYKo4&libraries=places' );
-      wp_enqueue_script( 'google-places-field', $path . 'google-places.js' );
+    private function build_fields( $attach = true ) {
+      // Attach scripts?
+      if( $attach ) {
+        $path = plugins_url('assets/',__FILE__);
+        wp_enqueue_script( 'google-places-api', '//maps.googleapis.com/maps/api/js?key=AIzaSyBBF8futzrzbs--ZOtqQ3qd_PFnVFQYKo4&libraries=places' );
+        wp_enqueue_script( 'google-places-field', $path . 'google-places.js' );
+      }
       
       $this->fields = [
         'search_title' => [
@@ -154,8 +157,13 @@ class ProudGeneralSettingsPage
     }
 
     public function save($values) {
+      $this->build_fields( false );
       foreach ($this->options as $key) {
-        if (isset($values[$key])) {
+        // If checkbox, and no value, set to 0
+        if($this->fields[$key]['#type'] === 'checkbox' && !isset( $values[$key] ) ) {
+          $values[$key] = 0;
+        }
+        if ( isset( $values[$key] ) ) {
           update_option($key, esc_attr($values[$key]) );
         }
       }
