@@ -42,7 +42,7 @@ class ProudGeneralSettingsPage
         'state',
         'lat',
         'lng',
-
+        'proud_navbar_dropdown',
         'external_link_window',
         'agency_label',
       ];
