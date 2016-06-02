@@ -1,73 +1,60 @@
 $inline-form-label-width: 150px;
 
 
-// Search form
-.search-form {
-  @extend .form-inline;
-}
-.search-form label {
-  font-weight: normal;
-  @extend .form-group;
-}
-.search-form .search-field {
-  @extend .form-control;
-}
-.search-form .search-submit {
-  @extend .btn;
-  @extend .btn-default;
-}
-
 .form-group,
 .field-group {
   position: relative;
   margin-bottom: 1em;
 
-  label {
-    position: absolute;
-    padding-top: 5px;
-    width: 110px;
-  }
-  input,
-  textarea,
-  .radio,
-  .checkbox,
-  select {
-    position: relative;
-    margin-left: 110px;
-    top: -0em;
-  }
+  & > {
+    label {
+      font-weight: 400!important;
+      position: absolute;
+      padding-top: 5px;
+      width: 110px;
+    }
+    input,
+    textarea,
+    .radio,
+    .checkbox,
+    select {
+      position: relative;
+      margin-left: 110px;
+      top: -0em;
+    }
 
-  input,
-  textarea,
-  select {
-    width: 33%;
-    min-width: 200px;
-  }
+    input,
+    textarea,
+    select {
+      width: 33%;
+      min-width: 200px;
+    }
 
-  textarea {
-    width: 50%;
-  }
+    textarea {
+      width: 50%;
+    }
 
-  .description,
-  .help-block {
-    margin-left: 110px;
+    .description,
+    .help-block {
+      margin-left: 110px;
+    }
+
+    .radio,
+    .checkbox {
+      label {
+        position: relative;
+        padding-top: 2px;
+      }
+
+      input {
+        width: 16px;
+        min-width: 0;
+      }
+    }
   }
 
   select {
     height: 40px;
-  }
-
-  .radio,
-  .checkbox {
-    label {
-      position: relative;
-      padding-top: 2px;
-    }
-
-    input {
-      width: 16px;
-      min-width: 0;
-    }
   }
 
   .description {

@@ -63,6 +63,7 @@ class ProudGeneralSettingsPage
           '#type' => 'text',
           '#title' => __pcHelp('Autopopulate'),
           '#name' => 'city_input',
+          '#value' => ''
         ],
         'city' => [
           '#type' => 'text',
@@ -106,6 +107,15 @@ class ProudGeneralSettingsPage
           '#replace_title' => __pcHelp( 'Open external links in a new tab' ),
           '#value' => get_option('external_link_window', '1'),
         ],
+        'proud_navbar_dropdown' => [
+          '#type' => 'checkbox',
+          '#name' => 'proud_navbar_dropdown',
+          '#title' => __pcHelp('Enable main navigation dropdown'),
+          '#return_value' => '1',
+          '#label_above' => false,
+          '#replace_title' => __pcHelp( 'Enable the main navigation bar to use a dropdown' ),
+          '#value' => get_option('proud_navbar_dropdown', '0'),
+        ],
         'agency_label' => [
           '#type' => 'select',
           '#name' => 'agency_label',
@@ -119,7 +129,6 @@ class ProudGeneralSettingsPage
           ),
           '#value' => get_option('agency_label', 'agencies'),
         ],
-
       ];
 
     }

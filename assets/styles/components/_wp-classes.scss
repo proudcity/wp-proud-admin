@@ -30,16 +30,16 @@
   }
 }
 
-// Captions
-.wp-caption {
-  @extend .thumbnail;
-}
+// // Captions
+// .wp-caption {
+//   @extend .thumbnail;
+// }
 .wp-caption-text {
   padding: $thumbnail-caption-padding;
 }
 
-// Text meant only for screen readers
-.screen-reader-text {
-  @extend .sr-only;
-  @extend .sr-only-focusable;
-}
+// // Text meant only for screen readers
+// .screen-reader-text {
+//   @extend .sr-only;
+//   @extend .sr-only-focusable;
+// }

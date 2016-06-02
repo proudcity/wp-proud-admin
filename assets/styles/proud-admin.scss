@@ -3,15 +3,19 @@
 
 @import "loaders/load-local";
 
-@import "pattern-scss/proudcity-wp";
+// Patterns
+// ---------------------------
+@import "pattern-scss/wp/admin-menu";
+@import "pattern-scss/wp/search";
+@import "pattern-scss/wp/addtocalendar";
+@import "pattern-scss/wp/widget-proud-jumbotron-header";
+@import "pattern-scss/wp/so-pagebuilder";
 @import "pattern-scss/wp/sidebar";
 
 // Local Styles
 // ---------------------------
-@import "pattern-scss/proudcity-wp";
 @import "common/global";
 @import "components/buttons";
-@import "components/comments";
 @import "components/forms";
 @import "components/grid";
 @import "components/wp-classes";
