@@ -13,6 +13,11 @@ $inline-form-label-width: 150px;
       padding-top: 5px;
       width: 110px;
     }
+  }
+
+  & >, div > {
+    // Events override
+    #location-name,
     input,
     textarea,
     .radio,
@@ -34,6 +39,10 @@ $inline-form-label-width: 150px;
       width: 50%;
     }
 
+    .wp-editor-wrap {
+      width: 98%;
+    }
+      
     .description,
     .help-block {
       margin-left: 110px;
