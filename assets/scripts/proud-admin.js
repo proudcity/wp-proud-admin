@@ -23,4 +23,10 @@
       addTableClasses(event.ed);
     });
   });
+
+  // Hide the Gravityforms From and BCC fields in notifications
+  if ( $('#tab_notification').length ) {
+    $('#gform_notification_from, #gform_notification_bcc').parents('tr').hide();
+  }
+
 })(jQuery);
