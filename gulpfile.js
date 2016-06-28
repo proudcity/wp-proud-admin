@@ -19,6 +19,8 @@ var runSequence  = require('run-sequence');
 var sass         = require('gulp-sass');
 var sourcemaps   = require('gulp-sourcemaps');
 var uglify       = require('gulp-uglify');
+var git          = require('gulp-git');
+var prompt       = require('gulp-prompt');
 
 // See https://github.com/austinpray/asset-builder
 var manifest = require('asset-builder')('./assets/manifest.json');
@@ -168,6 +170,78 @@ var writeToManifest = function(directory) {
 // ## Gulp tasks
 // Run `gulp -T` for a task summary
 
+// Run git pull
+// remote is the remote repo
+// branch is the remote branch to pull from
+gulp.task('git-pull-patterns', function(cb){
+  git.pull('origin', 'master', { cwd: './bower_components/proudcity-patterns' }, function (err) {
+    if (err) return cb(err);
+    cb();
+  });
+});
+
+gulp.task('pull', ['git-pull-patterns'], function(cb){
+  git.pull('origin', 'master', { }, function (err) {
+    if (err) return cb(err);
+    cb();
+  });
+});
+
+gulp.task('git-add-patterns', function(cb){
+  return gulp.src('./bower_components/proudcity-patterns/*')
+    .pipe(git.add({ cwd: './bower_components/proudcity-patterns' }, function (err) {
+      if (err) return cb(err);
+      cb();
+    }));
+});
+
+gulp.task('git-add-main', function(cb){
+  return gulp.src('.')
+    .pipe(git.add({}, function (err) {
+      if (err) return cb(err);
+      cb();
+    }));
+});
+
+// Run git pull
+// remote is the remote repo
+// branch is the remote branch to pull from
+gulp.task('commit', ['git-add-main', 'git-add-patterns'], function(){
+  // Patterns
+  function doPatternsCommit(message) {
+    return gulp.src('./bower_components/proudcity-patterns/*')
+      .pipe(git.commit(message, { cwd: './bower_components/proudcity-patterns' }))
+  }
+  // Normal
+  function doCommit(message) {
+    return gulp.src('.')
+      .pipe(git.commit(message))
+      .pipe(doPatternsCommit(message));
+  }
+  gulp.src('.', {buffer:false})
+    .pipe(prompt.prompt({
+        type: 'input',
+        name: 'commit',
+        message: 'Please enter commit message...'
+    }, function(res){
+        if(res.commit) {
+          return doCommit(res.commit);
+        }
+    }))
+    // 
+});
+
+gulp.task('git-push-patterns', function(cb){
+  git.push('origin', 'master', { cwd: './bower_components/proudcity-patterns' }, cb);
+});
+
+gulp.task('push', ['git-push-patterns'], function(cb){
+  git.push('origin', 'master', { }, cb);
+});
+
+// ## Gulp tasks
+// Run `gulp -T` for a task summary
+
 // ### Styles
 // `gulp styles` - Compiles, combines, and optimizes Bower CSS and project CSS.
 // By default this task will only log a warning if a precompiler error is
@@ -253,7 +327,7 @@ gulp.task('clean', require('del').bind(null, [path.dist]));
 // `manifest.config.devUrl`. When a modification is made to an asset, run the
 // build step for that asset and inject the changes into the page.
 // See: http://www.browsersync.io
-gulp.task('watch', function() {
+gulp.task('watch', ['git-pull-patterns'], function() {
   browserSync.init({
     files: ['{lib,templates}/**/*.php', '*.php'],
     proxy: config.devUrl,
@@ -272,7 +346,7 @@ gulp.task('watch', function() {
 // ### Build
 // `gulp build` - Run all the build tasks but don't clean up beforehand.
 // Generally you should be running `gulp` instead of `gulp build`.
-gulp.task('build', function(callback) {
+gulp.task('build', ['git-pull-patterns'], function(callback) {
   runSequence('styles',
               'scripts',
               ['fonts', 'images'],
