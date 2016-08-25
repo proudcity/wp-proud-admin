@@ -89,7 +89,10 @@
   }
 }
 
-
+// Hide Yoast on Answer post edit page
+.post-type-question #wpseo_meta {
+  display: none;
+}
 
 
 
