@@ -93,7 +93,9 @@
 .post-type-question {
   #wpseo_meta,
   th.column-wpseo-score,
-  td.column-wpseo-score {
+  td.column-wpseo-score,
+  th.wpseo-score-readability,
+  td.wpseo-score-readability {
     display: none;
   }
 }
