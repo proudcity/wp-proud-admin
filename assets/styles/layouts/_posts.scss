@@ -35,8 +35,13 @@
     }
 
     .possible-position-100,
-    .wp_quick_menu_advance_settings {
+    .advance_settings_extra,
+    .wp_quick_menu_advance_settings span {
       display: none;
+    }
+
+    .wp_quick_menu_advance_settings {
+      font-weight: normal;
     }
   }
 
