@@ -60,6 +60,13 @@ class ProudIntegrationsSettingsPage
     }
 
     private function build_fields(  ) {
+      $services_311 = array(
+        'seeclickfix' => __pcHelp( 'SeeClickFix' ),
+        'link' => __pcHelp( 'Link out to other provider' ),
+      );
+      if ( is_plugin_active('wp-proud-issue/wp-proud-issue.php') ) {
+        $services_311 = array_merge(array('wordpress' => __pcHelp( 'Custom categories')), $services_311);
+      }
       $this->fields = [
         'analytics_title' => [
           '#type' => 'html',
@@ -188,10 +195,7 @@ class ProudIntegrationsSettingsPage
           '#title' => __pcHelp('311 provider'),
           //'#description' => __pcHelp(''),
           '#name' => '311_service',
-          '#options' => array(
-            'seeclickfix' => __pcHelp( 'SeeClickFix' ),
-            'link' => __pcHelp( 'Link out to other provider' ),
-          ),
+          '#options' => $services_311,
           '#value' => get_option('311_service', 'seeclickfix')
         ],
         '311_link_create' => [
