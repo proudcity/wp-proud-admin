@@ -45,6 +45,7 @@ class ProudGeneralSettingsPage
         'proud_navbar_dropdown',
         'proud_navbar_transparent',
         'external_link_window',
+        'proud_document_show_date',
         'agency_label',
       ];
     }
@@ -128,6 +129,15 @@ class ProudGeneralSettingsPage
           '#label_above' => false,
           '#replace_title' => __pcHelp( 'Make the main navigation bar transparent' ),
           '#value' => get_option('proud_navbar_transparent', '0'),
+        ],
+        'proud_document_show_date' => [
+          '#type' => 'checkbox',
+          '#name' => 'proud_document_show_date',
+          //'#title' => __pcHelp('Display published date on documents'),
+          '#return_value' => '1',
+          '#label_above' => false,
+          '#replace_title' => __pcHelp( 'Display published date on documents' ),
+          '#value' => get_option('proud_document_show_date', '1'),
         ],
         'agency_label' => [
           '#type' => 'select',
