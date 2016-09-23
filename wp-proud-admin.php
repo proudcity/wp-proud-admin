@@ -130,6 +130,15 @@ class ProudAdmin extends \ProudPlugin {
       'gravityforms_mailchimp',
       'gravityforms_stripe',
       'gravityforms_zapier',
+      'gravityflow_activity',
+      'gravityflow_create_steps',
+      'gravityflow_inbox',
+      'gravityflow_reports',
+      'gravityflow_settings',
+      'gravityflow_status',
+      'gravityflow_statis_view_all',
+      'gravityflow_submit',
+      'gravityflow_workflow_detail_admin_actions',
     );
     $role = get_role( 'editor' );
     foreach ($editor_caps as $item) {
