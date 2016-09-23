@@ -43,6 +43,7 @@ class ProudGeneralSettingsPage
         'lat',
         'lng',
         'proud_navbar_dropdown',
+        'proud_navbar_transparent',
         'external_link_window',
         'agency_label',
       ];
@@ -118,6 +119,15 @@ class ProudGeneralSettingsPage
           '#label_above' => false,
           '#replace_title' => __pcHelp( 'Enable the main navigation bar to use a dropdown' ),
           '#value' => get_option('proud_navbar_dropdown', '0'),
+        ],
+        'proud_navbar_transparent' => [
+          '#type' => 'checkbox',
+          '#name' => 'proud_navbar_transparent',
+          '#title' => __pcHelp('Make the main navigation bar transparent'),
+          '#return_value' => '1',
+          '#label_above' => false,
+          '#replace_title' => __pcHelp( 'Make the main navigation bar transparent' ),
+          '#value' => get_option('proud_navbar_transparent', '0'),
         ],
         'agency_label' => [
           '#type' => 'select',
