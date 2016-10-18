@@ -27,3 +27,9 @@ $dialog-font-size: 16px;
 .so-widget {
   min-height: 65px !important;
 }
+
+// Hide the revert to editor, Premium button
+a.so-switch-to-standard,
+a.so-siteorigin-premium {
+  display: none !important;
+}
