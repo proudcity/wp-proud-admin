@@ -29,4 +29,10 @@
     $('#gform_notification_from, #gform_notification_bcc').parents('tr').hide();
   }
 
+  // Add the 'Save Order' button above Post, Taxonomy lists
+  var $form = $('form#posts-filter');
+  if ($form.length && $form.find('tbody.ui-sortable').length) {
+    $form.find('.tablenav.top').prepend('<div class="alignleft actions"><input type="submit" id="save-sort-order" class="button action" value="Save Order"></div>');
+  }
+
 })(jQuery);
