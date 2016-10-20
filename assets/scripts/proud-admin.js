@@ -32,7 +32,11 @@
   // Add the 'Save Order' button above Post, Taxonomy lists
   var $form = $('form#posts-filter');
   if ($form.length && $form.find('tbody.ui-sortable').length) {
-    $form.find('.tablenav.top').prepend('<div class="alignleft actions"><input type="submit" id="save-sort-order" class="button action" value="Save Order"></div>');
+    $('<div class="alignleft actions"><input type="submit" id="save-sort-order" class="button action" value="Save Order"></div>')
+      .bind('click', function(e) {
+        location.reload();
+        e.preventDefault();
+      }).prependTo($form.find('.tablenav.top'));
   }
 
 })(jQuery);
