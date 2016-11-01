@@ -41,17 +41,8 @@ class ProudIntegrationsSettingsPage
         'search_service',
         'search_google_key',
 
-        'payment_service',
-        'payment_stripe_type',
-        'payment_stripe_key',
-        'payment_stripe_secret',
-
-        '311_service',
-        '311_link_create',
-        '311_link_status',
-
-        'mapbox_token',
-        'mapbox_map',
+        //'mapbox_token',
+        //'mapbox_map',
         'google_api_key',
 
         'embed_code',
@@ -60,13 +51,6 @@ class ProudIntegrationsSettingsPage
     }
 
     private function build_fields(  ) {
-      $services_311 = array(
-        'seeclickfix' => __pcHelp( 'SeeClickFix' ),
-        'link' => __pcHelp( 'Link out to other provider' ),
-      );
-      if ( is_plugin_active('wp-proud-issue/wp-proud-issue.php') ) {
-        $services_311 = array_merge(array('wordpress' => __pcHelp( 'Custom categories')), $services_311);
-      }
       $this->fields = [
         'analytics_title' => [
           '#type' => 'html',
@@ -93,12 +77,12 @@ class ProudIntegrationsSettingsPage
           '#name' => 'search_service',
           '#options' => array(
             'wordpress' => __pcHelp( 'Standard site search' ),
-            'google' => __pcHelp( 'Customized Google search' ),
+            //'google' => __pcHelp( 'Customized Google search' ),
             'solr' => __pcHelp( 'Apache Solr search', '//proudcity.com/contact', null, array('link_text' => 'Contact us to learn more &raquo;') ),
           ),
           '#value' => get_option('search_service', 'wordpress')
         ],
-        'search_google_key' => [
+        /*'search_google_key' => [
           '#type' => 'text',
           '#title' => __pcHelp('Google search key'),
           '#description' => __pcHelp(
@@ -115,9 +99,9 @@ class ProudIntegrationsSettingsPage
               ],
             ],
           ],
-        ],
+        ],*/
 
-        'payments_title' => [
+        /*'payments_title' => [
           '#type' => 'html',
           '#html' => '<h3>' . __pcHelp('Payments') . '</h3>',
         ],
@@ -183,60 +167,28 @@ class ProudIntegrationsSettingsPage
               ],
             ],
           ],
+        ],*/
+
+        'google_places_key' => [
+          '#type' => 'text',
+          '#title' => __pcHelp('Google api key'),
+          '#value' => get_option('google_api_key'),
+          '#name' => 'google_places_key',
+          '#description' => __pcHelp(
+            'This is used for custom locations and the Vote app.'
+          ),
         ],
 
-
-        '311_title' => [
-          '#type' => 'html',
-          '#html' => '<h3>' . __pcHelp('311 issue reporting') . '</h3>',
-        ],
-        '311_service' => [
-          '#type' => 'radios',
-          '#title' => __pcHelp('311 provider'),
-          //'#description' => __pcHelp(''),
-          '#name' => '311_service',
-          '#options' => $services_311,
-          '#value' => get_option('311_service', 'seeclickfix')
-        ],
-        '311_link_create' => [
-          '#type' => 'text',
-          '#title' => __pcHelp('Create issue URL'),
-          '#value' => get_option('311_link_create'),
-          '#name' => '311_link_create',
-          '#states' => [
-            'visible' => [
-              '311_service' => [
-                'operator' => '==',
-                'value' => ['link'],
-                'glue' => '||'
-              ],
-            ],
-          ],
-        ],
-        '311_link_status' => [
-          '#type' => 'text',
-          '#title' => __pcHelp('Lookup issue URL'),
-          '#value' => get_option('311_link_status'),
-          '#name' => '311_link_status',
-          '#states' => [
-            'visible' => [
-              '311_service' => [
-                'operator' => '==',
-                'value' => ['link'],
-                'glue' => '||'
-              ],
-            ],
-          ],
-        ],
+        
 
         'social_title' => [
           '#type' => 'html',
           '#html' => 
             '<h3>' . __pcHelp('Social feeds') . '</h3>' .
-            '<a class="btn btn-default" href="/wp-admin/admin.php?page=wp-proud-admin%2Fsettings%social.php#">Set up social feeds &raquo</a>'
+            '<a class="btn btn-default" href="/wp-admin/admin.php?page=social">Set up social feeds &raquo</a>'
         ],
 
-        'mapbox' => [
+        /*'mapbox' => [
           '#type' => 'html',
           '#html' => '<h3>' . __pcHelp('Map') . '</h3>',
         ],
@@ -253,16 +205,8 @@ class ProudIntegrationsSettingsPage
           '#value' => get_option('mapbox_map'),
           '#name' => 'mapbox_map',
           // @todo: desc
-        ],
-        'google_places_key' => [
-          '#type' => 'text',
-          '#title' => __pcHelp('Google api key'),
-          '#value' => get_option('google_api_key'),
-          '#name' => 'google_places_key',
-          '#description' => __pcHelp(
-            'This is used for custom locations and the Vote app.'
-          ),
-        ],       
+        ],*/
+            
 
         'embed_title' => [
           '#type' => 'html',
