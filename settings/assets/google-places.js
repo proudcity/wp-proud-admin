@@ -9,7 +9,7 @@
       $('#city-input-wrapper-header').addClass('active');
       var place = places.getPlace();
       $('#city').val(place.address_components[0].long_name);
-      $('#state').val(place.address_components[2].long_name);
+      $('#state').val(place.address_components[2].types[0] == 'administrative_area_level_1' ? place.address_components[2].long_name : place.address_components[3].long_name);
       $('#lat').val(place.geometry.location.lat());
       $('#lng').val(place.geometry.location.lng());
       //window.location = 'https://demo.proudcity.com/get/' + place.address_components[2].long_name + '/' + place.address_components[0].long_name;

@@ -55,7 +55,7 @@ class ProudGeneralSettingsPage
       // Attach scripts?
       if( $attach ) {
         $path = plugins_url('assets/',__FILE__);
-        wp_enqueue_script( 'google-places-api', '//maps.googleapis.com/maps/api/js?key=AIzaSyBBF8futzrzbs--ZOtqQ3qd_PFnVFQYKo4&libraries=places' );
+        wp_enqueue_script( 'google-places-api', '//maps.googleapis.com/maps/api/js?key='. get_option( 'google_api_key', '' ) .'&libraries=places' );
         wp_enqueue_script( 'google-places-field', $path . 'google-places.js' );
       }
       
