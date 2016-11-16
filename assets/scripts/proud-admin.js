@@ -39,4 +39,10 @@
       }).prependTo($form.find('.tablenav.top'));
   }
 
+  // Unhide the Screen options tab
+  if ($form.length) {
+    $('#screen-meta-links').show();
+    $('#screen-options-wrap').removeClass('hidden');
+  }
+
 })(jQuery);
