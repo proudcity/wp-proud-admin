@@ -14,6 +14,14 @@ $inline-form-label-width: 150px;
   }
 }
 
+// Draggable checkboxes
+[data-draggable-checkboxes] .handle {
+  margin-right: .5em;
+  padding-top: 5px;
+  color: $gray;
+}
+
+
 .checkboxes {
   margin-bottom: .5em;
 
