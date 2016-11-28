@@ -169,11 +169,11 @@ class ProudIntegrationsSettingsPage
           ],
         ],*/
 
-        'google_places_key' => [
+        'google_api_key' => [
           '#type' => 'text',
           '#title' => __pcHelp('Google api key'),
           '#value' => get_option('google_api_key'),
-          '#name' => 'google_places_key',
+          '#name' => 'google_api_key',
           '#description' => __pcHelp(
             'This is used for custom locations and the Vote app.'
           ),
