@@ -21,6 +21,7 @@ class ProudGeneralSettingsPage extends ProudSettingsPage
           'state' => '',
           'lat' => '',
           'lng' => '',
+		  'bounds' => '',
           'proud_navbar_dropdown' => '',
           'proud_navbar_transparent' => '',
           'external_link_window' => '',
@@ -115,6 +116,14 @@ class ProudGeneralSettingsPage extends ProudSettingsPage
             'branches' => __pcHelp('Branch'),
           ),
         ],
+        'bounds' => [
+          '#type' => 'textarea',
+          '#title' => __pcHelp('Bounds'),
+          '#description' => __('Used to improve location autocomplete widget. JSON format.'),
+          '#name' => 'bounds',
+          '#value' => get_option('bounds')
+        ],
+ 
       ];
     }
 
