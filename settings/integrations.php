@@ -1,56 +1,37 @@
 <?php
-class ProudIntegrationsSettingsPage
+class ProudIntegrationsSettingsPage extends ProudSettingsPage
 {
-    /**
-     * Holds the values to be used in the fields callbacks
-     */
-    private $options;
-
     /**
      * Start up
      */
     public function __construct()
     {
-      $this->key = 'integrations';
-      $this->fields = null;
-
-      add_filter( 'option_page_capability_'.$this->key, array($this, 'option_page_capability') );
-      add_action( 'admin_menu', array($this, 'create_menu') );
-    }
-
-    // create custom plugin settings menu
-    
-
-    public function create_menu() {
-
-      // Integrations page (top level)
-      add_submenu_page( 
-          'proudsettings',
-          'Integrations',
-          'Integrations',
-          'edit_proud_options',
-          $this->key,
-          array($this, 'settings_page')
+      parent::__construct(
+        'integrations', // Key
+        [ // Submenu settings
+          'parent_slug' => 'proudsettings',
+          'page_title' => 'Integrations',
+          'menu_title' => 'Integrations',
+          'capability' => 'edit_proud_options',
+        ],
+        '', // Option
+        [   // Options
+          'google_analytics_key' => '',
+          'search_service' => 'wordpress',
+          // 'search_google_key' => '',
+          //'mapbox_token' => '',
+          //'mapbox_map' => '',
+          'google_api_key' => '',
+          'embed_code' => '',
+          'validation_metatags' => '',
+        ]
       );
-
-      //call register settings function
-      //add_action( 'admin_init', array($this, 'register_settings') );
-      $this->options = [
-        'google_analytics_key',
-
-        'search_service',
-        'search_google_key',
-
-        //'mapbox_token',
-        //'mapbox_map',
-        'google_api_key',
-
-        'embed_code',
-        'validation_metatags',
-      ];
     }
 
-    private function build_fields(  ) {
+    /** 
+     * Sets fields
+     */
+    public function set_fields( ) {
       $this->fields = [
         'analytics_title' => [
           '#type' => 'html',
@@ -62,8 +43,6 @@ class ProudIntegrationsSettingsPage
           '#description' => __pcHelp(
             'Copy the Tracking ID code that appears under Admin > Tracking info.'
           ),
-          '#name' => 'google_analytics_key',
-          '#value' => get_option('google_analytics_key'),
         ],
 
         'search_title' => [
@@ -74,13 +53,11 @@ class ProudIntegrationsSettingsPage
           '#type' => 'radios',
           '#title' => __pcHelp('Full search service'),
           '#description' => __('The type of search to fallback on when users don\'t find what they\'re looking for in the autosuggest search and make a full site search.', 'proud-settings'),
-          '#name' => 'search_service',
           '#options' => array(
             'wordpress' => __pcHelp( 'Standard site search' ),
             //'google' => __pcHelp( 'Customized Google search' ),
             'solr' => __pcHelp( 'Apache Solr search', '//proudcity.com/contact', null, array('link_text' => 'Contact us to learn more &raquo;') ),
           ),
-          '#value' => get_option('search_service', 'wordpress')
         ],
         /*'search_google_key' => [
           '#type' => 'text',
@@ -169,11 +146,9 @@ class ProudIntegrationsSettingsPage
           ],
         ],*/
 
-        'google_places_key' => [
+        'google_api_key' => [
           '#type' => 'text',
           '#title' => __pcHelp('Google api key'),
-          '#value' => get_option('google_api_key'),
-          '#name' => 'google_places_key',
           '#description' => __pcHelp(
             'This is used for custom locations and the Vote app.'
           ),
@@ -218,54 +193,22 @@ class ProudIntegrationsSettingsPage
           '#description' => __pcHelp(
             'This will be included on every page.'
           ),
-          '#name' => 'embed_code',
-          '#value' => get_option('embed_code', true),
         ],
-        'metatags' => [
+        'validation_metatags' => [
           '#type' => 'textarea',
           '#title' => __pcHelp('Metatags'),
           '#description' => __pcHelp(
             'These are helpful for validating domain ownership'
           ),
-          '#name' => 'validation_metatags',
-          '#value' => get_option('validation_metatags', true),
         ],
       ];
     }
 
-    public function settings_page() {
-      // Do we have post?
-      if(isset($_POST['_wpnonce'])) {
-        if( wp_verify_nonce( $_POST['_wpnonce'], $this->key ) ) {
-          $this->save($_POST);
-        }
-      }
-
-      $this->build_fields();
-      $form = new \Proud\Core\FormHelper( $this->key, $this->fields );
-      $form->printForm ([
-        'button_text' => __pcHelp('Save'),
-        'method' => 'post',
-        'action' => '',
-        'name' => $this->key,
-        'id' => $this->key,
-      ]);
-
-    }
-
-    public function save($values) {
-      $this->build_fields( );
-      foreach ($this->options as $key) {
-        // If checkbox, and no value, set to 0
-        if($this->fields[$key]['#type'] === 'checkbox' && !isset( $values[$key] ) ) {
-          $values[$key] = 0;
-        }
-        if (isset($values[$key])) {
-          // @todo: we should have this go through something like wp_kses_data() for embed code
-          $value = ($key == 'validation_metatags' || $key == 'embed_code') ? $values[$key] : esc_attr( $values[$key] );
-          update_option($key, $value );
-        }
-      }
+    /**
+     * Print page content
+     */
+    public function settings_content() {
+      $this->print_form( );
     }
 }
 

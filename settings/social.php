@@ -1,46 +1,32 @@
 <?php
-class ProudAdminSocialSettingsPage
+class ProudAdminSocialSettingsPage extends ProudSettingsPage
 {
-    /**
-     * Holds the values to be used in the fields callbacks
-     */
-    private $options;
-
     /**
      * Start up
      */
     public function __construct()
     {
-      add_action( 'admin_menu', array($this, 'create_menu') );
-      $this->key = 'social';
-      $this->fields = null;
-    }
-
-    // create custom plugin settings menu
-    
-
-    public function create_menu() {
-
-      // Integrations page (top level)
-      //add_menu_page('Integrations', 'Proud Settings', 'manage_options', __FILE__, array($this, 'settings_page') , plugins_url('/images/icon.png', __FILE__) );
-      add_submenu_page( 
-          'proudsettings',
-          'Social feeds',
-          'Social feeds',
-          'edit_proud_options',
-          $this->key,
-          array($this, 'settings_page')
+      parent::__construct(
+        'social', // Key
+        [ // Submenu settings
+          'parent_slug' => 'proudsettings',
+          'page_title' => 'Social feeds',
+          'menu_title' => 'Social feeds',
+          'capability' => 'edit_proud_options',
+        ],
+        '', // Option
+        [   // Options
+          'social_feeds' => '',
+          'social_map' => '',
+        ]
       );
-
-      $this->options = [
-        'social_feeds',
-        'social_map',
-      ];
-
     }
 
 
-    private function build_fields(  ) {
+    /** 
+     * Sets fields
+     */
+    public function set_fields( ) {
       $this->fields = [
         'social_feeds_title' => [
           '#type' => 'html',
@@ -50,8 +36,6 @@ class ProudAdminSocialSettingsPage
           '#type' => 'textarea',
           '#title' => __pcHelp('Social network accounts'),
           '#description' => __pcHelp('These accounts will be included on the social wall. Enter each account, one per line in the form <br/><code>[service]:[account]</code>'),
-          '#name' => 'social_feeds',
-          '#value' => get_option('social_feeds')
         ],
 
         'social_map_title' => [
@@ -62,48 +46,26 @@ class ProudAdminSocialSettingsPage
           '#type' => 'textarea',
           '#title' => __pcHelp('Services map layers'),
           '#description' => __pcHelp('These feeds will be included on the services map. Enter each account/feed, one per line in the form <br/><code>[service]:[account/feed url]</code>'),
-          '#name' => 'social_map',
-          '#value' => get_option('social_map')
         ],
       ];
 
     }
 
-    public function settings_page() {
-      // Do we have post?
-      if(isset($_POST['_wpnonce'])) {
-        if( wp_verify_nonce( $_POST['_wpnonce'], $this->key ) ) {
-          $this->save($_POST);
-        }
-      }
-
-      $this->build_fields();
-      $form = new \Proud\Core\FormHelper( $this->key, $this->fields );
-      $form->printForm ([
-        'button_text' => __pcHelp('Save'),
-        'method' => 'post',
-        'action' => '',
-        'name' => $this->key,
-        'id' => $this->key,
-      ]);
-
+    /**
+     * Print page content
+     */
+    public function settings_content() {
+      $this->print_form( );
     }
 
-    public function save($values) {
-      $this->build_fields( );
-      foreach ($this->options as $key) {
-        // If checkbox, and no value, set to 0
-        if($this->fields[$key]['#type'] === 'checkbox' && !isset( $values[$key] ) ) {
-          $values[$key] = 0;
-        }
-        if (isset($values[$key])) {
-          $value = esc_attr($values[$key]);
-          update_option( $key, $value );
-          $this->update_aggregator( $key, $value );
-        }
-      }
+    /** 
+     * Saves form values
+     */
+    public function save( &$values ) {
+      parent::save($values);
+      // @todo
+      // $this->update_aggregator( $key, $value );
     }
-
 
     public function update_aggregator( $key, $value ) {
       $json = $this->json_string($value);
@@ -111,8 +73,6 @@ class ProudAdminSocialSettingsPage
       //print_R($json);die();
       $this->api('/user/update', $json);
     }
-
-
 
 
     /**
