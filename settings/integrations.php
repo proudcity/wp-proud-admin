@@ -18,7 +18,7 @@ class ProudIntegrationsSettingsPage extends ProudSettingsPage
         [   // Options
           'google_analytics_key' => '',
           'search_service' => 'wordpress',
-          // 'search_google_key' => '',
+          //'search_google_key' => '',
           //'mapbox_token' => '',
           //'mapbox_map' => '',
           'google_api_key' => '',
