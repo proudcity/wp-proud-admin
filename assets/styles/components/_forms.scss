@@ -60,9 +60,21 @@ input {
 // Popup, post settings form styling
 // converts form styles to horizontal
 @include respond($sm-up) {
+
+  // Form headers
+  .form-header {
+    width: 90%;
+  }
+
   .proud-settings,
   .so-content,
   form[action="post.php"] {
+    // Repeating groups
+    .repeating-group {
+      width: 90%; 
+    }
+
+    // Limit widths
     .form-group,
     .field-group {
       position: relative;
@@ -93,12 +105,19 @@ input {
         input,
         textarea,
         select {
-          width: 33%;
-          min-width: 200px;
+          &, 
+          ~ .help-block {
+            min-width: 200px;
+            width: 33%;
+          }
         }
 
         textarea {
-          width: 50%;
+          &, 
+          ~ .help-block {
+            min-width: 200px;
+            width: 50%;
+          }
         }
 
         .wp-editor-wrap {
@@ -125,6 +144,11 @@ input {
           .description,
           .help-block {
             margin-left: 0;
+          }
+
+          ~ .help-block {
+            min-width: 200px;
+            width: 50%;
           }
         }
       }
