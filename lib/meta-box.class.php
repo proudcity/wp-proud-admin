@@ -142,7 +142,7 @@ abstract class ProudMetaBox {
      */
     public function validate_values( $post ) {
       // We have screen requirements not met 
-      if( !empty( $screen ) && $post->post_type !== $screen ) {
+      if( empty( $this->form ) || ( !empty( $screen ) && $post->post_type !== $screen ) ) {
         return false;
       }
       // Return values
