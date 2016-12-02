@@ -179,6 +179,10 @@ abstract class ProudSettingsPage {
       else if( 'editor' === $field['#type'] ) {
         $value = wp_kses_post( $value );
       }
+      // Text areas (can contain html)
+      else if( 'textarea' === $field['#type'] ) {
+        $value = $value;
+      }
       // Array values (checkboxes)
       else if( 'checkboxes' === $field['#type'] && is_array( $value ) ) {
         foreach ( $value as $key => &$v ) {
