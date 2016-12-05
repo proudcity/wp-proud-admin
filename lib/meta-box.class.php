@@ -171,3 +171,99 @@ abstract class ProudMetaBox {
       }
     }
 }
+
+
+
+
+abstract class ProudTermMetaBox extends ProudMetaBox {
+
+
+    /**
+     * Start up
+     * @param string $key
+     * @param string $title // metabox title
+     * @param string $screen // metabox screen
+     * @param string  $position // metabox position
+     * @param string $priority // metabox priority
+     */
+    public function __construct( $key, $title, $screen = null, $position = 'advanced', $priority = 'default' ) {
+      $this->key = $key;
+      $this->title = $title;
+      $this->screen = $screen;
+      $this->position = $position;
+      $this->priority = $priority;
+
+      // Add save option
+      //add_action( 'save_post', array( $this, 'save_meta' ), 10, 3 );
+      //add_action( 'admin_init', array( $this, 'register_box' ) );
+      add_action( $this->key . '_add_form_fields', array($this, 'settings_content'), 10, 2 );
+      add_action( $this->key . '_edit_form_fields', array($this, 'settings_content'), 10, 2 );
+
+      add_action( 'edited_' . $this->key, array($this, 'save_meta'), 10, 2 );  
+      add_action( 'create_' . $this->key, array($this, 'save_meta'), 10, 2 );
+
+      
+    }
+
+    /** 
+     * Rebuilds form values from options
+     */
+    public function build_options( $id = null ) {
+      // Set fields, no display
+      $this->set_fields( false );
+      $this->form = new \Proud\Core\FormHelper( $this->key, $this->fields, 1, 'form' );
+
+      if( !$id ) {
+        $id = $this->post->term_id;
+      }
+      $meta = get_term_meta( $id );
+
+      $this->options = count($this->options) ? $this->option : array_keys($this->fields);
+      foreach ( $this->options as $option => $default ) {
+        if( isset( $meta[$option][0] ) ) {
+          $this->options[$option] = $meta[$option][0];
+        }
+      }
+    }
+
+    /**
+     * Returns build options
+     */
+    public function get_options( $id = null ) {
+      $this->build_options( $id );
+      return $this->options;
+    }
+
+
+    /** 
+     * Runs through options, saves
+     */
+    public function save_all( $values, $term_id ) {
+      foreach ( array_keys( $this->options ) as $key ) {
+        if ( isset( $values ) ) {
+          update_term_meta( $term_id, $key, $values[$key] );
+        }
+      }
+    }
+
+    /**
+     * Prints form
+     */
+    public function settings_content( $post ) {
+      $this->print_form( $post );
+    }
+
+    /** 
+     * Saves form values
+     */
+    public function save_meta( $term_id, $tt_id ) {
+      // Grab form values from Request
+      $values = $this->validate_values( $_POST );
+      if( !empty( $values ) ) {
+        $this->save_all( $values, $term_id );
+      }
+    }
+
+    
+
+}
