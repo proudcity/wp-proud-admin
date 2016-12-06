@@ -68,10 +68,34 @@ input {
 
   .proud-settings,
   .so-content,
-  form[action="post.php"] {
+  form#post,
+  form#edittag {
     // Repeating groups
     .repeating-group {
       width: 90%; 
+    }
+
+    table.form-table tbody {
+      th {
+        width: $inline-form-label-width - 10px;
+      }
+
+      input,
+      textarea,
+      select {
+        &, 
+        ~ .help-block {
+          padding: $padding-large-vertical $padding-large-horizontal;
+          min-width: 200px;
+          width: 33%;
+        }
+      }
+
+      select {
+        box-sizing: border-box;
+        height: initial;
+      }
+
     }
 
     // Limit widths
@@ -98,7 +122,7 @@ input {
         .checkbox,
         select {
           position: relative;
-          margin-left: $inline-form-label-width;;
+          margin-left: $inline-form-label-width;
           top: -0em;
         }
 
