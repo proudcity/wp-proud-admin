@@ -188,8 +188,7 @@ abstract class ProudTermMetaBox extends ProudMetaBox {
       $this->key = $key;
       $this->title = $title;
 
-      // Add save option
-      //add_action( 'save_post', array( $this, 'save_meta' ), 10, 3 );
+      // Load form / fields
       add_action( 'admin_init', array( $this, 'register_form' ) );
 
       add_action( $this->key . '_add_form_fields', array($this, 'settings_content'), 10, 2 );
