@@ -146,7 +146,7 @@ abstract class ProudMetaBox {
      */
     public function validate_values( $post ) {
       // We have screen requirements not met 
-      if( empty( $this->form ) || ( !empty( $screen ) && $post->post_type !== $screen ) ) {
+      if( !empty( $screen ) && $post->post_type !== $screen ) {
         return false;
       }
       // Return values
@@ -178,7 +178,10 @@ abstract class ProudMetaBox {
 
 // Abstract class for term MetaBox
 abstract class ProudTermMetaBox extends ProudMetaBox {
+<<<<<<< HEAD
 
+=======
+>>>>>>> Cleaning up ProudMetaBox class https://github.com/proudcity/wp-proudcity/issues/362
     /**
      * Start up
      * @param string $key
@@ -195,6 +198,7 @@ abstract class ProudTermMetaBox extends ProudMetaBox {
       add_action( $this->key . '_add_form_fields', array($this, 'settings_content'), 10, 2 );
       add_action( $this->key . '_edit_form_fields', array($this, 'settings_content'), 10, 2 );
 
+<<<<<<< HEAD
       add_action( 'edited_' . $this->key, array($this, 'save_term_meta'), 10, 2 );  
       add_action( 'create_' . $this->key, array($this, 'save_term_meta'), 10, 2 );
     }
@@ -204,6 +208,16 @@ abstract class ProudTermMetaBox extends ProudMetaBox {
      */
     public function register_form() {
       // Set fields, no display
+=======
+      add_action( 'edited_' . $this->key, array($this, 'save_meta'), 10, 2 );  
+      add_action( 'create_' . $this->key, array($this, 'save_meta'), 10, 2 );
+    }
+
+    /** 
+     * Helper function called in save_meta() and settings_cotnent() below.
+     */
+    private function load_form() {
+>>>>>>> Cleaning up ProudMetaBox class https://github.com/proudcity/wp-proudcity/issues/362
       $this->set_fields( false );
       $this->form = new \Proud\Core\FormHelper( $this->key, $this->fields, 1, 'form' );
     }
@@ -221,13 +235,17 @@ abstract class ProudTermMetaBox extends ProudMetaBox {
       }
 
       $meta = get_term_meta( $id );
+<<<<<<< HEAD
 
       $this->options = count($this->options) ? $this->options : array_keys($this->fields);
+=======
+>>>>>>> Cleaning up ProudMetaBox class https://github.com/proudcity/wp-proudcity/issues/362
       foreach ( $this->options as $option => $default ) {
         if( isset( $meta[$option][0] ) ) {
           $this->options[$option] = $meta[$option][0];
         }
       }
+
     }
 
     /**
@@ -244,7 +262,7 @@ abstract class ProudTermMetaBox extends ProudMetaBox {
      */
     public function save_all( $values, $term_id ) {
       foreach ( array_keys( $this->options ) as $key ) {
-        if ( isset( $values ) ) {
+        if ( isset( $values ) && isset( $values[$key] ) ) {
           update_term_meta( $term_id, $key, $values[$key] );
         }
       }
@@ -253,14 +271,21 @@ abstract class ProudTermMetaBox extends ProudMetaBox {
     /**
      * Prints form
      */
-    public function settings_content( $post ) {
+    public function settings_content( $post ) {// Set fields, no display
+      $this->load_form();
       $this->print_form( $post );
     }
 
     /** 
      * Saves form values
      */
+<<<<<<< HEAD
     public function save_term_meta( $term_id, $taxonomy ) {
+=======
+    public function save_meta( $term_id, $tt_id ) {
+      $this->load_form();
+
+>>>>>>> Cleaning up ProudMetaBox class https://github.com/proudcity/wp-proudcity/issues/362
       // Grab form values from Request
       $values = $this->form->getFormValues( $_POST );
       if( !empty( $values ) ) {
