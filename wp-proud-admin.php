@@ -213,7 +213,7 @@ class ProudAdmin extends \ProudPlugin {
         'id'    => 'my-item',
         'parent' => 'root-default',
         'title' => 'Dashboard',
-        'href'  => get_site_url() . '/wp-admin',
+        'href'  => get_site_url() . '/wp-admin/index.php',
         'weight' => 10,
         'meta'  => array(
             'title' => __('My Item'),
