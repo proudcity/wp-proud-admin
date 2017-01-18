@@ -4,7 +4,7 @@
     types: ["(cities)"]
   };   
   google.maps.event.addDomListener(window, 'load', function () {
-    var places = new google.maps.places.Autocomplete(document.getElementById('city_input'), options);
+    var places = new google.maps.places.Autocomplete(document.getElementById('form-proudsettings-1-city_input'), options);
     google.maps.event.addListener(places, 'place_changed', function () {
       $('#city-input-wrapper-header').addClass('active');
       var place = places.getPlace();
