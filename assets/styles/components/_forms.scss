@@ -113,7 +113,7 @@ input {
         }
       }
 
-      & >, div > {
+      & >, & > div > {
         // Events override
         #location-name,
         input,
