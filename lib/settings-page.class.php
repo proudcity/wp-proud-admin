@@ -21,7 +21,7 @@ abstract class ProudSettingsPage {
      * @param string $option (use single option array as basis)
      * @param array $options (uses multiple options as basis for forms)
      */
-    public function __construct( $key, $submenu, $option = '', $options = []  ) {
+    public function __construct( $key, $submenu, $option = '', $options = [], $weight = 10 ) {
       $this->key = $key;
       $this->submenu = $submenu;
       // Single mode or multiple?
@@ -33,7 +33,7 @@ abstract class ProudSettingsPage {
         $this->option = '';
         $this->options = $options;
       }
-      add_action( 'admin_menu', array( $this, 'create_menu' ) );
+      add_action( 'admin_menu', array( $this, 'create_menu' ), $weight );
     }
 
     /**
