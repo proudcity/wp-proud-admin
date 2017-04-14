@@ -189,6 +189,7 @@ class ProudIntegrationsSettingsPage extends ProudSettingsPage
         ],
         'embed_code' => [
           '#type' => 'textarea',
+          '#save_method' => 'stripslashes',
           '#title' => __pcHelp('Additional tracking code'),
           '#description' => __pcHelp(
             'This will be included on every page.'

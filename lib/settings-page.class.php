@@ -181,6 +181,12 @@ abstract class ProudSettingsPage {
       }
       // Text areas (can contain html)
       else if( 'textarea' === $field['#type'] ) {
+        if( !empty( $field['#save_method'] ) ) {
+          if( $field['#save_method'] === 'stripslashes' ) {
+            $value = stripslashes($value);
+            return;
+          }
+        }
         $value = $value;
       }
       // Array values (checkboxes)
