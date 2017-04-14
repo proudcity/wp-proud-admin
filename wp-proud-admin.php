@@ -140,6 +140,7 @@ class ProudAdmin extends \ProudPlugin {
       'gravityforms_mailchimp',
       'gravityforms_stripe',
       'gravityforms_zapier',
+      'gravityforms_constantcontact',
       'gravityflow_activity',
       'gravityflow_create_steps',
       'gravityflow_inbox',
