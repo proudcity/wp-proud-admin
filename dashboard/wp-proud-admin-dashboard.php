@@ -50,10 +50,10 @@ class ProudAdminDashboard extends \ProudPlugin {
 
     // We're using add_meta_box() instead of wp_add_dashboard_widget() so we can set positioning
     // http://wordpress.stackexchange.com/questions/69729/dashboard-widget-custom-positioning
-    add_meta_box( 'dashboard_proud_welcome', 'Make your city proud', array($this, 'checklist'), 'dashboard', 'normal', 'high' );
-    add_meta_box( 'dashboard_proud_video', 'Player', array($this, 'video'), 'dashboard', 'side', 'high' );
-    add_meta_box( 'dashboard_proud_help', 'Get help', array($this, 'help'), 'dashboard', 'side', 'high' );
-    add_meta_box( 'dashboard_proud_news', 'Recent news', array($this, 'news'), 'dashboard', 'side', 'high' );
+    add_meta_box( 'dashboard_proud_welcome', 'Loading...', array($this, 'checklist'), 'dashboard', 'normal', 'high' );
+    //add_meta_box( 'dashboard_proud_video', 'Player', array($this, 'video'), 'dashboard', 'side', 'high' );
+    //add_meta_box( 'dashboard_proud_help', 'Get help', array($this, 'help'), 'dashboard', 'side', 'high' );
+    //add_meta_box( 'dashboard_proud_news', 'Recent news', array($this, 'news'), 'dashboard', 'side', 'high' );
   }
 
 
