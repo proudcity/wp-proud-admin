@@ -214,10 +214,10 @@ class ProudAdmin extends \ProudPlugin {
         'id'    => 'my-item',
         'parent' => 'root-default',
         'title' => 'Dashboard',
-        'href'  => get_site_url() . '/wp-admin/index.php',
+        'href'  => get_site_url() . '/wp-admin/admin.php?page=proud_dashboard',
         'weight' => 10,
         'meta'  => array(
-            'title' => __('My Item'),
+            'title' => __('Visit your Dashboard'),
         ),
     ) );
   }
@@ -250,7 +250,7 @@ class ProudAdmin extends \ProudPlugin {
   // Customize footer message
   function custom_footer () {
     $url = get_site_url();
-    echo "<a href='http://proudcity.com' target='_blank'>ProudCity</a> is proudly powered by <a href='http://wordpress.com' target='_blank'>WordPress</a> and Open Source software. <a href='$url/wp-admin/credits.php'>Credits</a> &middot; <a href='$url/wp-admin/freedoms.php'>Freedoms</a>.";
+    echo "<a href='https://proudcity.com' target='_blank'>ProudCity</a> is proudly powered by <a href='http://wordpress.com' target='_blank'>WordPress</a> and Open Source software. <a href='$url/wp-admin/credits.php'>Credits</a> &middot; <a href='$url/wp-admin/freedoms.php'>Freedoms</a>.";
     require_once( plugin_dir_path(__FILE__) . 'inc/chat.php' );
   }
 
