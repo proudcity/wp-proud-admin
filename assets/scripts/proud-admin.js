@@ -1,7 +1,7 @@
 (function($) {
 
   // Link admin_bar logo to proudcity.com
-  $('#wp-admin-bar-wp-logo .ab-item').attr('href', 'https://my.proudcity.com');
+  $('#wp-admin-bar-wp-logo .ab-item').attr('href', 'https://my.proudcity.com').attr('title', 'My ProudCity Sites');
 
   // Collapse metaboxes by default
   // @todo: check this is actually a post page?
