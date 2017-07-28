@@ -12,7 +12,7 @@ License:            Affero GPL v3
 
 namespace Proud\Admin;
 
-require_once get_template_directory() . '/lib/assets.php';
+require_once file_exists ( get_template_directory() . '/lib/assets.php' ) ? get_template_directory() . '/lib/assets.php' : plugin_dir_path(__FILE__) . '../../themes/wp-proud-theme/lib/assets.php';
 
 use Proud\Theme\Assets;
 
