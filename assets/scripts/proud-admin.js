@@ -45,4 +45,13 @@
     $('#screen-options-wrap').removeClass('hidden');
   }
 
+  // See if sp-pagebuilder is active
+  setTimeout(function(){
+    if ($('.tmce-active').css('display') === 'none') {
+      console.log('hidden');
+      $('body').addClass('sp-pagebuild-enabled');
+    }
+  }, 3000);
+
+
 })(jQuery);

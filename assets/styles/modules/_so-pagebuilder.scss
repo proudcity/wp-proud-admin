@@ -28,8 +28,10 @@ $dialog-font-size: 16px;
   min-height: 65px !important;
 }
 
-// Hide the revert to editor, Premium button
+// Hide the revert to editor, Premium, Addons, Theme buttonsœ
 a.so-switch-to-standard,
-a.so-siteorigin-premium {
+a.so-siteorigin-premium,
+a.so-learn,
+body.sp-pagebuild-enabled #revisionsdiv{
   display: none !important;
 }
