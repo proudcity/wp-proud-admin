@@ -1,0 +1,29 @@
+body.post-type-popup {
+  #titlediv,
+  #popuptitle-prompt-text {
+    display: block !important;
+    position: relative !important;
+    width: auto;
+    height: auto;
+    font-size: 1em !important;
+    padding: inherit inherit 5px inherit !important;
+  }
+  
+  #popuptitle{
+    //+input-size();
+  }
+  
+  .range-value-unit {
+    top: 0;
+    padding-left: 4px;
+  }
+  
+}
+
+
+// Delete shortcode button from the Editor
+// @todo: make this work
+.mce-widget.mce-button[aria-label="Popup Maker Shortcodes"]{
+  display: none !important;
+}
+

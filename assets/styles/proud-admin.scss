@@ -28,9 +28,11 @@
 @import "layouts/tinymce";
 @import "layouts/misc";
 @import "layouts/login";
-@import "modules/so-pagebuilder";
-@import "modules/simple-staff-list";
 @import "layouts/dashboard";
 @import "layouts/sidebar-links";
 @import "layouts/gravity-forms";
 @import "layouts/customizer";
+
+@import "modules/so-pagebuilder";
+@import "modules/simple-staff-list";
+@import "modules/popup-maker";

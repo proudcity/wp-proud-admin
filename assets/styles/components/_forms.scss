@@ -36,7 +36,7 @@ input {
   color: $gray-dark;
 }
 
-#titlediv {
+body:not(.post-type-popup) #titlediv {
   #title,
   #title-prompt-text {
     height: 5rem !important;
@@ -80,7 +80,7 @@ input {
         width: $inline-form-label-width - 10px;
       }
 
-      input,
+      input:not(input[type="checkbox"], input[type="radio"]),
       textarea,
       select {
         &, 
