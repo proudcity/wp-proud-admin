@@ -42,9 +42,16 @@ class ProudAlertPage extends ProudSettingsPage
           '#title' => __pcHelp('Severity'),
           //'#description' => __pcHelp(''),
           '#options' => array(
-            'danger' => __pcHelp( 'Danger (red)' ),
-            'warning' => __pcHelp( 'Warning (yellow)' ),
-            'info' => __pcHelp( 'Info (highlight color)' ),
+            //'danger' => __pcHelp( 'Danger (red)' ),
+            //'warning' => __pcHelp( 'Warning (yellow)' ),
+            //'info' => __pcHelp( 'Info (highlight color)' ),
+            'info' => __pcHelp( 'Highlight color (info notice)' ),
+            'red' => __pcHelp( 'Red' ),
+            'orange' => __pcHelp( 'Orange' ),
+            'yellow' => __pcHelp( 'Yellow' ),
+            'green' => __pcHelp( 'Green' ),
+            'black' => __pcHelp( 'Black' ),
+            'gray' => __pcHelp( 'Gray' ),
           )
         ],
         'alert_message' => [
