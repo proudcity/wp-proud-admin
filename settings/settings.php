@@ -28,6 +28,7 @@ class ProudGeneralSettingsPage extends ProudSettingsPage
           'proud_document_show_date' => '1',
           'agency_label' => ['agencies'],
           'payments_label' => 'Payment',
+          'staff_position_label' => 'Position',
         ]
       );
 
@@ -35,7 +36,7 @@ class ProudGeneralSettingsPage extends ProudSettingsPage
       add_action('admin_enqueue_scripts', [ $this, 'load_scripts' ] );
     }
 
-    /** 
+    /**
      * Sets fields
      */
     public function set_fields( ) {
@@ -126,6 +127,11 @@ class ProudGeneralSettingsPage extends ProudSettingsPage
             'Payment' => __pcHelp('Payment'),
             'Donation' => __pcHelp('Donation'),
           ),
+        ],
+        'staff_position_label' => [
+          '#type' => 'text',
+          '#title' => __pcHelp('Staff/Contact "Position" label'),
+          '#value' => ''
         ],
         'bounds' => [
           '#type' => 'textarea',
