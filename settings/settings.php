@@ -27,6 +27,7 @@ class ProudGeneralSettingsPage extends ProudSettingsPage
           'external_link_window' => '',
           'proud_document_show_date' => '1',
           'agency_label' => ['agencies'],
+          'staff_position_label' => 'Position',
         ]
       );
 
@@ -34,7 +35,7 @@ class ProudGeneralSettingsPage extends ProudSettingsPage
       add_action('admin_enqueue_scripts', [ $this, 'load_scripts' ] );
     }
 
-    /** 
+    /**
      * Sets fields
      */
     public function set_fields( ) {
@@ -115,6 +116,11 @@ class ProudGeneralSettingsPage extends ProudSettingsPage
             'departments' => __pcHelp('Department'),
             'branches' => __pcHelp('Branch'),
           ),
+        ],
+        'staff_position_label' => [
+          '#type' => 'text',
+          '#title' => __pcHelp('Staff/Contact "Position" label'),
+          '#value' => ''
         ],
         'bounds' => [
           '#type' => 'textarea',
