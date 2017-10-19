@@ -28,6 +28,11 @@
   .add-menu-item-tabs {
     margin-bottom: 0;
   }
+  
+  // Hide "Display location" checkbox https://github.com/proudcity/wp-proudcity/issues/1154
+  .menu-theme-locations {
+    display: none;
+  }
 }
 
 // Customizer
