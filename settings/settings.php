@@ -21,12 +21,13 @@ class ProudGeneralSettingsPage extends ProudSettingsPage
           'state' => '',
           'lat' => '',
           'lng' => '',
-		  'bounds' => '',
+		      'bounds' => '',
           'proud_navbar_dropdown' => '',
           'proud_navbar_transparent' => '',
           'external_link_window' => '',
           'proud_document_show_date' => '1',
           'agency_label' => ['agencies'],
+          'payments_label' => 'Payment',
         ]
       );
 
@@ -114,6 +115,16 @@ class ProudGeneralSettingsPage extends ProudSettingsPage
             'agencies' => __pcHelp('Agency'),
             'departments' => __pcHelp('Department'),
             'branches' => __pcHelp('Branch'),
+          ),
+        ],
+        'payments_label' => [
+          '#type' => 'select',
+          '#title' => __pcHelp('Payments Label'),
+          '#return_value' => '1',
+          '#label_above' => true,
+          '#options' => array(
+            'Payment' => __pcHelp('Payment'),
+            'Donation' => __pcHelp('Donation'),
           ),
         ],
         'bounds' => [
