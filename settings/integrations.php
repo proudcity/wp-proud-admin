@@ -41,7 +41,7 @@ class ProudIntegrationsSettingsPage extends ProudSettingsPage
           '#type' => 'text',
           '#title' => __pcHelp('Google Analytics Tracking ID'),
           '#description' => __pcHelp(
-            'Copy the Tracking ID code that appears under Admin > Tracking info.'
+            'Copy the Tracking ID code that appears under Admin > Tracking info. Example: UA-XXXXXXXX-X.'
           ),
         ],
 
