@@ -5,3 +5,7 @@ body:not(.role-admin) {
     display: none;
   }
 }
+
+.update-nag.fade {
+  opacity: 1;
+}

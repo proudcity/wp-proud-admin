@@ -7,6 +7,9 @@
   ],
   "license": "GPL-3.0",
   "dependencies": {
-    "proudcity-patterns": "proudcity/proudcity-patterns#master"
+    "proudcity-patterns": "proudcity/proudcity-patterns#1.62.2"
+  },
+  "resolutions": {
+    "font-awesome": "~5.3.1"
   }
 }
