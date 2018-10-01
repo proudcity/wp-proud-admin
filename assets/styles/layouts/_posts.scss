@@ -122,4 +122,12 @@
 }
 
 
+// Hide WYSIWYG Add media button on Meeting post type
+.post-type-meeting {
+  .wp-media-buttons {
+    display: none !important;
+  }
+}
+
+
 

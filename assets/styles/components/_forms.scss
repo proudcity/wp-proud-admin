@@ -116,6 +116,7 @@ body:not(.post-type-popup) #titlediv {
       & >, & > div > {
         // Events override
         #location-name,
+        .upload_file_name,
         input,
         textarea,
         .radio,
@@ -151,6 +152,10 @@ body:not(.post-type-popup) #titlediv {
         .description,
         .help-block {
           margin-left: $inline-form-label-width;
+        }
+  
+        .upload_file_name {
+          padding-bottom: 5px;
         }
 
         .radio,
