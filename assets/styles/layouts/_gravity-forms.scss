@@ -8,3 +8,7 @@ body.forms_page_gf_entries #submitdiv .inside {
 .gfield_time_ampm label, .gfield_time_hour label, .gfield_time_minute label, .ginput_complex label {
   font-size: .8em !important;
 }
+
+.multiple_files_setting.field_setting {
+  display: none !important;
+}
