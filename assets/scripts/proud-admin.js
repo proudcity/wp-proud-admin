@@ -3,6 +3,9 @@
   // Link admin_bar logo to proudcity.com
   $('#wp-admin-bar-wp-logo .ab-item').attr('href', 'https://my.proudcity.com').attr('title', 'My ProudCity Sites');
 
+  // Link "New +" dropdown menu to New Page (instead of New Post)
+  $('#wp-admin-bar-new-content>.ab-item').attr('href', '/wp-admin/post-new.php?post_type=page');
+
   // Collapse metaboxes by default
   // @todo: check this is actually a post page?
   $("#wpseo_meta, #submitdiv, #tagsdiv-post_tag").addClass("closed");
