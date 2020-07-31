@@ -211,7 +211,7 @@ class ProudAdmin extends \ProudPlugin {
   //print_r($admin_bar);
   //echo "<pre>";
    $admin_bar->add_menu( array(
-        'id'    => 'my-item',
+        'id'    => 'pc-dashboard',
         'parent' => 'root-default',
         'title' => 'Dashboard',
         'href'  => get_site_url() . '/wp-admin/admin.php?page=proud_dashboard',
@@ -219,6 +219,44 @@ class ProudAdmin extends \ProudPlugin {
         'meta'  => array(
             'title' => __('Visit your Dashboard'),
         ),
+    ) );
+
+    $admin_bar->add_menu( array(
+        'id'    => 'pc-help',
+        'parent' => 'root-default',
+        'title' => 'Help',
+        'href'  => 'https://help.proudcity.com/',
+        'weight' => 10000,
+        'meta'  => array(
+            'title' => __('Get Help'),
+        ),
+    ) );
+    $admin_bar->add_menu( array(
+        'id'    => 'pc-help-search',
+        'parent' => 'pc-help',
+        'title' => 'Search Help',
+        'href'  => 'https://help.proudcity.com/',        
+    ) );
+    $admin_bar->add_menu( array(
+        'id'    => 'pc-help-ticket',
+        'parent' => 'pc-help',
+        'title' => 'Create a ticket',
+        'href'  => 'https://help.proudcity.com/submit',        
+    ) );
+    $admin_bar->add_menu( array(
+        'id'    => 'pc-help-chat',
+        'parent' => 'pc-help',
+        'title' => 'Live chat',
+        'href'  => 'https://help.proudcity.com/',  
+        'meta'  => array(
+            'onclick' => "loadChat();return false;",
+        ),      
+    ) );
+    $admin_bar->add_menu( array(
+        'id'    => 'pc-help-request-feature',
+        'parent' => 'pc-help',
+        'title' => 'Request a feature',
+        'href'  => 'https://help.proudcity.com/submit?type=Feature+request',        
     ) );
   }
 

@@ -58,3 +58,9 @@
 
 
 })(jQuery);
+
+
+function loadChat() {
+  jQuery('.zEWidget-launcher').show();
+  $zopim.livechat.window.show();
+}
