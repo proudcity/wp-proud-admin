@@ -65,6 +65,8 @@ class ProudAdmin extends \ProudPlugin {
     add_filter( 'wp_prepare_themes_for_js', array($this, 'filter_theme_options') );
     
     $this->hook( 'tiny_mce_before_init', 'tiny_mce_alter' );
+    $this->hook( 'admin_print_footer_scripts', 'wp_561_window_unload_error_final_fix' );
+
     //$this->hook( 'postbox_classes_post_wpseo_meta', 'minify_metabox' );  // This is done in js
   }
 
@@ -312,6 +314,64 @@ class ProudAdmin extends \ProudPlugin {
     $ga = get_option('google_analytics_key', true);
     $metatags = get_option('validation_metatags', true);
     require_once( plugin_dir_path(__FILE__) . 'inc/tracking-code.php' );
+  }
+
+  /**
+   * Fix for Platform: Upgrading WordPress core and "Are you sure you want to leave" alert #1822
+   * https://github.com/proudcity/wp-proudcity/issues/1822
+   * 
+   * From: https://core.trac.wordpress.org/ticket/52440
+   *
+   * @return void
+   */
+  function wp_561_window_unload_error_final_fix(){
+    ?>
+    <script>
+        jQuery(document).ready(function($){
+
+          // Check screen
+          if(typeof window.wp.autosave === 'undefined')
+              return;
+
+          // Data Hack
+          var initialCompareData = {
+              post_title: $( '#title' ).val() || '',
+              content: $( '#content' ).val() || '',
+              excerpt: $( '#excerpt' ).val() || ''
+          };
+
+          var initialCompareString = window.wp.autosave.getCompareString(initialCompareData);
+
+          // Fixed postChanged()
+          window.wp.autosave.server.postChanged = function(){
+
+            var changed = false;
+
+            // If there are TinyMCE instances, loop through them.
+            if ( window.tinymce ) {
+              window.tinymce.each( [ 'content', 'excerpt' ], function( field ) {
+                var editor = window.tinymce.get( field );
+
+                if ( ( editor && editor.isDirty() ) || ( $( '#' + field ).val() || '' ) !== initialCompareData[ field ] ) {
+                  changed = true;
+                  return false;
+                }
+
+              } );
+
+              if ( ( $( '#title' ).val() || '' ) !== initialCompareData.post_title ) {
+                changed = true;
+              }
+
+              return changed;
+            }
+
+            return window.wp.autosave.getCompareString() !== initialCompareString;
+
+          }
+      });
+    </script>
+    <?php
   }
 
 }
