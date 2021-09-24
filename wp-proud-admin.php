@@ -329,50 +329,50 @@ class ProudAdmin extends \ProudPlugin {
     <script>
         jQuery(document).ready(function($){
 
-          // Check screen
-          if(typeof window.wp.autosave === 'undefined')
-              return;
+            // Check screen
+            if(typeof window.wp.autosave === 'undefined')
+                return;
 
-          // Data Hack
-          var initialCompareData = {
-              post_title: $( '#title' ).val() || '',
-              content: $( '#content' ).val() || '',
-              excerpt: $( '#excerpt' ).val() || ''
-          };
+            // Data Hack
+            var initialCompareData = {
+                post_title: $( '#title' ).val() || '',
+                content: $( '#content' ).val() || '',
+                excerpt: $( '#excerpt' ).val() || ''
+            };
 
-          var initialCompareString = window.wp.autosave.getCompareString(initialCompareData);
+            var initialCompareString = window.wp.autosave.getCompareString(initialCompareData);
 
-          // Fixed postChanged()
-          window.wp.autosave.server.postChanged = function(){
+            // Fixed postChanged()
+            window.wp.autosave.server.postChanged = function(){
 
-            var changed = false;
+                var changed = false;
 
-            // If there are TinyMCE instances, loop through them.
-            if ( window.tinymce ) {
-              window.tinymce.each( [ 'content', 'excerpt' ], function( field ) {
-                var editor = window.tinymce.get( field );
+                // If there are TinyMCE instances, loop through them.
+                if ( window.tinymce ) {
+                    window.tinymce.each( [ 'content', 'excerpt' ], function( field ) {
+                        var editor = window.tinymce.get( field );
 
-                if ( ( editor && editor.isDirty() ) || ( $( '#' + field ).val() || '' ) !== initialCompareData[ field ] ) {
-                  changed = true;
-                  return false;
+                        if ( ( editor && editor.isDirty() ) || ( $( '#' + field ).val() || '' ) !== initialCompareData[ field ] ) {
+                            changed = true;
+                            return false;
+                        }
+
+                    } );
+
+                    if ( ( $( '#title' ).val() || '' ) !== initialCompareData.post_title ) {
+                        changed = true;
+                    }
+
+                    return changed;
                 }
 
-              } );
+                return window.wp.autosave.getCompareString() !== initialCompareString;
 
-              if ( ( $( '#title' ).val() || '' ) !== initialCompareData.post_title ) {
-                changed = true;
-              }
-
-              return changed;
             }
-
-            return window.wp.autosave.getCompareString() !== initialCompareString;
-
-          }
-      });
+        });
     </script>
     <?php
-  }
+}
 
 }
 
