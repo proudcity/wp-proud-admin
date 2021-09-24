@@ -168,7 +168,7 @@ class ProudAdmin extends \ProudPlugin {
   //add css
   function proud_admin_theme_style() {
     // Bootstrap + proud-library styles from theme
-    wp_enqueue_style('proud-vendor/css', Assets\asset_path('styles/proud-vendor.css'), false, null);
+    // wp_enqueue_style('proud-vendor/css', Assets\asset_path('styles/proud-vendor.css'), false, null);
 
     // Local
     $path = plugins_url('dist/',__FILE__);

@@ -12,6 +12,29 @@
 @import "pattern-scss/wp/so-pagebuilder";
 @import "pattern-scss/wp/sidebar";
 
+
+
+// Bootstrap variables
+// ---------------------------------
+
+@import "load-variables";
+
+
+// Load Proudcity vendor scss
+// ---------------------------------
+
+@import "pattern-scss/loaders/bootstrap-loader";
+@import "pattern-scss/loaders/bourbon-loader";
+@import "pattern-scss/loaders/font-awesome-loader";
+
+
+// Proudcity pattern library
+// ---------------------------------
+@import "pattern-scss/proudcity-patterns";
+@import "pattern-scss/proudcity-wp";
+
+
+
 // Local Styles
 // ---------------------------
 @import "common/global";
