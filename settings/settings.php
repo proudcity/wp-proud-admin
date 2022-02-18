@@ -13,7 +13,7 @@ class ProudGeneralSettingsPage extends ProudSettingsPage
           'page_title' => 'Settings',
           'menu_title' => 'Settings',
           'capability' => 'edit_proud_options',
-          'icon_url' => plugins_url('/images/icon.png', __FILE__) 
+          'icon_url' => plugins_url('/images/icon.png', __FILE__)
         ],
         '', // Option
         [   // Options
@@ -140,7 +140,7 @@ class ProudGeneralSettingsPage extends ProudSettingsPage
           '#name' => 'bounds',
           '#value' => get_option('bounds')
         ],
- 
+
       ];
     }
 
@@ -162,9 +162,9 @@ class ProudGeneralSettingsPage extends ProudSettingsPage
           'lng',
         ] );
         wp_localize_script( 'google-places-field', 'places_fields', $options );
-        wp_enqueue_script( 'google-places-field' ); 
+        wp_enqueue_script( 'google-places-field' );
       }
-    }      
+    }
 
     /**
      * Print page content
