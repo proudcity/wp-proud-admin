@@ -11,7 +11,7 @@ abstract class ProudSettingsPage {
     public $hook; // The menu callback
     public $submenu; // Submenu options for admin menu
     public $fields; // Form fields
-    public $form; // FormHelper 
+    public $form; // FormHelper
 
     /**
      * Start up
@@ -41,7 +41,7 @@ abstract class ProudSettingsPage {
      */
     abstract protected function set_fields( );
 
-    /** 
+    /**
      * Rebuilds form values from options
      */
     public function build_options( ) {
@@ -89,8 +89,8 @@ abstract class ProudSettingsPage {
       return $names;
     }
 
-    /** 
-     * Creates menu 
+    /**
+     * Creates menu
      */
     public function create_menu() {
       // Extract submenu vars
@@ -98,8 +98,8 @@ abstract class ProudSettingsPage {
       // Menu page entry
       if( !$parent_slug ) {
         $hook = add_menu_page(
-          $page_title, 
-          $menu_title, 
+          $page_title,
+          $menu_title,
           $capability,
           $this->key,
           array( $this, 'settings_page' ),
@@ -108,10 +108,10 @@ abstract class ProudSettingsPage {
       }
       // Submenu page entry
       else {
-        $hook = add_submenu_page( 
-            $parent_slug, 
-            $page_title, 
-            $menu_title, 
+        $hook = add_submenu_page(
+            $parent_slug,
+            $page_title,
+            $menu_title,
             $capability,
             $this->key,
             array( $this, 'settings_page' )
@@ -214,7 +214,7 @@ abstract class ProudSettingsPage {
       }
     }
 
-    /** 
+    /**
      * Saves form values
      */
     public function save( &$raw_values ) {
