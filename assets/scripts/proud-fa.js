@@ -11,16 +11,23 @@ jQuery(document).ready(function($) {
 
     var spinner = $(group).find('.spinner');
 
+    var data = {
+        'action': 'proud_build_fa',
+        'security': ProudFaBuild.proud_fabuild_ajax_nonce
+    };
+
     $(document).on('click', button, function(e){
         e.preventDefault();
         
         // giving some user feedback that stuff is happening
         $(spinner).css('visibility', 'visible');
 
-        $.post( AllEmail.ajaxurl, data, function( response ) {
+        $.post( ProudFaBuild.ajaxurl, data, function( response ) {
 
-			// @todo hide spinner
-            $(spinner).css('visibility', 'hidden');           
+			// hide spinner
+            $(spinner).css('visibility', 'hidden');      
+
+            console.log(response);
 
 			if ( true === response.data.success ){
 				console.log( 'success' );

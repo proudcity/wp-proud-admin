@@ -29,6 +29,8 @@ require_once( plugin_dir_path(__FILE__) . 'lib/meta-box.class.php' );
 require_once( plugin_dir_path(__FILE__) . 'wp-proud-admin-helpers.php' );
 // Dashboard
 require_once( plugin_dir_path(__FILE__) . 'dashboard/wp-proud-admin-dashboard.php' );
+// FontAwesome Builder
+require_once( plugin_dir_path(__FILE__) . 'lib/proud-fa-build.php' );
 
 class ProudAdmin extends \ProudPlugin {
 
@@ -182,6 +184,10 @@ class ProudAdmin extends \ProudPlugin {
     $screen = get_current_screen();
     if ( 'settings_page_integrations' == $screen->id ){
       wp_enqueue_script( 'proud-admin/fa',  plugins_url( '/wp-proud-admin/assets/scripts/proud-fa.js'), ['proud', 'jquery'], null, true );
+   		wp_localize_script( 'proud-admin/fa', 'ProudFaBuild', array(
+        'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+        'proud_fabuild_ajax_nonce' => wp_create_nonce( 'proud_fabuild_ajax_nonce' ),
+      ) );
     }
 
     // Fonts
