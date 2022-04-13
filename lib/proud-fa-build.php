@@ -45,7 +45,7 @@ class Proud_FA_Build{
 			// need to do a pro query here
 		} else {
             $message = 'not pro loser';
-			// non pro query
+			self::build_basic_fa();
 		}
 
 		$data = array(
@@ -55,7 +55,71 @@ class Proud_FA_Build{
 
 		wp_send_json_success( $data );
 
-	} // get_sku
+	} // build_fa
+
+	/**
+	 * Build the FontAwesome icon strings for the free version
+	 * 
+	 * @since 2022.04.13
+	 */
+	private static function build_basic_fa(){
+
+		/* full query
+		$fa_query = 'query {
+			release(version:"6.0.0") {
+				icons {
+				id
+				label
+				membership {
+					free
+				}
+				}
+			}
+		}';
+		*/
+
+		/* demo shorter working query */
+		$fa_query = 'query {
+			search(version:"6.0.0", query:"square", first:15) {
+				id
+				label
+				membership {
+				  free
+				}
+			}
+		  }';
+
+		$icon_json = \FortAwesome\fa()->query( $fa_query );
+
+		self::process_icon_json( $icon_json );
+
+	} // build_basic_fa
+
+	/**
+	 * Processes the JSON and returns the icon classes we need
+	 * 
+	 * @since 2022.04.13
+	 */
+	private static function process_icon_json( $json ){
+
+		$processed_icons = '';
+
+		$decoded_json = json_decode( $json );
+		$results = $decoded_json->data->search;
+
+		foreach( $results as $r ){
+			// skip if not in free
+			if ( empty( $r->membership->free ) ) { continue; }
+
+			$class = 'fa-' . $r->id;
+			$style = $r->membership->free;
+			update_option( 'sfn_icons', $class );
+		}
+
+
+		return $processed_icons;
+
+	} // process_icon_json
 
 
 }
