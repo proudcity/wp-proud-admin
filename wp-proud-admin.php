@@ -179,6 +179,11 @@ class ProudAdmin extends \ProudPlugin {
     // // Bootstrap
     // wp_enqueue_script('proud/js', Assets\asset_path('scripts/main.js'), ['jquery'], null, true);
 
+    $screen = get_current_screen();
+    if ( 'settings_page_integrations' == $screen->id ){
+      wp_enqueue_script( 'proud-admin/fa',  plugins_url( '/wp-proud-admin/assets/scripts/proud-fa.js'), ['proud', 'jquery'], null, true );
+    }
+
     // Fonts
     wp_enqueue_style('external-fonts', '//fonts.googleapis.com/css?family=Lato:400,700,300');
   }
