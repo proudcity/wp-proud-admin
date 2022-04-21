@@ -72,6 +72,7 @@ class Proud_FA_Build{
 				label
 				membership {
 					free
+					pro
 				}
 				}
 			}
@@ -106,14 +107,25 @@ class Proud_FA_Build{
 		// could I actually just build both arrays now
 		// if pro grab the other stuff if not pro don't worry about it
 
-		$processed_icons = array();
+		$basic_icons = array();
+		$pro_icons = array();
 
 		$decoded_json = json_decode( $json );
 		$results = $decoded_json->data->release->icons;
 
 		foreach( $results as $r ){
 			// skip if not in free
-			if ( empty( $r->membership->free ) ) { continue; }
+			if ( empty( $r->membership->free ) ) {  
+				// need to process pro icons here
+				$icon_class = 'fa-' . $r->id;
+				$style = $r->membership->pro;
+
+				foreach( $style as $s ){
+					$style_class = 'fa-' . $s;
+
+					$pro_icons[] = $style_class . ' ' . $icon_class;
+				}
+			} // if empty free (so pro)
 
 			$icon_class = 'fa-' . $r->id;
 			$style = $r->membership->free;
@@ -121,16 +133,19 @@ class Proud_FA_Build{
 			foreach( $style as $s ){
 				$style_class = 'fa-' . $s;
 
-				$processed_icons[] = $style_class . ' ' . $icon_class;
+				$basic_icons[] = $style_class . ' ' . $icon_class;
 			} // foreach $style
 
 		} // foreach $results
 
-		set_transient( 'fa_basic_icons_trans', $processed_icons );
-		update_option( 'fa_basic_icons', $processed_icons );
+		set_transient( 'fa_pro_icons_trans', $pro_icons );
+		update_option( 'fa_pro_icons', $pro_icons );
 
-		// @todo I can probably just save them here
-		return $processed_icons;
+		set_transient( 'fa_basic_icons_trans', $basic_icons );
+		update_option( 'fa_basic_icons', $basic_icons );
+
+		// @todo need to return false if we fail and give a message of some fashion
+		return $basic_icons;
 
 	} // process_icon_json
 
