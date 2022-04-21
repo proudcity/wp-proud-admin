@@ -64,7 +64,7 @@ class Proud_FA_Build{
 	 */
 	private static function build_basic_fa(){
 
-		/* full query
+		/* full query */
 		$fa_query = 'query {
 			release(version:"6.0.0") {
 				icons {
@@ -76,10 +76,9 @@ class Proud_FA_Build{
 				}
 			}
 		}';
-		*/
 
 		/* demo shorter working query */
-		$fa_query = 'query {
+		/*$fa_query = 'query {
 			search(version:"6.0.0", query:"square", first:15) {
 				id
 				label
@@ -87,9 +86,11 @@ class Proud_FA_Build{
 				  free
 				}
 			}
-		  }';
+		  }';*/
 
 		$icon_json = \FortAwesome\fa()->query( $fa_query );
+
+		update_option( 'sfn_test', $icon_json );
 
 		self::process_icon_json( $icon_json );
 
@@ -108,7 +109,7 @@ class Proud_FA_Build{
 		$processed_icons = array();
 
 		$decoded_json = json_decode( $json );
-		$results = $decoded_json->data->search;
+		$results = $decoded_json->data->release->icons;
 
 		foreach( $results as $r ){
 			// skip if not in free
@@ -125,6 +126,7 @@ class Proud_FA_Build{
 
 		} // foreach $results
 
+		set_transient( 'fa_basic_icons_trans', $processed_icons );
 		update_option( 'fa_basic_icons', $processed_icons );
 
 		// @todo I can probably just save them here
