@@ -2,6 +2,7 @@ jQuery(document).ready(function($) {
 
     /**
      * @todo style the spinner so it lines up with the button as expected
+     * @todo remove the console log statements
      */
 
     var button = $('#fa-generate');

@@ -102,7 +102,10 @@ class Proud_FA_Build{
 	 */
 	private static function process_icon_json( $json ){
 
-		$processed_icons = '';
+		// could I actually just build both arrays now
+		// if pro grab the other stuff if not pro don't worry about it
+
+		$processed_icons = array();
 
 		$decoded_json = json_decode( $json );
 		$results = $decoded_json->data->search;
@@ -111,12 +114,20 @@ class Proud_FA_Build{
 			// skip if not in free
 			if ( empty( $r->membership->free ) ) { continue; }
 
-			$class = 'fa-' . $r->id;
+			$icon_class = 'fa-' . $r->id;
 			$style = $r->membership->free;
-			update_option( 'sfn_icons', $class );
-		}
 
+			foreach( $style as $s ){
+				$style_class = 'fa-' . $s;
 
+				$processed_icons[] = $style_class . ' ' . $icon_class;
+			} // foreach $style
+
+		} // foreach $results
+
+		update_option( 'fa_basic_icons', $processed_icons );
+
+		// @todo I can probably just save them here
 		return $processed_icons;
 
 	} // process_icon_json
