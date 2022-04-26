@@ -33,19 +33,30 @@ class Proud_FA_Build{
 
     /**
      * Builds Font Awesome strings for the database
+	 * 
+	 * @since 2022.04.21
+	 * @author Curtis
+	 * 
+	 * @uses 	check_ajax_referer 							Makes sure it's a secure ajax query with a nonce
+	 * @uses 	self::build_basic_fa() 						Build our icon list
+	 * @uses 	wp_kses_post() 								makes our content safe for display
+	 * @uses 	wp_send_json_success() 						Returns response to ajax request
+	 * @return 	$data 		array() 						Message from the ajax request
      */
 	public function build_fa(){
 		check_ajax_referer( 'proud_fabuild_ajax_nonce', 'security' );
 
 		$success = false;
-		$message = 'FA woowoo';
+		$message = 'The rebuild did NOT even run. Talk to your site administrator.';
 
-        if ( true === \FortAwesome\fa()->pro() ){
-            $message = 'generating pro';
-			// need to do a pro query here
+		$built = self::build_basic_fa();
+
+		if ( true === $built ){
+			$success = true;
+			$message = 'Font Awesome list is rebuilt.';
 		} else {
-            $message = 'not pro loser';
-			self::build_basic_fa();
+			$success = false;
+			$message = 'Font Awesome NOT rebuilt. Talk to the site Administrator if you are having issues.';
 		}
 
 		$data = array(
@@ -58,9 +69,13 @@ class Proud_FA_Build{
 	} // build_fa
 
 	/**
-	 * Build the FontAwesome icon strings for the free version
+	 * Makes our GraphQL query to Font Awesome via the WordPress Plugin for Font Awesome
 	 * 
 	 * @since 2022.04.13
+	 * @author Curtis
+	 * 
+	 * @uses 	\FortAwesome\fa() 						Built in WP plugin call to the Font Awesome graphql API
+	 * @uses 	self::process_icon_json() 				Processes API response and saves icons
 	 */
 	private static function build_basic_fa(){
 
@@ -78,22 +93,9 @@ class Proud_FA_Build{
 			}
 		}';
 
-		/* demo shorter working query */
-		/*$fa_query = 'query {
-			search(version:"6.0.0", query:"square", first:15) {
-				id
-				label
-				membership {
-				  free
-				}
-			}
-		  }';*/
-
 		$icon_json = \FortAwesome\fa()->query( $fa_query );
 
-		update_option( 'sfn_test', $icon_json );
-
-		self::process_icon_json( $icon_json );
+		return self::process_icon_json( $icon_json );
 
 	} // build_basic_fa
 
@@ -101,11 +103,14 @@ class Proud_FA_Build{
 	 * Processes the JSON and returns the icon classes we need
 	 * 
 	 * @since 2022.04.13
+	 * @author Curtis
+	 * 
+	 * @param 	$json 			string 			required 			The json query from Font Awesome
+	 * @uses 	set_transient() 									Sets our transient value
+	 * @uses 	update_option() 									Saves our option to the database
+	 * @return 	bool 			$success 							True if all options saved as expected
 	 */
 	private static function process_icon_json( $json ){
-
-		// could I actually just build both arrays now
-		// if pro grab the other stuff if not pro don't worry about it
 
 		$basic_icons = array();
 		$pro_icons = array();
@@ -138,14 +143,15 @@ class Proud_FA_Build{
 
 		} // foreach $results
 
-		set_transient( 'fa_pro_icons_trans', $pro_icons );
-		update_option( 'fa_pro_icons', $pro_icons );
+		$pro_trans = set_transient( 'fa_pro_icons_trans', $pro_icons );
+		$pro_opt = update_option( 'fa_pro_icons', $pro_icons );
 
-		set_transient( 'fa_basic_icons_trans', $basic_icons );
-		update_option( 'fa_basic_icons', $basic_icons );
+		$basic_trans = set_transient( 'fa_basic_icons_trans', $basic_icons );
+		$basic_opt = update_option( 'fa_basic_icons', $basic_icons );
 
-		// @todo need to return false if we fail and give a message of some fashion
-		return $basic_icons;
+		$success = ( $pro_trans && $pro_opt && $basic_trans && $basic_opt ) ? true : false;
+
+		return (bool) $success;
 
 	} // process_icon_json
 
