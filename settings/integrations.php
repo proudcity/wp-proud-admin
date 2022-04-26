@@ -154,7 +154,13 @@ class ProudIntegrationsSettingsPage extends ProudSettingsPage
           ),
         ],
 
-        
+        'fa_generate' => [
+          '#type' => 'html',
+          '#html' => 
+            '<h3>' . __pcHelp('Font Awesome') . '</h3>' .
+            '<a class="btn btn-default" id="fa-generate" href="#">Regenerate Font Awesome List</a>' .
+            '<p class="message"></p>'
+        ], 
 
         'social_title' => [
           '#type' => 'html',

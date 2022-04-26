@@ -29,6 +29,8 @@ require_once( plugin_dir_path(__FILE__) . 'lib/meta-box.class.php' );
 require_once( plugin_dir_path(__FILE__) . 'wp-proud-admin-helpers.php' );
 // Dashboard
 require_once( plugin_dir_path(__FILE__) . 'dashboard/wp-proud-admin-dashboard.php' );
+// FontAwesome Builder
+require_once( plugin_dir_path(__FILE__) . 'lib/proud-fa-build.php' );
 
 class ProudAdmin extends \ProudPlugin {
 
@@ -178,6 +180,20 @@ class ProudAdmin extends \ProudPlugin {
     wp_enqueue_script('proud-admin/js', $path . 'scripts/proud-admin.js', ['proud','jquery'], null, true);
     // // Bootstrap
     // wp_enqueue_script('proud/js', Assets\asset_path('scripts/main.js'), ['jquery'], null, true);
+
+    // temp CSS file until we rebuild the overall admin theme build process
+    wp_enqueue_style('proud-admin/css-temp', $path . 'styles/proud-admin-temp.css', false, null);
+
+
+
+    $screen = get_current_screen();
+    if ( 'settings_page_integrations' == $screen->id ){
+      wp_enqueue_script( 'proud-admin/fa',  plugins_url( '/wp-proud-admin/assets/scripts/proud-fa.js'), ['proud', 'jquery'], null, true );
+   		wp_localize_script( 'proud-admin/fa', 'ProudFaBuild', array(
+        'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+        'proud_fabuild_ajax_nonce' => wp_create_nonce( 'proud_fabuild_ajax_nonce' ),
+      ) );
+    }
 
     // Fonts
     wp_enqueue_style('external-fonts', '//fonts.googleapis.com/css?family=Lato:400,700,300');
