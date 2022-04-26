@@ -11,6 +11,7 @@ jQuery(document).ready(function($) {
     $(button).after('<span class="spinner"></span>')
 
     var spinner = $(group).find('.spinner');
+    var message = $(group).find('.message');
 
     var data = {
         'action': 'proud_build_fa',
@@ -28,14 +29,12 @@ jQuery(document).ready(function($) {
 			// hide spinner
             $(spinner).css('visibility', 'hidden');      
 
-            console.log(response);
-
 			if ( true === response.data.success ){
-				console.log( 'success' );
+                $(message).empty().append(response.data.message);
 			} // yup
 
 			if ( false === response.data.success ){
-				console.log( 'fail' );
+                $(message).empty().append(response.data.message);
 			}
 
 		}); // end ajax post

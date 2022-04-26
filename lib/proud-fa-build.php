@@ -143,10 +143,15 @@ class Proud_FA_Build{
 
 		} // foreach $results
 
-		$pro_trans = set_transient( 'fa_pro_icons_trans', $pro_icons );
+		delete_transient( 'fa_pro_icons_trans' );
+		delete_transient( 'fa_basic_icons_trans' );
+		delete_option( 'fa_pro_icons' );
+		delete_option( 'fa_basic_icons' );
+
+		$pro_trans = set_transient( 'fa_pro_icons_trans', $pro_icons, 2629746 );
 		$pro_opt = update_option( 'fa_pro_icons', $pro_icons );
 
-		$basic_trans = set_transient( 'fa_basic_icons_trans', $basic_icons );
+		$basic_trans = set_transient( 'fa_basic_icons_trans', $basic_icons, 2629746 );
 		$basic_opt = update_option( 'fa_basic_icons', $basic_icons );
 
 		$success = ( $pro_trans && $pro_opt && $basic_trans && $basic_opt ) ? true : false;
