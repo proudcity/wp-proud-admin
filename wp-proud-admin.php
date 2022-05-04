@@ -31,6 +31,8 @@ require_once( plugin_dir_path(__FILE__) . 'wp-proud-admin-helpers.php' );
 require_once( plugin_dir_path(__FILE__) . 'dashboard/wp-proud-admin-dashboard.php' );
 // FontAwesome Builder
 require_once( plugin_dir_path(__FILE__) . 'lib/proud-fa-build.php' );
+// User Profile Customizations
+require_once( plugin_dir_path(__FILE__) . 'lib/proud-customize-wp-profile.php' );
 
 class ProudAdmin extends \ProudPlugin {
 
