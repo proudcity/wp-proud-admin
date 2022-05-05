@@ -52,6 +52,8 @@ This is a temp CSS file until we have a chance to rebuild the proper admin theme
 .proudcity-iconpicker.icons-selector .selector-arrow-left{margin-right:3px;}
 
 /** Customizing the User Profile Page **/
+#your-profile .user-email-wrap,
+#your-profile .user-url-wrap,
 #your-profile .user-pass1-wrap,
 #your-profile .yoast-settings,
 #application-passwords-section{display:none; visibility:hidden;}
