@@ -57,7 +57,8 @@ class Proud_Custom_Profile{
         unset( $methods['wikipedia'] );
 
         return $methods;
-    }
+
+    } // remove_contact_methods
 
 }
 
