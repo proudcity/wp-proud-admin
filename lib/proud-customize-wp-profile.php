@@ -30,9 +30,28 @@ class Proud_Custom_Profile{
 	public function init(){
         remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
         add_filter( 'user_contactmethods', array( $this, 'remove_contact_methods' ), 99, 2 );
+
+        // silly Javascript stuff to hide more profile stuff
+        add_action( 'admin_head', array( $this, 'js_profile_cleaner' ) );
+
 	} // init
 
-    /**
+    public static function js_profile_cleaner(){
+        $screen = get_current_screen();
+
+        if ( 'profile' === $screen->base ){ ?>
+            <script type="text/javascript">
+                jQuery(document).ready(function($) {
+                    $('h2:contains("Contact Info")').hide();
+                    $('h2:contains("Personal Options")').hide();
+
+                    $('tr.user-rich-editing-wrap').parents('.form-table').hide();
+                });
+            </script>
+        <?php } // if profile === screen->base
+    }
+
+     /**
      * Removes a bunch of the available contact methods from the Contact Info area of the User Profile screen
      *
      * @since 2022.05.05
