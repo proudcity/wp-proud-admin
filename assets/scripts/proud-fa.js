@@ -5,8 +5,8 @@ jQuery(document).ready(function($) {
      * @todo remove the console log statements
      */
 
-    var button = $('#fa-generate');
-    var group = $(button).parent('.form-group')
+    var faButton = $('#fa-generate');
+    var group = $(faButton).parent('.form-group')
 
     $(button).after('<span class="spinner"></span>')
 
@@ -18,16 +18,16 @@ jQuery(document).ready(function($) {
         'security': ProudFaBuild.proud_fabuild_ajax_nonce
     };
 
-    $(document).on('click', button, function(e){
+    $(document).on('click', faButton, function(e){
         e.preventDefault();
-        
+
         // giving some user feedback that stuff is happening
         $(spinner).css('visibility', 'visible');
 
         $.post( ProudFaBuild.ajaxurl, data, function( response ) {
 
 			// hide spinner
-            $(spinner).css('visibility', 'hidden');      
+            $(spinner).css('visibility', 'hidden');
 
 			if ( true === response.data.success ){
                 $(message).empty().append(response.data.message);
