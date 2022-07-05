@@ -171,6 +171,7 @@ abstract class ProudSettingsPage {
      * Deals with submit values
      */
     public function escape_post_value( &$value, $field ) {
+
       // If checkbox, and no value, set to 0
       if( 'checkbox' === $field['#type'] && !isset( $value ) ) {
         $value = 0;
@@ -218,6 +219,7 @@ abstract class ProudSettingsPage {
      * Saves form values
      */
     public function save( &$raw_values ) {
+
       $values = $this->form->getFormValues( $raw_values );
       foreach ( array_keys( $this->options ) as $key ) {
         // Escape
@@ -231,6 +233,35 @@ abstract class ProudSettingsPage {
       if( $this->option ) {
         update_option( $this->option, $values );
       }
+
+      /**
+       * Had some caching issues with the alert bar so if we're saving it
+       * we should run a cache clearing routine.
+       */
+      if ( isset( $raw_values['form-alertbar'] ) && ! empty( $raw_values['form-alertbar'] ) ){
+        if ( $raw_values['form-alertbar'][1]['alert_active'] ){
+          $this->clear_cache();
+        }
+      } // isset
+
       $raw_values = $values;
-    }
+
+    } // save
+
+    /**
+     * Clears the cache for and preloads a few pages that see lots of traffic
+     *
+     * @since 2022.07.05
+     * @author Curtis McHale
+     * @link https://docs.wp-rocket.me/article/494-how-to-clear-cache-via-cron-job#clear-cache
+     */
+    private static function clear_cache(){
+
+        if( function_exists('rocket_clean_domain') ){
+          update_option( 'proud_alert_bar_cleaned', time() );
+          rocket_clean_domain();
+        }
+
+    } // clear_cache
+
 }
