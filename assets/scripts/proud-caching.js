@@ -1,30 +1,28 @@
 jQuery(document).ready(function($) {
 
-    /**
-     * @todo style the spinner so it lines up with the button as expected
-     * @todo remove the console log statements
-     */
+    var clearButton = $('#pc_clear_cache');
+    var group = $(clearButton).parent('.form-group')
 
-    var faButton = $('#fa-generate');
-    var group = $(faButton).parent('.form-group')
-
-    $(faButton).after('<span class="spinner"></span>')
+    $(clearButton).after('<span class="spinner"></span>');
 
     var spinner = $(group).find('.spinner');
     var message = $(group).find('.message');
 
-    var data = {
-        'action': 'proud_build_fa',
-        'security': ProudFaBuild.proud_fabuild_ajax_nonce
-    };
+    $(document).on( 'click touchstart', '#pc_clear_cache', function(e){
 
-    $(document).on('click', faButton, function(e){
+    console.log('clicked');
+
         e.preventDefault();
 
         // giving some user feedback that stuff is happening
         $(spinner).css('visibility', 'visible');
 
-        $.post( ProudFaBuild.ajaxurl, data, function( response ) {
+        var data = {
+            'action': 'proud_clear_cache',
+            'security': ProudCaching.proud_caching_ajax_nonce
+        };
+
+        $.post( ProudCaching.ajaxurl, data, function( response ) {
 
 			// hide spinner
             $(spinner).css('visibility', 'hidden');
@@ -38,7 +36,6 @@ jQuery(document).ready(function($) {
 			}
 
 		}); // end ajax post
-
     });
 
 });
