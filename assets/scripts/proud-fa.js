@@ -18,7 +18,8 @@ jQuery(document).ready(function($) {
         'security': ProudFaBuild.proud_fabuild_ajax_nonce
     };
 
-    $(document).on('click', faButton, function(e){
+    $(document).on('click touchstart', '#fa-generate', function(e){
+        console.log( 'clicked' );
         e.preventDefault();
 
         // giving some user feedback that stuff is happening
