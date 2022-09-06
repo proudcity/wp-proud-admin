@@ -49,7 +49,7 @@ class ProudAdmin extends \ProudPlugin {
     $this->hook( 'init', 'register_setting_pages' );
     // @todo: add this in register_activation_hook, implement register_deactivation_hook
     // http://wordpress.stackexchange.com/questions/35165/how-do-i-create-a-custom-role-capability
-    $this->hook( 'admin_init', 'add_caps' ); 
+    $this->hook( 'admin_init', 'add_caps' );
     $this->hook( 'admin_enqueue_scripts', 'proud_admin_theme_style' );
     $this->hook( 'login_enqueue_scripts', 'proud_admin_theme_style' );
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_dashboard', 20 );
@@ -67,7 +67,7 @@ class ProudAdmin extends \ProudPlugin {
     $this->hook('init', 'remove_post_admin_fields');
     // Hide theme selection options
     add_filter( 'wp_prepare_themes_for_js', array($this, 'filter_theme_options') );
-    
+
     $this->hook( 'tiny_mce_before_init', 'tiny_mce_alter' );
     $this->hook( 'admin_print_footer_scripts', 'wp_561_window_unload_error_final_fix' );
 
@@ -76,7 +76,7 @@ class ProudAdmin extends \ProudPlugin {
 
   /**
    * Register admin settings pages
-   */ 
+   */
   public function register_setting_pages() {
     if( is_admin() ) {
       require_once( plugin_dir_path(__FILE__) . 'settings/settings.php' );
@@ -110,7 +110,7 @@ class ProudAdmin extends \ProudPlugin {
   // Add permissions to Editor role
   function add_caps( $allcaps, $cap = null, $args = [] ) {
     $editor_caps = array(
-      'activate_plugins',  //@todo: need to look at ramfications (left sidebar) before enabling             
+      'activate_plugins',  //@todo: need to look at ramfications (left sidebar) before enabling
       'switch_themes',
       'edit_files',
       'edit_theme_options',
@@ -159,15 +159,15 @@ class ProudAdmin extends \ProudPlugin {
     );
     $role = get_role( 'editor' );
     foreach ($editor_caps as $item) {
-      $role->add_cap( $item ); 
+      $role->add_cap( $item );
     }
 
-    $administrator_caps = array(               
+    $administrator_caps = array(
       'edit_proud_options',
     );
     $role = get_role( 'administrator' );
     foreach ($administrator_caps as $item) {
-      $role->add_cap( $item ); 
+      $role->add_cap( $item );
     }
   }
 
@@ -187,9 +187,8 @@ class ProudAdmin extends \ProudPlugin {
     wp_enqueue_style('proud-admin/css-temp', $path . 'styles/proud-admin-temp.css', false, null);
 
 
-
     $screen = get_current_screen();
-    if ( 'settings_page_integrations' == $screen->id ){
+    if ( is_object( $screen ) && 'settings_page_integrations' == $screen->id ){
       wp_enqueue_script( 'proud-admin/fa',  plugins_url( '/wp-proud-admin/assets/scripts/proud-fa.js'), ['proud', 'jquery'], null, true );
    		wp_localize_script( 'proud-admin/fa', 'ProudFaBuild', array(
         'ajaxurl'           => admin_url( 'admin-ajax.php' ),
@@ -217,7 +216,7 @@ class ProudAdmin extends \ProudPlugin {
     }
     return $prepared_themes;
   }
-  
+
 
   // Change the cap for redirect post type creation from manage_options
   function redirect_capability($cap) {
@@ -255,28 +254,28 @@ class ProudAdmin extends \ProudPlugin {
         'id'    => 'pc-help-search',
         'parent' => 'pc-help',
         'title' => 'Search Help',
-        'href'  => 'https://help.proudcity.com/',        
+        'href'  => 'https://help.proudcity.com/',
     ) );
     $admin_bar->add_menu( array(
         'id'    => 'pc-help-ticket',
         'parent' => 'pc-help',
         'title' => 'Create a ticket',
-        'href'  => 'https://help.proudcity.com/submit',        
+        'href'  => 'https://help.proudcity.com/submit',
     ) );
     $admin_bar->add_menu( array(
         'id'    => 'pc-help-chat',
         'parent' => 'pc-help',
         'title' => 'Live chat',
-        'href'  => 'https://help.proudcity.com/',  
+        'href'  => 'https://help.proudcity.com/',
         'meta'  => array(
             'onclick' => "loadChat();return false;",
-        ),      
+        ),
     ) );
     $admin_bar->add_menu( array(
         'id'    => 'pc-help-request-feature',
         'parent' => 'pc-help',
         'title' => 'Request a feature',
-        'href'  => 'https://help.proudcity.com/submit?type=Feature+request',        
+        'href'  => 'https://help.proudcity.com/submit?type=Feature+request',
     ) );
   }
 
@@ -337,7 +336,7 @@ class ProudAdmin extends \ProudPlugin {
   /**
    * Fix for Platform: Upgrading WordPress core and "Are you sure you want to leave" alert #1822
    * https://github.com/proudcity/wp-proudcity/issues/1822
-   * 
+   *
    * From: https://core.trac.wordpress.org/ticket/52440
    *
    * @return void
