@@ -83,6 +83,7 @@ class ProudAdmin extends \ProudPlugin {
       require_once( plugin_dir_path(__FILE__) . 'settings/integrations.php' );
       require_once( plugin_dir_path(__FILE__) . 'settings/social.php' );
       require_once( plugin_dir_path(__FILE__) . 'settings/alert.php' );
+      require_once( plugin_dir_path(__FILE__) . 'settings/caching.php' );
     }
   }
 
@@ -193,6 +194,14 @@ class ProudAdmin extends \ProudPlugin {
    		wp_localize_script( 'proud-admin/fa', 'ProudFaBuild', array(
         'ajaxurl'           => admin_url( 'admin-ajax.php' ),
         'proud_fabuild_ajax_nonce' => wp_create_nonce( 'proud_fabuild_ajax_nonce' ),
+      ) );
+    }
+
+    if ( 'settings_page_caching' == $screen->id ){
+      wp_enqueue_script( 'proud-admin/cache',  plugins_url( '/wp-proud-admin/assets/scripts/proud-caching.js'), ['proud', 'jquery'], null, true );
+   		wp_localize_script( 'proud-admin/cache', 'ProudCaching', array(
+        'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+        'proud_caching_ajax_nonce' => wp_create_nonce( 'proud_caching_ajax_nonce' ),
       ) );
     }
 
