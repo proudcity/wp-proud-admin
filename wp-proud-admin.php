@@ -197,7 +197,7 @@ class ProudAdmin extends \ProudPlugin {
       ) );
     }
 
-    if ( 'settings_page_caching' == $screen->id ){
+    if ( is_object( $screen ) && 'settings_page_caching' == $screen->id ){
       wp_enqueue_script( 'proud-admin/cache',  plugins_url( '/wp-proud-admin/assets/scripts/proud-caching.js'), ['proud', 'jquery'], null, true );
    		wp_localize_script( 'proud-admin/cache', 'ProudCaching', array(
         'ajaxurl'           => admin_url( 'admin-ajax.php' ),
