@@ -188,23 +188,24 @@ class ProudAdmin extends \ProudPlugin {
     wp_enqueue_style('proud-admin/css-temp', $path . 'styles/proud-admin-temp.css', false, null);
 
 
+    if ( function_exists( 'get_current_screen' ) ){
+      $screen = get_current_screen();
+      if ( 'settings_page_integrations' == $screen->id ){
+        wp_enqueue_script( 'proud-admin/fa',  plugins_url( '/wp-proud-admin/assets/scripts/proud-fa.js'), ['proud', 'jquery'], null, true );
+        wp_localize_script( 'proud-admin/fa', 'ProudFaBuild', array(
+          'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+          'proud_fabuild_ajax_nonce' => wp_create_nonce( 'proud_fabuild_ajax_nonce' ),
+        ) );
+      }
 
-    $screen = get_current_screen();
-    if ( 'settings_page_integrations' == $screen->id ){
-      wp_enqueue_script( 'proud-admin/fa',  plugins_url( '/wp-proud-admin/assets/scripts/proud-fa.js'), ['proud', 'jquery'], null, true );
-   		wp_localize_script( 'proud-admin/fa', 'ProudFaBuild', array(
-        'ajaxurl'           => admin_url( 'admin-ajax.php' ),
-        'proud_fabuild_ajax_nonce' => wp_create_nonce( 'proud_fabuild_ajax_nonce' ),
-      ) );
-    }
-
-    if ( 'settings_page_caching' == $screen->id ){
-      wp_enqueue_script( 'proud-admin/cache',  plugins_url( '/wp-proud-admin/assets/scripts/proud-caching.js'), ['proud', 'jquery'], null, true );
-   		wp_localize_script( 'proud-admin/cache', 'ProudCaching', array(
-        'ajaxurl'           => admin_url( 'admin-ajax.php' ),
-        'proud_caching_ajax_nonce' => wp_create_nonce( 'proud_caching_ajax_nonce' ),
-      ) );
-    }
+      if ( 'settings_page_caching' == $screen->id ){
+        wp_enqueue_script( 'proud-admin/cache',  plugins_url( '/wp-proud-admin/assets/scripts/proud-caching.js'), ['proud', 'jquery'], null, true );
+        wp_localize_script( 'proud-admin/cache', 'ProudCaching', array(
+          'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+          'proud_caching_ajax_nonce' => wp_create_nonce( 'proud_caching_ajax_nonce' ),
+        ) );
+      }
+    } // function_exists
 
     // Fonts
     wp_enqueue_style('external-fonts', '//fonts.googleapis.com/css?family=Lato:400,700,300');
