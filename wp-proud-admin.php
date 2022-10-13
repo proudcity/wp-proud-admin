@@ -187,10 +187,9 @@ class ProudAdmin extends \ProudPlugin {
     // temp CSS file until we rebuild the overall admin theme build process
     wp_enqueue_style('proud-admin/css-temp', $path . 'styles/proud-admin-temp.css', false, null);
 
-
     if ( function_exists( 'get_current_screen' ) ){
       $screen = get_current_screen();
-      if ( 'settings_page_integrations' == $screen->id ){
+      if ( is_object( $screen ) && 'settings_page_integrations' == $screen->id ){
         wp_enqueue_script( 'proud-admin/fa',  plugins_url( '/wp-proud-admin/assets/scripts/proud-fa.js'), ['proud', 'jquery'], null, true );
         wp_localize_script( 'proud-admin/fa', 'ProudFaBuild', array(
           'ajaxurl'           => admin_url( 'admin-ajax.php' ),
@@ -198,7 +197,7 @@ class ProudAdmin extends \ProudPlugin {
         ) );
       }
 
-      if ( 'settings_page_caching' == $screen->id ){
+      if ( is_object( $screen ) && 'settings_page_caching' == $screen->id ){
         wp_enqueue_script( 'proud-admin/cache',  plugins_url( '/wp-proud-admin/assets/scripts/proud-caching.js'), ['proud', 'jquery'], null, true );
         wp_localize_script( 'proud-admin/cache', 'ProudCaching', array(
           'ajaxurl'           => admin_url( 'admin-ajax.php' ),
