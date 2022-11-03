@@ -3,10 +3,22 @@ class ProudIntegrationsSettingsPage extends ProudSettingsPage
 {
     /**
      * Start up
+     *
+     *
      */
     public function __construct()
     {
 
+      /**
+       * Allows other plugins to add to our settings without embedding settings
+       * and increasing plugin dependencies. You must add to this so that our
+       * options will save as expected.
+       *
+       * @since 2022.11.03
+       * @author Curtis
+       *
+       * @param   array             Array of current options
+       */
       $integration_options = apply_filters( 'pc_admin_integration_options',
         array(
             'google_analytics_key' => '',
@@ -215,7 +227,16 @@ class ProudIntegrationsSettingsPage extends ProudSettingsPage
         ],
       ];
 
-      $this->fields = apply_filters( 'pc_admin_integrations_settings', $integrations_fields_array );
+      /**
+       * Adds fields to the form. This WILL NOT save the fields see pc_admin_integration_options for
+       * the key you need to add to have your displayed fields save.
+       *
+       * @since 2022.11.03
+       * @author Curtis
+       *
+       * @param     array       $integrations_fields_array                    Array of existing fields that we can modify
+       */
+      $this->fields = apply_filters( 'pc_admin_integration_settings', $integrations_fields_array );
     }
 
     /**
