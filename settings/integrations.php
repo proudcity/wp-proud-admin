@@ -6,6 +6,20 @@ class ProudIntegrationsSettingsPage extends ProudSettingsPage
      */
     public function __construct()
     {
+
+      $integration_options = apply_filters( 'pc_admin_integration_options',
+        array(
+            'google_analytics_key' => '',
+            'search_service' => 'wordpress',
+            //'search_google_key' => '',
+            //'mapbox_token' => '',
+            //'mapbox_map' => '',
+            'google_api_key' => '',
+            'embed_code' => '',
+            'validation_metatags' => '',
+        )
+      );
+
       parent::__construct(
         'integrations', // Key
         [ // Submenu settings
@@ -15,24 +29,15 @@ class ProudIntegrationsSettingsPage extends ProudSettingsPage
           'capability' => 'edit_proud_options',
         ],
         '', // Option
-        [   // Options
-          'google_analytics_key' => '',
-          'search_service' => 'wordpress',
-          //'search_google_key' => '',
-          //'mapbox_token' => '',
-          //'mapbox_map' => '',
-          'google_api_key' => '',
-          'embed_code' => '',
-          'validation_metatags' => '',
-        ]
+        $integration_options
       );
     }
 
-    /** 
+    /**
      * Sets fields
      */
     public function set_fields( ) {
-      $this->fields = [
+      $integrations_fields_array = [
         'analytics_title' => [
           '#type' => 'html',
           '#html' => '<h3>' . __pcHelp('Analytics') . '</h3>',
@@ -156,15 +161,15 @@ class ProudIntegrationsSettingsPage extends ProudSettingsPage
 
         'fa_generate' => [
           '#type' => 'html',
-          '#html' => 
+          '#html' =>
             '<h3>' . __pcHelp('Font Awesome') . '</h3>' .
             '<a class="btn btn-default" id="fa-generate" href="#">Regenerate Font Awesome List</a>' .
             '<p class="message"></p>'
-        ], 
+        ],
 
         'social_title' => [
           '#type' => 'html',
-          '#html' => 
+          '#html' =>
             '<h3>' . __pcHelp('Social feeds') . '</h3>' .
             '<a class="btn btn-default" href="/wp-admin/admin.php?page=social">Set up social feeds &raquo</a>'
         ],
@@ -187,7 +192,7 @@ class ProudIntegrationsSettingsPage extends ProudSettingsPage
           '#name' => 'mapbox_map',
           // @todo: desc
         ],*/
-            
+
 
         'embed_title' => [
           '#type' => 'html',
@@ -209,6 +214,8 @@ class ProudIntegrationsSettingsPage extends ProudSettingsPage
           ),
         ],
       ];
+
+      $this->fields = apply_filters( 'pc_admin_integrations_settings', $integrations_fields_array );
     }
 
     /**
