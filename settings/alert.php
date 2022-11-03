@@ -7,6 +7,25 @@ class ProudAlertPage extends ProudSettingsPage
      */
     public function __construct()
     {
+
+      /**
+       * Allows other plugins to add to our settings without embedding settings
+       * and increasing plugin dependencies. You must add to this so that our
+       * options will save as expected.
+       *
+       * @since 2022.11.03
+       * @author Curtis
+       *
+       * @param   array             Array of current options
+       */
+      $alert_options = apply_filters( 'pc_admin_alert_options',
+        array(
+          'alert_active' => '',
+          'alert_message' => '',
+          'alert_severity' => '',
+        )
+      );
+
       parent::__construct(
         'alertbar', // Key
         [ // Submenu settings
@@ -16,20 +35,16 @@ class ProudAlertPage extends ProudSettingsPage
           'capability' => 'edit_proud_options',
         ],
         '', // Option
-        [   // Options
-          'alert_active' => '',
-          'alert_message' => '',
-          'alert_severity' => '',
-        ]
+        $alert_options
       );
     }
 
-    /** 
+    /**
      * Sets fields
      */
     public function set_fields( ) {
 
-      $this->fields = [
+      $alert_fields_array = [
         'alert_active' => [
           '#type' => 'checkbox',
           '#title' => __pcHelp('Active'),
@@ -61,8 +76,19 @@ class ProudAlertPage extends ProudSettingsPage
         ]
       ];
 
+      /**
+       * Adds fields to the form. This WILL NOT save the fields see pc_admin_alert_options for
+       * the key you need to add to have your displayed fields save.
+       *
+       * @since 2022.11.03
+       * @author Curtis
+       *
+       * @param     array       $alert_fields_array                    Array of existing fields that we can modify
+       */
+      $this->fields = apply_filters( 'pc_admin_alert_settings', $alert_fields_array );
+
     }
-    
+
     /**
      * Print page content
      */

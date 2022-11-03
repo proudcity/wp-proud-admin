@@ -6,6 +6,24 @@ class ProudCachingSettingsPage extends ProudSettingsPage
      */
     public function __construct()
     {
+
+      /**
+       * Allows other plugins to add to our settings without embedding settings
+       * and increasing plugin dependencies. You must add to this so that our
+       * options will save as expected.
+       *
+       * @since 2022.11.03
+       * @author Curtis
+       *
+       * @param   array             Array of current options
+       */
+      $caching_options = apply_filters( 'pc_admin_caching_options',
+        array(
+          // 'option_name' => '', // yeah you do not need anything in the second item
+        )
+      );
+
+
       parent::__construct(
         'caching', // Key
         [ // Submenu settings
@@ -15,9 +33,7 @@ class ProudCachingSettingsPage extends ProudSettingsPage
           'capability' => 'edit_proud_options',
         ],
         '', // Option
-        [   // Options
-
-        ]
+        $caching_options
       );
 
     }
@@ -26,7 +42,7 @@ class ProudCachingSettingsPage extends ProudSettingsPage
      * Sets fields
      */
     public function set_fields( ) {
-      $this->fields = [
+      $caching_fields_array = [
         'clear_cache' => [
           '#type' => 'html',
           '#html' =>
@@ -35,8 +51,19 @@ class ProudCachingSettingsPage extends ProudSettingsPage
             '<p class="message"></p>'
         ],
 
-
       ];
+
+      /**
+       * Adds fields to the form. This WILL NOT save the fields see pc_admin_caching_options for
+       * the key you need to add to have your displayed fields save.
+       *
+       * @since 2022.11.03
+       * @author Curtis
+       *
+       * @param     array       $caching_fields_array                    Array of existing fields that we can modify
+       */
+      $this->fields = apply_filters( 'pc_admin_caching_settings', $caching_fields_array );
+
     }
 
     /**

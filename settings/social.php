@@ -6,6 +6,24 @@ class ProudAdminSocialSettingsPage extends ProudSettingsPage
      */
     public function __construct()
     {
+
+      /**
+       * Allows other plugins to add to our settings without embedding settings
+       * and increasing plugin dependencies. You must add to this so that our
+       * options will save as expected.
+       *
+       * @since 2022.11.03
+       * @author Curtis
+       *
+       * @param   array             Array of current options
+       */
+      $social_options = apply_filters( 'pc_admin_social_options',
+        array(
+          'social_feeds' => '',
+          'social_map' => '',
+        )
+      );
+
       parent::__construct(
         'social', // Key
         [ // Submenu settings
@@ -15,19 +33,16 @@ class ProudAdminSocialSettingsPage extends ProudSettingsPage
           'capability' => 'edit_proud_options',
         ],
         '', // Option
-        [   // Options
-          'social_feeds' => '',
-          'social_map' => '',
-        ]
+        $social_options
       );
     }
 
 
-    /** 
+    /**
      * Sets fields
      */
     public function set_fields( ) {
-      $this->fields = [
+      $social_fields_array = [
         'social_feeds_title' => [
           '#type' => 'html',
           '#html' => '<h3>' . __pcHelp('Social feeds') . '</h3>',
@@ -49,6 +64,17 @@ class ProudAdminSocialSettingsPage extends ProudSettingsPage
         ],
       ];
 
+      /**
+       * Adds fields to the form. This WILL NOT save the fields see pc_admin_social_options for
+       * the key you need to add to have your displayed fields save.
+       *
+       * @since 2022.11.03
+       * @author Curtis
+       *
+       * @param     array       $social_fields_array                    Array of existing fields that we can modify
+       */
+      $this->fields = apply_filters( 'pc_admin_social_settings', $social_fields_array );
+
     }
 
     /**
@@ -58,7 +84,7 @@ class ProudAdminSocialSettingsPage extends ProudSettingsPage
       $this->print_form( );
     }
 
-    /** 
+    /**
      * Saves form values
      */
     public function save( &$values ) {
@@ -108,13 +134,13 @@ class ProudAdminSocialSettingsPage extends ProudSettingsPage
         $service = is_array($options) ? $options[0] : $options;
         $data = array();
         switch ($service) {
-          case 'foursquare': 
+          case 'foursquare':
             $data = array(
               'type' => $title,
               'url' => 'query',
             );
             break;
-          case 'socrata': 
+          case 'socrata':
           case 'gtfs':
             $data = array(
               'type' => $title,
@@ -187,7 +213,7 @@ class ProudAdminSocialSettingsPage extends ProudSettingsPage
           CURLOPT_POSTFIELDS     => $data_string,
           CURLOPT_USERPWD        => $user,
           CURLOPT_HTTPAUTH       => CURLAUTH_BASIC,
-          curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+          curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json'
           )),
       );
