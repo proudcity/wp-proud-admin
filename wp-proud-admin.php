@@ -3,7 +3,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity distribution
-Version:            1.0.0
+Version:            2022.11.03.0952
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 
