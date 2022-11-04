@@ -14,7 +14,9 @@
     "sass-loader": "^12.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "projectsetup": "bower install && rm -rf bower_components/proudcity-patterns && git clone git@github.com:proudcity/proudcity-patterns.git bower_components/proudcity-patterns",
+    "projectupdate": "rm -rf bower_components/proudcity-patterns && git clone git@github.com:proudcity/proudcity-patterns.git bower_components/proudcity-patterns"
   },
   "repository": {
     "type": "git",
