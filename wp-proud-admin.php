@@ -2,8 +2,8 @@
 /*
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
-Description:        ProudCity distribution
-Version:            2022.11.04.1222
+Description:        ProudCity WordPress Admin theme and customizations
+Version:            2022.11.04.1233
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 
