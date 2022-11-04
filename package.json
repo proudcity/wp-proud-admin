@@ -1,60 +1,30 @@
 {
-  "name": "sage",
-  "version": "8.4.0",
-  "author": "Ben Word <ben@benword.com>",
-  "homepage": "https://roots.io/sage/",
-  "private": true,
+  "name": "wp-proud-admin",
+  "version": "1.0.0",
+  "description": "Administration theme, permissions tweaks, and ProudCity settings pages. [ProudCity](http://proudcity.com) is a Wordpress platform for modern, standards-compliant municipal websites.",
+  "main": "webpack.mix.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "laravel-mix": "^6.0.49",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.56.0",
+    "sass-loader": "^12.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/roots/sage.git"
+    "url": "git+https://github.com/proudcity/wp-proud-admin.git"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/roots/sage/issues"
+    "url": "https://github.com/proudcity/wp-proud-admin/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    }
-  ],
-  "scripts": {
-    "build": "bower install && gulp",
-    "jshint": "gulp jshint",
-    "jscs": "jscs gulpfile.js assets/scripts/*.js"
-  },
-  "engines": {
-    "node": ">= 0.12.0",
-    "npm": ">=2.1.5"
-  },
-  "devDependencies": {
-    "asset-builder": "^1.1.0",
-    "browser-sync": "^2.8.2",
-    "del": "^1.2.1",
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^2.3.1",
-    "gulp-changed": "^1.3.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-flatten": "0.1.1",
-    "gulp-git": "^2.4.2",
-    "gulp-if": "^1.2.5",
-    "gulp-imagemin": "^2.3.0",
-    "gulp-jshint": "^1.11.2",
-    "gulp-less": "^3.0.3",
-    "gulp-minify-css": "^1.2.0",
-    "gulp-plumber": "^1.0.1",
-    "gulp-prompt": "^0.1.2",
-    "gulp-rename": "^1.2.2",
-    "gulp-rev": "^6.0.0",
-    "gulp-sass": "^2.0.1",
-    "gulp-sourcemaps": "^1.5.2",
-    "gulp-uglify": "^1.2.0",
-    "imagemin-pngcrush": "^4.1.0",
-    "jshint-stylish": "^2.0.1",
-    "lazypipe": "^1.0.1",
-    "merge-stream": "^1.0.0",
-    "minimist": "^1.1.3",
-    "run-sequence": "^1.1.2",
-    "traverse": "^0.6.6",
-    "wiredep": "^2.2.2"
-  }
+  "homepage": "https://github.com/proudcity/wp-proud-admin#readme"
 }

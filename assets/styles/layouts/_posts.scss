@@ -59,27 +59,27 @@
         display: block;
 
         #minor-publishing {
-          display: none;
+          //display: none;
         }
       }
     }
   }
-  
+
   #expirationdatediv {
     table {
       width: 100%;
-      
+
       td {
         padding: 3px;
-        
+
         select {
           width: 100%;
         }
       }
     }
-    
+
   }
-  
+
 }
 
 // Form builder popups
