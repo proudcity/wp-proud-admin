@@ -33,10 +33,10 @@ class Proud_FA_Build{
 
     /**
      * Builds Font Awesome strings for the database
-	 * 
+	 *
 	 * @since 2022.04.21
 	 * @author Curtis
-	 * 
+	 *
 	 * @uses 	check_ajax_referer 							Makes sure it's a secure ajax query with a nonce
 	 * @uses 	self::build_basic_fa() 						Build our icon list
 	 * @uses 	wp_kses_post() 								makes our content safe for display
@@ -70,10 +70,10 @@ class Proud_FA_Build{
 
 	/**
 	 * Makes our GraphQL query to Font Awesome via the WordPress Plugin for Font Awesome
-	 * 
+	 *
 	 * @since 2022.04.13
 	 * @author Curtis
-	 * 
+	 *
 	 * @uses 	\FortAwesome\fa() 						Built in WP plugin call to the Font Awesome graphql API
 	 * @uses 	self::process_icon_json() 				Processes API response and saves icons
 	 */
@@ -81,7 +81,7 @@ class Proud_FA_Build{
 
 		/* full query */
 		$fa_query = 'query {
-			release(version:"6.0.0") {
+			release(version:"6.1.1") {
 				icons {
 				id
 				label
@@ -101,10 +101,10 @@ class Proud_FA_Build{
 
 	/**
 	 * Processes the JSON and returns the icon classes we need
-	 * 
+	 *
 	 * @since 2022.04.13
 	 * @author Curtis
-	 * 
+	 *
 	 * @param 	$json 			string 			required 			The json query from Font Awesome
 	 * @uses 	set_transient() 									Sets our transient value
 	 * @uses 	update_option() 									Saves our option to the database
@@ -120,7 +120,7 @@ class Proud_FA_Build{
 
 		foreach( $results as $r ){
 			// skip if not in free
-			if ( empty( $r->membership->free ) ) {  
+			if ( empty( $r->membership->free ) ) {
 				// need to process pro icons here
 				$icon_class = 'fa-' . $r->id;
 				$style = $r->membership->pro;
