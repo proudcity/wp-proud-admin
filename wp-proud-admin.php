@@ -179,11 +179,11 @@ class ProudAdmin extends \ProudPlugin {
 	$version = $plugin_data['Version'];
 	$screen = get_current_screen();
 
-
+/*
 	echo '<pre>';
 	print_r( $screen );
 	echo '</pre>';
-
+*/
 		/**
 		 * Excluding gravity forms pages here because our vendor CSS loads
 		 * and messes up the styling of the page
