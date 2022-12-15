@@ -188,8 +188,8 @@ class ProudAdmin extends \ProudPlugin {
 		 * Excluding gravity forms pages here because our vendor CSS loads
 		 * and messes up the styling of the page
 		 */
-	if (    'toplevel_page_gf_edit_forms' != $screen->base ||
-			'forms_page_gf_entries' != $screen->base
+	if (    'toplevel_page_gf_edit_forms' != $screen->base
+			&& 'forms_page_gf_entries' != $screen->base
 	){
 		// Bootstrap + proud-library styles from theme
 		wp_enqueue_style('proud-vendor/css', Assets\asset_path('styles/proud-vendor.css'), false, esc_attr( $version ) );
