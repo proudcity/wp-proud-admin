@@ -1,0 +1,29 @@
+body.toplevel_page_gf_edit_forms{
+	#gform-form-toolbar.gform-form-toolbar{
+		max-width:83%;
+		margin-top:.6em;
+	}
+
+	.simplebar-content-wrapper{
+		width:83%;
+	}
+
+	#adminmenu .wp-has-current-submenu .wp-submenu{
+		padding-left:0;
+	}
+}
+
+
+body.gform-admin-screen{
+	#adminmenu .wp-has-current-submenu .wp-submenu{
+		padding-left:0;
+	}
+
+	#wpbody-content{
+		background-color:white;
+	}
+
+	#screen-meta-links{
+		display:none;
+	}
+}
