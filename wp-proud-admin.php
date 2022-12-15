@@ -3,7 +3,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2022.12.08.0927
+Version:            2022.12.15.1202
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 
@@ -188,7 +188,7 @@ class ProudAdmin extends \ProudPlugin {
 		 * Excluding gravity forms pages here because our vendor CSS loads
 		 * and messes up the styling of the page
 		 */
-	if (    'toplevel_page_gf_edit_forms' != $screen->base
+	if (    isset( $screen->base ) && 'toplevel_page_gf_edit_forms' != $screen->base
 			&& 'forms_page_gf_entries' != $screen->base
 	){
 		// Bootstrap + proud-library styles from theme
