@@ -3,7 +3,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2023.03.01.1345
+Version:            I2005.2023.03.15.1014
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 
@@ -359,10 +359,15 @@ class ProudAdmin extends \ProudPlugin {
 
   // Add metatags (head)
   function add_metatag_code () {
-    $ga = get_option('google_analytics_key', true);
-    $metatags = get_option('validation_metatags', true);
-    require_once( plugin_dir_path(__FILE__) . 'inc/tracking-code.php' );
-  }
+
+    // turn off our own extra tracking code for old Universal Analytics if site kit is enabeled
+    // @todo just entirely remove this once we have everyone converted
+    if ( ! is_plugin_active( 'google-site-kit' ) ){
+        $ga = get_option('google_analytics_key', true);
+        $metatags = get_option('validation_metatags', true);
+        require_once( plugin_dir_path(__FILE__) . 'inc/tracking-code.php' );
+    }
+}
 
   /**
    * Fix for Platform: Upgrading WordPress core and "Are you sure you want to leave" alert #1822
