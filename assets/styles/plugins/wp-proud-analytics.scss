@@ -1,0 +1,17 @@
+#adminmenu{
+    .toplevel_page_pc-analytics{
+
+        // forcing icon to show overriding default settings
+        .dashicons-before img{display:block;}
+
+        .wp-menu-image img{
+            width:15px;
+            padding:0;
+            margin-left:10px;
+        }
+
+
+    } // .toplevel_page_pc-analytics
+
+
+} // #adminmenu
