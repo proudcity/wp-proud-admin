@@ -13,5 +13,10 @@
 
     } // .toplevel_page_pc-analytics
 
+    .toplevel_page_googlesitekit{display:none;}
 
 } // #adminmenu
+
+.role-admin #adminmenu{
+    .toplevel_page_googlesitekit{display:block;}
+}
