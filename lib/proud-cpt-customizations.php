@@ -30,7 +30,7 @@ class Proud_CPT_Customizations{
 	 * @author SFNdesign, Curtis McHale
 	 */
 	public function init(){
-		add_filter('hidden_meta_boxes', array( $this 'hide_meta_box_attributes' ), 10, 2);
+		add_filter('hidden_meta_boxes', array( $this, 'hide_meta_box_attributes' ), 10, 2);
 	} // init
 
 	/**
