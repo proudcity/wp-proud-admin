@@ -39,10 +39,10 @@ class Proud_Force_Theme{
 		$has_parent = false;
 		$default_theme = self::check_default_theme();
 		$active_theme = wp_get_theme();
+
+		// checks if the currently active theme has a parent theme
 		$has_parent = self::theme_has_parent( $active_theme );
 
-		// does active theme have parent
-			// is parent theme present?
 
 		$is_active = self::is_specified_theme_active( $default_theme, $active_theme );
 
@@ -58,6 +58,18 @@ class Proud_Force_Theme{
 
 	} // force_theme_activation
 
+	/**
+	 * Checks if a theme has a parent theme and lets us know if that parent theme is not active or not present
+	 *
+	 * @since 2023.05.29
+	 * @author Curtis
+	 * @access private
+	 *
+	 * @param	object		$active_theme		required					Active theme object
+	 * @uses	site_url()													Returns site url
+	 * @uses	self::send_slack_message()									Sends a message to our dev slack channel
+	 * @return	bool		$has_parent										True if all the parent theme checks are good, false if not
+	 */
 	private static function theme_has_parent( $active_theme ){
 
 		$has_parent = false;
@@ -65,17 +77,45 @@ class Proud_Force_Theme{
 		$parent = $active_theme->parent();
 
 		// does this double as a check that the theme exists
-		if ( $parent->exists() ){
+		if ( ! $parent->exists() ){
 
-			echo '<pre> parent';
-			print_r( $parent );
-			echo '</pre>';
+			$m = 'Parent theme does not exist for `. site_url()';
 
+			self::send_slack_message( 'no_parent_theme', $m );
+
+		} else {
+			$has_parent = true;
 		}
 
 		return (bool) $has_parent;
 
 	}
+
+	private static function send_slack_message( $message_name, $message_content ){
+
+		$slack_key = get_option( 'proud_slack_key' );
+
+		$notified = get_transient( $message_name );
+
+		if ( false === $notified ){
+
+			$curl = curl_init( $slack_key );
+
+			$message = array( 'payload' => json_encode( array( 'text' => $message_content ) ) );
+
+			curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false );
+			curl_setopt( $curl, CURLOPT_POST, true );
+			curl_setopt( $curl, CURLOPT_POSTFIELDS, $message );
+
+			$result = curl_exec( $curl );
+			curl_close( $curl );
+
+			// setting our transient for 1 hour it keeps bugging us if the plugins are off
+			set_transient( $message_name, true, 3600 );
+
+		} // notified
+
+	} // send_slack_message
 
 	/**
  	 * Checks to see if the active theme matches the default theme setting
