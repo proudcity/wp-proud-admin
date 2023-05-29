@@ -79,7 +79,7 @@ class Proud_Force_Theme{
 		// does this double as a check that the theme exists
 		if ( ! $parent->exists() ){
 
-			$m = 'Parent theme does not exist for `. site_url()';
+			$m = 'Parent theme does not exist for ' . site_url() . '.This means you should start by rebooting the pod and then check that the site looks as expected. If that does not work a developer needs to be involved.';
 
 			self::send_slack_message( 'no_parent_theme', $m );
 
@@ -91,6 +91,19 @@ class Proud_Force_Theme{
 
 	}
 
+	/**
+	 * Sends a slack message given message name and message content
+	 *
+	 * @since 2023.05.29
+	 * @access private
+	 * @author Curtis
+	 *
+	 * @param	string			$message_name			required			The name of the message for the transient
+	 * @param	string			$message_content		required			The content that will be send to Slack
+	 * @uses	get_option()												returns option from WP database
+	 * @uses	get_transient()												Returns transient value
+	 * @uses	set_transient()												Sets transient
+	 */
 	private static function send_slack_message( $message_name, $message_content ){
 
 		$slack_key = get_option( 'proud_slack_key' );
