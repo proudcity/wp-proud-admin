@@ -33,6 +33,21 @@ class Proud_Force_Theme{
 
 	} // init
 
+	/**
+	 * Main function that checks for our various theme conditions and alerts
+	 * Slack if conditions are not met
+	 *
+	 * @since 2023.05.29
+	 * @access public
+	 * @author Curtis
+	 *
+	 * @uses	self::check_default_theme()											Returns the theme slug for what should be the default theme
+	 * @uses	wp_get_theme()														Returns object with theme information
+	 * @uses	self::theme_has_parent()											Returns false if there is no parent
+	 * @uses	self::is_specified_theme_active()									Confirms that the specified theme is active
+	 * @uses	self::try_to_activate_theme()										Tries to activate the expected default theme
+	 * @uses	self::send_slack_message()											Sends message to our dev slack channel with given information
+	 */
 	public static function force_theme_activation(){
 
 		$is_active = false;
@@ -42,19 +57,32 @@ class Proud_Force_Theme{
 
 		// checks if the currently active theme has a parent theme
 		$has_parent = self::theme_has_parent( $active_theme );
+		// no need to go further because we have a failure
+		if ( false === $has_parent ) return;
 
-
+		// is the theme we expect to be active actually active?
 		$is_active = self::is_specified_theme_active( $default_theme, $active_theme );
 
-		// is specified theme active?
-			// 	alert slack if not active
+		// @todo should we check if the theme is present first?
+		$is_present = self::is_theme_present( $default_theme );
+		// try to activate the theme now
+		if ( false === $is_active && true === $is_present ){
 
-		// does specified theme exist in our themes folder
-			// if not alert slack
-		// try to activate theme
-			// alert slack if we could activate theme so don't worry
-			// alert slack if we could NOT activate theme so do worry because that means it's not present
-				// this should really just result in a pod restart so provide that information
+			// try to activate theme
+			self::try_to_activate_theme( $default_theme, $active_theme );
+
+		} else {
+
+			// everything is borked get a dev
+			$m = 'There is an issue with ' .site_url(). ' that appears to be unrecoverable. You need to get a dev to fix this';
+			self::send_slack_message( 'proud_big_bad_theme_error', $m );
+			error_log ( 'proud_big_bad_theme_error' . $m );
+
+
+		} // false === $is_active
+
+		// no further messages needed because a deve should be checking at this point
+
 
 	} // force_theme_activation
 
@@ -81,7 +109,9 @@ class Proud_Force_Theme{
 
 			$m = 'Parent theme does not exist for ' . site_url() . '.This means you should start by rebooting the pod and then check that the site looks as expected. If that does not work a developer needs to be involved.';
 
+			$has_parent = false;
 			self::send_slack_message( 'no_parent_theme', $m );
+			error_log( 'no_parent_theme ' . $m );
 
 		} else {
 			$has_parent = true;
@@ -131,6 +161,45 @@ class Proud_Force_Theme{
 	} // send_slack_message
 
 	/**
+	 * Tries to activate the expected theme.
+	 *
+	 * @since 2023.05.29
+	 * @access private
+	 * @author Curtis
+	 *
+	 * @param	string		$theme_slug					required			Slug for the expected theme
+	 * @param	object		$active_theme				required			Current active theme object
+	 * @uses	switch_theme()												Switches WP theme given theme slug
+	 * @uses	self::is_specified_theme_active()							True if the expected theme is active
+	 * @return	bool		$is_active										True if we activated the theme as expected
+	 */
+	private static function try_to_activate_theme( $theme_slug, $active_theme ){
+
+		switch_theme( $theme_slug );
+
+		// did the activation work?
+		$is_active = self::is_specified_theme_active( $default_theme, $active_theme );
+
+		if ( false === $is_active ){
+
+			$m = 'We tried to activate the default theme on ' .site_url(). ' but it did not work. Time to get a developer involved';
+			self::send_slack_message( 'proud_theme_not_activate', $m );
+			error_log( 'proud_theme_not_activate ' . $m );
+
+		} else {
+				$m = 'The default theme was reactivated on ' .site_url().'. You should still check the site to make sure it is working as expected.';
+
+				// logging so we can test without sending to slack
+				error_log( 'expected_theme_activated ' . $m );
+
+				self::send_slack_message( 'expected_theme_activated', $m );
+		}
+
+		return (bool) $is_active;
+
+	} // try_to_activate_theme
+
+	/**
  	 * Checks to see if the active theme matches the default theme setting
 	 *
 	 * @since 2023.05.25
@@ -148,6 +217,15 @@ class Proud_Force_Theme{
 
 		if ( esc_attr( $default_theme ) === esc_attr( $active_theme_name ) ){
 			$is_active = true;
+		} else {
+
+			$m = 'Expected theme is not active on ' .site_url(). '. Reboot the pod and make sure the proper theme is active at '.site_url().'/wp-admin/themes.php If that does not work a developer will need to be involved.'
+			self::send_slack_message( 'expected_theme_not_active', $m );
+
+			// logging so we can test locally
+			error_log( 'expected_theme_not_active '. $m );
+			$is_active = false;
+
 		}
 
 		return (bool) $is_active;
