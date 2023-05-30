@@ -218,9 +218,9 @@ class Proud_Force_Theme{
 	 * @uses	self::is_specified_theme_active()							True if the expected theme is active
 	 * @return	bool		$is_active										True if we activated the theme as expected
 	 */
-	private static function try_to_activate_theme( $theme_slug, $active_theme ){
+	private static function try_to_activate_theme( $default_theme, $active_theme ){
 
-		switch_theme( $theme_slug );
+		switch_theme( $default_theme );
 
 		// did the activation work?
 		$is_active = self::is_specified_theme_active( $default_theme, $active_theme );
