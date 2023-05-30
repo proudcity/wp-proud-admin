@@ -3,7 +3,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2023.05.10.1032
+Version:            2217.2023.05.30.1111
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 

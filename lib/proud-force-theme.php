@@ -55,16 +55,20 @@ class Proud_Force_Theme{
 		$default_theme = self::check_default_theme();
 		$active_theme = wp_get_theme();
 
-		// checks if the currently active theme has a parent theme
-		$has_parent = self::theme_has_parent( $active_theme );
-		// no need to go further because we have a failure
-		if ( false === $has_parent ) return;
-
 		// is the theme we expect to be active actually active?
 		$is_active = self::is_specified_theme_active( $default_theme, $active_theme );
+		// everything is good do nothing more
+		if ( true === $is_active ) return;
 
-		// @todo should we check if the theme is present first?
+		// is theme present so it can be activated
 		$is_present = self::is_theme_present( $default_theme );
+
+		// @todo I really think this might be redundant because when you check the site after an issue
+		//		if there is no parent theme around the site will look bad and you'll know that something is wrong
+		//		so you'll talk to a developer instead of figuring everything is okay
+		// checks if the currently active theme has a parent theme
+		//$has_parent = self::theme_has_parent( $active_theme );
+
 		// try to activate the theme now
 		if ( false === $is_active && true === $is_present ){
 
@@ -141,6 +145,8 @@ class Proud_Force_Theme{
 		$has_parent = false;
 
 		$parent = $active_theme->parent();
+		// current theme doesn't have parent so exit now
+		if ( false === $parent ) return false;
 
 		// does this double as a check that the theme exists
 		if ( ! $parent->exists() ){
@@ -158,7 +164,7 @@ class Proud_Force_Theme{
 
 		return (bool) $has_parent;
 
-	}
+	} // theme_has_parent
 
 	/**
 	 * Sends a slack message given message name and message content
