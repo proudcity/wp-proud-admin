@@ -74,7 +74,7 @@ class Proud_Force_Theme{
 		} else {
 
 			// everything is borked get a dev
-			$m = 'There is an issue with ' .site_url(). ' that appears to be unrecoverable. You need to get a dev to fix this';
+			$m = 'There is an issue with the default theme on ' .site_url(). ' that appears to be unrecoverable. The theme does not appear to be present thus it cannot be activated. You need to get a dev to fix this';
 			self::send_slack_message( 'proud_big_bad_theme_error', $m );
 			error_log ( 'proud_big_bad_theme_error' . $m );
 
@@ -85,6 +85,44 @@ class Proud_Force_Theme{
 
 
 	} // force_theme_activation
+
+	/**
+	 * Checks if our default theme is even present on the site
+	 *
+	 * @since 2023.05.30
+	 * @author Curtis
+	 * @access private
+	 *
+	 * @param	string			$default_theme			required					The slug for the theme we expect to be set on the site
+	 * @uses	wp_get_themes()														Returns an object containing all themes
+	 * @uses	self::send_slack_message()											Sends an alert to dev slack
+	 * @return	bool			$is_present											True if the theme is installed false if not
+	 */
+	private static function is_theme_present( $default_theme ){
+
+		$themes = wp_get_themes();
+		$is_present = false;
+
+		foreach( $themes as $theme ){
+
+			if ( $default_theme === $theme->get_stylesheet() ){
+				$is_present = true;
+				break;
+			}
+
+		}
+
+		if ( false === $is_present ){
+
+			$m = 'The default theme for ' .site_url(). ' does not appear to be present on the site. Reboot the pod and confirm that the theme is active. If that does not work get a developer.';
+			self::send_slack_message( 'proud_default_theme_not_present', $m );
+			error_log( 'proud_default_theme_not_present ' . $m );
+
+		}
+
+		return (bool) $is_present;
+
+	} // is_theme_present
 
 	/**
 	 * Checks if a theme has a parent theme and lets us know if that parent theme is not active or not present
@@ -116,6 +154,7 @@ class Proud_Force_Theme{
 		} else {
 			$has_parent = true;
 		}
+
 
 		return (bool) $has_parent;
 
@@ -219,7 +258,7 @@ class Proud_Force_Theme{
 			$is_active = true;
 		} else {
 
-			$m = 'Expected theme is not active on ' .site_url(). '. Reboot the pod and make sure the proper theme is active at '.site_url().'/wp-admin/themes.php If that does not work a developer will need to be involved.'
+			$m = 'Expected theme is not active on ' .site_url(). '. Reboot the pod and make sure the proper theme is active at '.site_url().'/wp-admin/themes.php If that does not work a developer will need to be involved.';
 			self::send_slack_message( 'expected_theme_not_active', $m );
 
 			// logging so we can test locally
