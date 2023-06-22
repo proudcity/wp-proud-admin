@@ -3,7 +3,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2023.05.10.1032
+Version:            2023.06.22.1329
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 
@@ -294,15 +294,6 @@ class ProudAdmin extends \ProudPlugin {
         'parent' => 'pc-help',
         'title' => 'Create a ticket',
         'href'  => 'https://help.proudcity.com/submit',
-    ) );
-    $admin_bar->add_menu( array(
-        'id'    => 'pc-help-chat',
-        'parent' => 'pc-help',
-        'title' => 'Live chat',
-        'href'  => 'https://help.proudcity.com/',
-        'meta'  => array(
-            'onclick' => "loadChat();return false;",
-        ),
     ) );
     $admin_bar->add_menu( array(
         'id'    => 'pc-help-request-feature',
