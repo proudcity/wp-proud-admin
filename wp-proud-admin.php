@@ -61,6 +61,7 @@ class ProudAdmin extends \ProudPlugin {
 
 
 	add_action( 'login_enqueue_scripts', array( $this, 'proud_admin_theme_style' ) );
+	add_filter( 'login_headerurl', array( $this, 'proud_login_header_link' ) );
 
 
     // Add Google Analytics/other embed code
@@ -79,6 +80,20 @@ class ProudAdmin extends \ProudPlugin {
 
     //$this->hook( 'postbox_classes_post_wpseo_meta', 'minify_metabox' );  // This is done in js
   }
+
+	/**
+	 * Changes the logo link in the header of WP login pages
+	 *
+	 * @since 2023.07.07
+	 * @author Curtis
+	 * @access public
+	 *
+	 * @param 	string 		$link 			required 				The default link
+	 * @return 	string 												The URL we want
+	 */
+	public static function proud_login_header_link( $link ){
+		return 'https://my.proudcity.com';
+	}
 
   /**
    * Register admin settings pages
