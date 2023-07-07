@@ -53,11 +53,15 @@ class ProudAdmin extends \ProudPlugin {
     // http://wordpress.stackexchange.com/questions/35165/how-do-i-create-a-custom-role-capability
     $this->hook( 'admin_init', 'add_caps' );
     $this->hook( 'admin_enqueue_scripts', 'proud_admin_theme_style' );
-    $this->hook( 'login_enqueue_scripts', 'proud_admin_theme_style' );
+
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_dashboard', 20 );
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_account', 11 );
     $this->hook( 'admin_footer_text', 'custom_footer' );
-    $this->hook( 'admin_body_class', 'add_admin_body_classes' );
+	$this->hook( 'admin_body_class', 'add_admin_body_classes' );
+
+
+	add_action( 'login_enqueue_scripts', array( $this, 'proud_admin_theme_style' ) );
+
 
     // Add Google Analytics/other embed code
     add_filter( 'wp_footer', array($this, 'add_tracking_code') );
