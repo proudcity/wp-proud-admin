@@ -63,6 +63,7 @@ class ProudAdmin extends \ProudPlugin {
 	add_action( 'login_enqueue_scripts', array( $this, 'proud_admin_theme_style' ) );
 	add_filter( 'login_headerurl', array( $this, 'proud_login_header_link' ) );
 	add_filter( 'login_headertext', array( $this, 'proud_login_header_text' ) );
+	add_filter( 'login_site_html_link', array( $this, 'proud_login_site_html_link' ) );
 
 
     // Add Google Analytics/other embed code
@@ -81,6 +82,13 @@ class ProudAdmin extends \ProudPlugin {
 
     //$this->hook( 'postbox_classes_post_wpseo_meta', 'minify_metabox' );  // This is done in js
   }
+
+	/**
+	 * Changes the login text at the bottom of the login box
+	 */
+	public static function proud_login_site_html_link( $text ){
+		return "You've been logged out of your website. To remedy this you need to  return to <a href=\"https://my.proudcity.com\">my.proudcity.com</a> and logout. Then log back into my.proudcity.com and click \"Manage Site\"";
+	}
 
 	/**
  	 * If styles don't load this is the text the user will see

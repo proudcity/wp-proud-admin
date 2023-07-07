@@ -10,3 +10,17 @@
 #extra-options {
   display: none !important;
 }
+
+.login{
+
+	// hides the lost password text because we use Auth0 and everything should be there
+	#nav{display:none;}
+
+	#backtoblog{
+		padding:0;
+		font-size:16px;
+
+		a{color:#0071bc;}
+	}
+
+} // .login
