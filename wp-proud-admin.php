@@ -62,6 +62,7 @@ class ProudAdmin extends \ProudPlugin {
 
 	add_action( 'login_enqueue_scripts', array( $this, 'proud_admin_theme_style' ) );
 	add_filter( 'login_headerurl', array( $this, 'proud_login_header_link' ) );
+	add_filter( 'login_headertext', array( $this, 'proud_login_header_text' ) );
 
 
     // Add Google Analytics/other embed code
@@ -80,6 +81,19 @@ class ProudAdmin extends \ProudPlugin {
 
     //$this->hook( 'postbox_classes_post_wpseo_meta', 'minify_metabox' );  // This is done in js
   }
+
+	/**
+ 	 * If styles don't load this is the text the user will see
+	 *
+	 * @since 2023.07.07
+	 * @author Curtis
+	 *
+	 * @param 	string 		$text 			required 		default text
+	 * @return 	string 										The text we want to show
+	 */
+	public static function proud_login_header_text( $text ){
+		return 'Powered by ProudCity';
+	}
 
 	/**
 	 * Changes the logo link in the header of WP login pages
