@@ -61,6 +61,7 @@ class ProudAdmin extends \ProudPlugin {
 
 
 	add_action( 'login_enqueue_scripts', array( $this, 'proud_admin_theme_style' ) );
+	add_action( 'login_enqueue_scripts', array( $this, 'proud_login_styles') );
 	add_filter( 'login_headerurl', array( $this, 'proud_login_header_link' ) );
 	add_filter( 'login_headertext', array( $this, 'proud_login_header_text' ) );
 	add_filter( 'login_site_html_link', array( $this, 'proud_login_site_html_link' ) );
@@ -81,12 +82,26 @@ class ProudAdmin extends \ProudPlugin {
     $this->hook( 'admin_print_footer_scripts', 'wp_561_window_unload_error_final_fix' );
 
     //$this->hook( 'postbox_classes_post_wpseo_meta', 'minify_metabox' );  // This is done in js
-  }
+
+	}
+
+	public static function proud_login_styles(){
+
+		if ( site_url() === 'https://colma.ca.gov' ) return; 		// return early because COLMA needs to see this
+		if ( 'local' === wp_get_environment_type() ) return;		// return early if we're local so we can log in on local env
+		// @todo return early if local
+	?>
+		<style type="text/css">
+			#login #loginform{display:none;}
+		</style>
+	<?php
+	}
 
 	/**
 	 * Changes the login text at the bottom of the login box
 	 */
 	public static function proud_login_site_html_link( $text ){
+		if ( site_url() === 'https://colma.ca.gov' ) return $text; 		// return early because COLMA needs to see this
 		return "You've been logged out of your website. To remedy this you need to  return to <a href=\"https://my.proudcity.com\">my.proudcity.com</a> and logout. Then log back into my.proudcity.com and click \"Manage Site\"";
 	}
 
