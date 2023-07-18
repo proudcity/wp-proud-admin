@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @todo uncomment the main function that gets this running
+ * @todo test it locally with different theme configurations
+ * @todo set up the constant we want on the main sites
+ * @todo edit sites listed in GitHub issue to have the constant set to their expected values
+ */
+
 class Proud_Force_Theme{
 
 	private static $instance;
@@ -29,10 +36,22 @@ class Proud_Force_Theme{
 	 */
 	public function init(){
 
-		add_action( 'setup_theme', array( $this, 'force_theme_activation' ) );
+		//add_action( 'setup_theme', array( $this, 'force_theme_activation' ) );
 
 	} // init
 
+	/**
+	 * This is the main function that looks at what theme should be active and
+	 * forces it active or notifies someone if it can't be activated
+	 *
+	 * @since 2023.07.18
+	 * @author Curtis
+	 *
+	 * @uses 	self::check_default_theme() 					Returns the slug of the default theme
+	 * @uses 	wp_get_theme() 									returns information on the themes on the WP site
+	 * @uses 	self::theme_has_parent() 						Returns true if the default theme has a parent
+	 * @uses 	self::is_specified_theme_active() 				True if the theme we expect to be active is in fact active
+	 */
 	public static function force_theme_activation(){
 
 		$is_active = false;
