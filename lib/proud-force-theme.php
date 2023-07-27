@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @todo edit sites listed in GitHub issue to have the constant set to their expected values
- */
-
 class Proud_Force_Theme{
 
 	private static $instance;
