@@ -1,9 +1,6 @@
 <?php
 
 /**
- * @todo uncomment the main function that gets this running
- * @todo test it locally with different theme configurations
- * @todo set up the constant we want on the main sites
  * @todo edit sites listed in GitHub issue to have the constant set to their expected values
  */
 
@@ -36,7 +33,7 @@ class Proud_Force_Theme{
 	 */
 	public function init(){
 
-		//add_action( 'setup_theme', array( $this, 'force_theme_activation' ) );
+		add_action( 'setup_theme', array( $this, 'force_theme_activation' ) );
 
 	} // init
 
@@ -285,7 +282,11 @@ class Proud_Force_Theme{
 	} // is_specified_theme_active
 
 	/**
-	 * Checks to see what our default theme is
+	 * Checks to see what our default theme is.
+	 *
+	 * First this checks for a kubernetes based environment variable. Then if not present it checks for
+	 * a constant set it wp-config.php. If neither of these is present then it assumes that we are
+	 * using the standard default theme for our sites.
 	 *
 	 * @since 2023.05.25
 	 * @author Curtis
@@ -297,7 +298,7 @@ class Proud_Force_Theme{
 
 		$default_theme = null;
 
-		$default_theme = getenv( 'Proud_Default_Theme' );
+		$default_theme = getenv( 'PROUD_DEFAULT_THEME' );
 
 		if ( ! isset( $default_theme ) || empty( $default_theme ) ){
 
