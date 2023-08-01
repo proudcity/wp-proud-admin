@@ -3,7 +3,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2023.07.31.2019
+Version:            2023.08.01.0851
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 
@@ -101,7 +101,7 @@ class ProudAdmin extends \ProudPlugin {
 	 * Changes the login text at the bottom of the login box
 	 */
 	public static function proud_login_site_html_link( $text ){
-		if ( site_url() === 'https://colma.ca.gov' ) return $text; 		// return early because COLMA needs to see this
+		if ( site_url() === 'https://www.colma.ca.gov' ) return $text; 		// return early because COLMA needs to see this
 		return "You've been logged out of your website. To remedy this you need to  return to <a href=\"https://my.proudcity.com\">my.proudcity.com</a> and logout. Then log back into my.proudcity.com and click \"Manage Site\"";
 	}
 
