@@ -55,11 +55,19 @@ class ProudAdmin extends \ProudPlugin {
     // http://wordpress.stackexchange.com/questions/35165/how-do-i-create-a-custom-role-capability
     $this->hook( 'admin_init', 'add_caps' );
     $this->hook( 'admin_enqueue_scripts', 'proud_admin_theme_style' );
-    $this->hook( 'login_enqueue_scripts', 'proud_admin_theme_style' );
+
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_dashboard', 20 );
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_account', 11 );
     $this->hook( 'admin_footer_text', 'custom_footer' );
-    $this->hook( 'admin_body_class', 'add_admin_body_classes' );
+	$this->hook( 'admin_body_class', 'add_admin_body_classes' );
+
+
+	add_action( 'login_enqueue_scripts', array( $this, 'proud_admin_theme_style' ) );
+	add_action( 'login_enqueue_scripts', array( $this, 'proud_login_styles') );
+	add_filter( 'login_headerurl', array( $this, 'proud_login_header_link' ) );
+	add_filter( 'login_headertext', array( $this, 'proud_login_header_text' ) );
+	add_filter( 'login_site_html_link', array( $this, 'proud_login_site_html_link' ) );
+
 
     // Add Google Analytics/other embed code
     add_filter( 'wp_footer', array($this, 'add_tracking_code') );
@@ -76,7 +84,55 @@ class ProudAdmin extends \ProudPlugin {
     $this->hook( 'admin_print_footer_scripts', 'wp_561_window_unload_error_final_fix' );
 
     //$this->hook( 'postbox_classes_post_wpseo_meta', 'minify_metabox' );  // This is done in js
-  }
+
+	}
+
+	public static function proud_login_styles(){
+
+		if ( site_url() === 'https://www.colma.ca.gov' ) return; 		// return early because COLMA needs to see this
+		if ( 'local' === wp_get_environment_type() ) return;		// return early if we're local so we can log in on local env
+		// @todo return early if local
+	?>
+		<style type="text/css">
+			#login #loginform{display:none;}
+		</style>
+	<?php
+	}
+
+	/**
+	 * Changes the login text at the bottom of the login box
+	 */
+	public static function proud_login_site_html_link( $text ){
+		if ( site_url() === 'https://colma.ca.gov' ) return $text; 		// return early because COLMA needs to see this
+		return "You've been logged out of your website. To remedy this you need to  return to <a href=\"https://my.proudcity.com\">my.proudcity.com</a> and logout. Then log back into my.proudcity.com and click \"Manage Site\"";
+	}
+
+	/**
+ 	 * If styles don't load this is the text the user will see
+	 *
+	 * @since 2023.07.07
+	 * @author Curtis
+	 *
+	 * @param 	string 		$text 			required 		default text
+	 * @return 	string 										The text we want to show
+	 */
+	public static function proud_login_header_text( $text ){
+		return 'Powered by ProudCity';
+	}
+
+	/**
+	 * Changes the logo link in the header of WP login pages
+	 *
+	 * @since 2023.07.07
+	 * @author Curtis
+	 * @access public
+	 *
+	 * @param 	string 		$link 			required 				The default link
+	 * @return 	string 												The URL we want
+	 */
+	public static function proud_login_header_link( $link ){
+		return 'https://my.proudcity.com';
+	}
 
   /**
    * Register admin settings pages
