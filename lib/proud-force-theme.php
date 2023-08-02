@@ -181,7 +181,7 @@ class Proud_Force_Theme{
 	 */
 	private static function send_slack_message( $message_name, $message_content ){
 
-		$slack_key = get_option( 'proud_slack_key' );
+		$slack_key = getenv( 'PROUD_SLACK_KEY' );
 
 		$notified = get_transient( $message_name );
 
