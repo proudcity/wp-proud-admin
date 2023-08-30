@@ -96,7 +96,12 @@ abstract class ProudSettingsPage {
       // Extract submenu vars
       extract($this->submenu);
       // Menu page entry
-      if( !$parent_slug ) {
+	  if( !$parent_slug ) {
+
+		if ( ! isset( $icon_url ) || empty( $icon_url ) ){
+			$icon_url = null;
+		}
+
         $hook = add_menu_page(
           $page_title,
           $menu_title,
