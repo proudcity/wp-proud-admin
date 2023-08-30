@@ -35,6 +35,8 @@ require_once( plugin_dir_path(__FILE__) . 'lib/proud-fa-build.php' );
 require_once( plugin_dir_path(__FILE__) . 'lib/proud-customize-wp-profile.php' );
 // Post Type Customizations
 require_once( plugin_dir_path(__FILE__) . 'lib/proud-cpt-customizations.php' );
+// Forcing Activation of Default Theme
+require_once( plugin_dir_path(__FILE__) . 'lib/proud-force-theme.php' );
 
 class ProudAdmin extends \ProudPlugin {
 
