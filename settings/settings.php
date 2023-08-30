@@ -13,7 +13,7 @@ class ProudGeneralSettingsPage extends ProudSettingsPage
           'page_title' => 'Settings',
           'menu_title' => 'Settings',
           'capability' => 'edit_proud_options',
-          'icon_url' => plugins_url('/images/icon.png', __FILE__)
+          'dashicons-admin-settings',
         ],
         '', // Option
         [   // Options
