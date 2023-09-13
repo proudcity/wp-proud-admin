@@ -27,7 +27,7 @@ class ProudCachingSettingsPage extends ProudSettingsPage
       parent::__construct(
         'caching', // Key
         [ // Submenu settings
-          'parent_slug' => 'proudsettings',
+          'parent_slug' => 'pc_tools',
           'page_title' => 'Caching',
           'menu_title' => 'Caching',
           'capability' => 'edit_proud_options',
