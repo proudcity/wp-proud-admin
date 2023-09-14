@@ -5,7 +5,12 @@ class ProudCachingSettingsPage extends ProudSettingsPage
      * Start up
      */
     public function __construct()
-    {
+	{
+
+		// if we don't have caching we don't need this menu item
+		if ( ! is_plugin_active( 'wp_rocket' ) ) {
+			return;
+		}
 
       /**
        * Allows other plugins to add to our settings without embedding settings
@@ -27,7 +32,7 @@ class ProudCachingSettingsPage extends ProudSettingsPage
       parent::__construct(
         'caching', // Key
         [ // Submenu settings
-          'parent_slug' => 'pc_tools',
+          'parent_slug' => 'proudsettings',
           'page_title' => 'Caching',
           'menu_title' => 'Caching',
           'capability' => 'edit_proud_options',
@@ -36,7 +41,7 @@ class ProudCachingSettingsPage extends ProudSettingsPage
         $caching_options
       );
 
-    }
+    } // construct
 
     /**
      * Sets fields
