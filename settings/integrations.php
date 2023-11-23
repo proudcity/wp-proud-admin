@@ -218,13 +218,14 @@ class ProudIntegrationsSettingsPage extends ProudSettingsPage
             'This will be included on every page.'
           ),
         ],
-        'validation_metatags' => [
-          '#type' => 'textarea',
-          '#title' => __pcHelp('Metatags'),
-          '#description' => __pcHelp(
-            'These are helpful for validating domain ownership'
-          ),
-        ],
+		'validation_metatags' => [
+			'#type' => 'textarea',
+			'#save_method' => 'stripslashes',
+			'#title' => __pcHelp('Metatags'),
+			'#description' => __pcHelp(
+			'These are helpful for validating domain ownership'
+			),
+		],
       ];
 
       /**
