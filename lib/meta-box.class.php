@@ -179,6 +179,8 @@ abstract class ProudMetaBox {
 // Abstract class for term MetaBox
 abstract class ProudTermMetaBox extends ProudMetaBox {
 
+	public $key;
+
     /**
      * Start up
      * @param string $key
