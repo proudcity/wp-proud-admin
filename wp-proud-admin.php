@@ -3,7 +3,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2023.09.14.0926
+Version:            2023.12.21.1344
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 
@@ -390,7 +390,6 @@ class ProudAdmin extends \ProudPlugin {
   function custom_footer () {
     $url = get_site_url();
     echo "<a href='https://proudcity.com' target='_blank'>ProudCity</a> is proudly powered by <a href='http://wordpress.com' target='_blank'>WordPress</a> and Open Source software. <a href='$url/wp-admin/credits.php'>Credits</a> &middot; <a href='$url/wp-admin/freedoms.php'>Freedoms</a>.";
-    require_once( plugin_dir_path(__FILE__) . 'inc/chat.php' );
   }
 
   // Add classes to distinguish between admin, normal users.
