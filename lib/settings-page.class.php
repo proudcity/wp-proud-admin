@@ -175,7 +175,7 @@ abstract class ProudSettingsPage {
     /**
      * Deals with submit values
      */
-    public function escape_post_value( &$value, $field ) {
+	public function escape_post_value( &$value, $field ) {
 
       // If checkbox, and no value, set to 0
       if( 'checkbox' === $field['#type'] && !isset( $value ) ) {
@@ -186,9 +186,9 @@ abstract class ProudSettingsPage {
         $value = wp_kses_post( $value );
       }
       // Text areas (can contain html)
-      else if( 'textarea' === $field['#type'] ) {
-        if( !empty( $field['#save_method'] ) ) {
-          if( $field['#save_method'] === 'stripslashes' ) {
+	  else if( 'textarea' === $field['#type'] ) {
+		if( !empty( $field['#save_method'] ) ) {
+		  if( $field['#save_method'] === 'stripslashes' ) {
             $value = stripslashes($value);
             return;
           }

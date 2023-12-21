@@ -21,7 +21,6 @@ class ProudIntegrationsSettingsPage extends ProudSettingsPage
        */
       $integration_options = apply_filters( 'pc_admin_integration_options',
         array(
-            'google_analytics_key' => '',
             'search_service' => 'wordpress',
             //'search_google_key' => '',
             //'mapbox_token' => '',
@@ -50,18 +49,6 @@ class ProudIntegrationsSettingsPage extends ProudSettingsPage
      */
     public function set_fields( ) {
       $integrations_fields_array = [
-        'analytics_title' => [
-          '#type' => 'html',
-          '#html' => '<h3>' . __pcHelp('Analytics') . '</h3>',
-        ],
-        'google_analytics_key' => [
-          '#type' => 'text',
-          '#title' => __pcHelp('Google Analytics Tracking ID'),
-          '#description' => __pcHelp(
-            'Copy the Tracking ID code that appears under Admin > Tracking info. Example: UA-XXXXXXXX-X.'
-          ),
-        ],
-
         'search_title' => [
           '#type' => 'html',
           '#html' => '<h3>' . __pcHelp('Search') . '</h3>',
@@ -218,13 +205,14 @@ class ProudIntegrationsSettingsPage extends ProudSettingsPage
             'This will be included on every page.'
           ),
         ],
-        'validation_metatags' => [
-          '#type' => 'textarea',
-          '#title' => __pcHelp('Metatags'),
-          '#description' => __pcHelp(
-            'These are helpful for validating domain ownership'
-          ),
-        ],
+		'validation_metatags' => [
+			'#type' => 'textarea',
+			'#save_method' => 'stripslashes',
+			'#title' => __pcHelp('Metatags'),
+			'#description' => __pcHelp(
+			'These are helpful for validating domain ownership'
+			),
+		],
       ];
 
       /**

@@ -3,7 +3,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2023.12.21.1344
+Version:            2023.12.21.1346
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 
@@ -409,7 +409,6 @@ class ProudAdmin extends \ProudPlugin {
 
   // Add metatags (head)
   function add_metatag_code () {
-    $ga = get_option('google_analytics_key', true);
     $metatags = get_option('validation_metatags', true);
     require_once( plugin_dir_path(__FILE__) . 'inc/tracking-code.php' );
   }

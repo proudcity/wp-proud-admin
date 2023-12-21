@@ -10,7 +10,7 @@ abstract class ProudMetaBox {
     public $post; // Content for meta fields
     public $fields; // Form fields
     public $form; // FormHelper
-    public $id; // metabox id 
+    public $id; // metabox id
     public $title; // metabox title
     public $screen; // metabox screen
     public $position; // metabox position
@@ -40,11 +40,11 @@ abstract class ProudMetaBox {
      * Register box hook
      */
     public function register_box() {
-      add_meta_box( 
+      add_meta_box(
         $this->key . '_meta_box',
         $this->title,
         array($this, 'settings_content'),
-        $this->screen, 
+        $this->screen,
         $this->position,
         $this->priority
       );
@@ -61,7 +61,7 @@ abstract class ProudMetaBox {
      */
     abstract protected function set_fields( $displaying );
 
-    /** 
+    /**
      * Rebuilds form values from options
      */
     public function build_options( $id = null ) {
@@ -132,7 +132,7 @@ abstract class ProudMetaBox {
       $this->build_options( );
       // Print fields
       $this->form->printFields( $this->options, $this->fields, 1, 'form' );
-    } 
+    }
 
     /**
      * Prints form
@@ -141,11 +141,11 @@ abstract class ProudMetaBox {
       $this->print_form( $post );
     }
 
-    /** 
+    /**
      * Validate and return values
      */
     public function validate_values( $post ) {
-      // We have screen requirements not met 
+      // We have screen requirements not met
       if( empty( $this->form ) || ( !empty( $screen ) && $post->post_type !== $screen ) ) {
         return false;
       }
@@ -153,7 +153,7 @@ abstract class ProudMetaBox {
       return $this->form->getFormValues( $_POST );
     }
 
-    /** 
+    /**
      * Runs through options, saves
      */
     public function save_all( $values, $post_id ) {
@@ -164,7 +164,7 @@ abstract class ProudMetaBox {
       }
     }
 
-    /** 
+    /**
      * Saves form values
      */
     public function save_meta( $post_id, $post, $update ) {
@@ -178,6 +178,8 @@ abstract class ProudMetaBox {
 
 // Abstract class for term MetaBox
 abstract class ProudTermMetaBox extends ProudMetaBox {
+
+	public $key;
 
     /**
      * Start up
@@ -194,11 +196,11 @@ abstract class ProudTermMetaBox extends ProudMetaBox {
       add_action( $this->key . '_add_form_fields', array($this, 'settings_content'), 10, 2 );
       add_action( $this->key . '_edit_form_fields', array($this, 'settings_content'), 10, 2 );
 
-      add_action( 'edited_' . $this->key, array($this, 'save_term_meta'), 10, 2 );  
+      add_action( 'edited_' . $this->key, array($this, 'save_term_meta'), 10, 2 );
       add_action( 'create_' . $this->key, array($this, 'save_term_meta'), 10, 2 );
     }
 
-    /** 
+    /**
      * Builds field forms
      */
     public function register_form() {
@@ -207,7 +209,7 @@ abstract class ProudTermMetaBox extends ProudMetaBox {
       $this->form = new \Proud\Core\FormHelper( $this->key, $this->fields, 1, 'form' );
     }
 
-    /** 
+    /**
      * Rebuilds form values from options
      */
     public function build_options( $id = null ) {
@@ -238,7 +240,7 @@ abstract class ProudTermMetaBox extends ProudMetaBox {
     }
 
 
-    /** 
+    /**
      * Runs through options, saves
      */
     public function save_all( $values, $term_id ) {
@@ -256,7 +258,7 @@ abstract class ProudTermMetaBox extends ProudMetaBox {
       $this->print_form( $post );
     }
 
-    /** 
+    /**
      * Saves form values
      */
     public function save_term_meta( $term_id, $taxonomy ) {
