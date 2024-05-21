@@ -3,7 +3,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2024.05.15.1612
+Version:            2024.05.21.1042
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 
@@ -318,17 +318,6 @@ class ProudAdmin extends \ProudPlugin {
   //echo "<pre>";
   //print_r($admin_bar);
   //echo "<pre>";
-   $admin_bar->add_menu( array(
-        'id'    => 'pc-dashboard',
-        'parent' => 'root-default',
-        'title' => 'Dashboard',
-        'href'  => get_site_url() . '/wp-admin/admin.php?page=proud_dashboard',
-        'weight' => 10,
-        'meta'  => array(
-            'title' => __('Visit your Dashboard'),
-        ),
-    ) );
-
     $admin_bar->add_menu( array(
         'id'    => 'pc-help',
         'parent' => 'root-default',
