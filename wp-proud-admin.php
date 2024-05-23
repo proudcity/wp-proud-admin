@@ -3,7 +3,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2024.05.21.1042
+Version:            2024.05.22.1611
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 
@@ -56,7 +56,6 @@ class ProudAdmin extends \ProudPlugin {
 
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_dashboard', 20 );
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_account', 11 );
-    $this->hook( 'admin_footer_text', 'custom_footer' );
 	$this->hook( 'admin_body_class', 'add_admin_body_classes' );
 
 
@@ -371,12 +370,6 @@ class ProudAdmin extends \ProudPlugin {
       ) );
 
     }
-  }
-
-  // Customize footer message
-  function custom_footer () {
-    $url = get_site_url();
-    echo "<a href='https://proudcity.com' target='_blank'>ProudCity</a> is proudly powered by <a href='http://wordpress.com' target='_blank'>WordPress</a> and Open Source software. <a href='$url/wp-admin/credits.php'>Credits</a> &middot; <a href='$url/wp-admin/freedoms.php'>Freedoms</a>.";
   }
 
   // Add classes to distinguish between admin, normal users.
