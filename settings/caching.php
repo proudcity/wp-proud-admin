@@ -1,89 +1,4 @@
 <?php
-class ProudCachingSettingsPage extends ProudSettingsPage
-{
-    /**
-     * Start up
-     */
-    public function __construct()
-	{
-
-		// if we don't have caching we don't need this menu item
-		if ( ! is_plugin_active( 'wp_rocket' ) ) {
-			return;
-		}
-
-      /**
-       * Allows other plugins to add to our settings without embedding settings
-       * and increasing plugin dependencies. You must add to this so that our
-       * options will save as expected.
-       *
-       * @since 2022.11.03
-       * @author Curtis
-       *
-       * @param   array             Array of current options
-       */
-      $caching_options = apply_filters( 'pc_admin_caching_options',
-        array(
-          // 'option_name' => '', // yeah you do not need anything in the second item
-        )
-      );
-
-
-      parent::__construct(
-        'caching', // Key
-        [ // Submenu settings
-          'parent_slug' => 'proudsettings',
-          'page_title' => 'Caching',
-          'menu_title' => 'Caching',
-          'capability' => 'edit_proud_options',
-        ],
-        '', // Option
-        $caching_options
-      );
-
-    } // construct
-
-    /**
-     * Sets fields
-     */
-    public function set_fields( ) {
-      $caching_fields_array = [
-        'clear_cache' => [
-          '#type' => 'html',
-          '#html' =>
-            '<h3>' . __pcHelp('Clear Cache') . '</h3>' .
-            '<a class="btn btn-default" id="pc_clear_cache" href="#">Clear Cache</a>' .
-            '<p class="message"></p>'
-        ],
-
-      ];
-
-      /**
-       * Adds fields to the form. This WILL NOT save the fields see pc_admin_caching_options for
-       * the key you need to add to have your displayed fields save.
-       *
-       * @since 2022.11.03
-       * @author Curtis
-       *
-       * @param     array       $caching_fields_array                    Array of existing fields that we can modify
-       */
-      $this->fields = apply_filters( 'pc_admin_caching_settings', $caching_fields_array );
-
-    }
-
-    /**
-     * Print page content
-     */
-    public function settings_content() {
-      $this->print_form( );
-    }
-}
-
-if( is_admin() ){
-    $proud_caching_settings_page = new ProudCachingSettingsPage();
-}
-
-
 class Proud_Caching{
 
 	private static $instance;
@@ -122,17 +37,17 @@ class Proud_Caching{
         $message = 'Cache did NOT clear. Please contact a site administrator.';
 
         if ( function_exists( 'rocket_clean_domain') ){
-            rocket_clean_domain();
+			rocket_clean_domain();
+			$success = true;
             $message = 'Domain cache was cleared. ';
         }
 
         if ( function_exists( 'rocket_clean_minify') ){
-            rocket_clean_minify();
+			rocket_clean_minify();
+			$success = true;
             $message .= 'Scripts and styles were cleared.';
         }
 
-		$success = false;
-		//$message = 'Cache was cleared. It may take a few minutes for changes to be seen.';
 
 		$data = array(
 			'success' => (bool) $success,
@@ -141,6 +56,22 @@ class Proud_Caching{
 
 		wp_send_json_success( $data );
 	} // clear_cache
+
+	/**
+	 * Renders the cache clearing page
+	 */
+	public static function render_page(){
+
+		$html = '';
+		$html .= '<div class="form-group">';
+			$html .= '<h2>Clear Cache</h2>';
+
+			$html .= '<a class="btn btn-default" id="pc_clear_cache" href="#">Clear Cache</a>';
+			$html .= '<p class="message"></p>';
+		$html .= '</div><!-- /.form-group -->';
+
+		echo $html;
+	}
 
 
 }

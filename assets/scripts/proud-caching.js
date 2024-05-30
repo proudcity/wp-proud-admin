@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
 
     $(document).on( 'click touchstart', '#pc_clear_cache', function(e){
 
-    console.log('clicked');
+    //console.log('cache clear clicked');
 
         e.preventDefault();
 
@@ -24,18 +24,22 @@ jQuery(document).ready(function($) {
 
         $.post( ProudCaching.ajaxurl, data, function( response ) {
 
-			// hide spinner
+          //console.log( response );
+
+          // hide spinner
             $(spinner).css('visibility', 'hidden');
 
-			if ( true === response.data.success ){
-                $(message).empty().append(response.data.message);
-			} // yup
+        if ( true === response.data.success ){
+          console.log( 'cache cleared' );
+                  $(message).empty().append(response.data.message);
+        } // yup
 
-			if ( false === response.data.success ){
-                $(message).empty().append(response.data.message);
-			}
+        if ( false === response.data.success ){
+          console.log( 'cache NOT cleared' );
+                  $(message).empty().append(response.data.message);
+        }
 
-		}); // end ajax post
+      }); // end ajax post
     });
 
 });
