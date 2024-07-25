@@ -81,7 +81,7 @@ class Proud_FA_Build{
 
 		/* full query */
 		$fa_query = 'query {
-			release(version:"6.1.1") {
+			release(version:"6.6.0") {
 				icons {
 				id
 				label
