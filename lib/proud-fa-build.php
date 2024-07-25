@@ -81,7 +81,7 @@ class Proud_FA_Build{
 
 		/* full query */
 		$fa_query = 'query {
-			release(version:"6.1.1") {
+			release(version:"6.6.0") {
 				icons {
 				id
 				label
@@ -94,6 +94,8 @@ class Proud_FA_Build{
 		}';
 
 		$icon_json = \FortAwesome\fa()->query( $fa_query );
+
+		update_option( 'sfn_test', $icon_json );
 
 		return self::process_icon_json( $icon_json );
 

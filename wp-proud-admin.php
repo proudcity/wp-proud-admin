@@ -3,7 +3,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2023.12.21.1346
+Version:            2024.07.1054
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 
@@ -27,8 +27,6 @@ require_once( plugin_dir_path(__FILE__) . 'lib/settings-page.class.php' );
 require_once( plugin_dir_path(__FILE__) . 'lib/meta-box.class.php' );
 // Helper classes
 require_once( plugin_dir_path(__FILE__) . 'wp-proud-admin-helpers.php' );
-// Dashboard
-require_once( plugin_dir_path(__FILE__) . 'dashboard/wp-proud-admin-dashboard.php' );
 // FontAwesome Builder
 require_once( plugin_dir_path(__FILE__) . 'lib/proud-fa-build.php' );
 // User Profile Customizations
@@ -58,7 +56,6 @@ class ProudAdmin extends \ProudPlugin {
 
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_dashboard', 20 );
     $this->hook( 'admin_bar_menu', 'wp_admin_bar_account', 11 );
-    $this->hook( 'admin_footer_text', 'custom_footer' );
 	$this->hook( 'admin_body_class', 'add_admin_body_classes' );
 
 
@@ -277,7 +274,7 @@ class ProudAdmin extends \ProudPlugin {
         ) );
       }
 
-      if ( is_object( $screen ) && 'settings_page_caching' == $screen->id ){
+      if ( is_object( $screen ) && 'tools_page_pc_caching' == $screen->id ){
         wp_enqueue_script( 'proud-admin/cache',  plugins_url( '/wp-proud-admin/assets/scripts/proud-caching.js'), ['proud', 'jquery'], esc_attr( $version ), true );
         wp_localize_script( 'proud-admin/cache', 'ProudCaching', array(
           'ajaxurl'           => admin_url( 'admin-ajax.php' ),
@@ -320,17 +317,16 @@ class ProudAdmin extends \ProudPlugin {
   //echo "<pre>";
   //print_r($admin_bar);
   //echo "<pre>";
-   $admin_bar->add_menu( array(
+    $admin_bar->add_menu( array(
         'id'    => 'pc-dashboard',
         'parent' => 'root-default',
         'title' => 'Dashboard',
-        'href'  => get_site_url() . '/wp-admin/admin.php?page=proud_dashboard',
-        'weight' => 10,
+        'href'  => site_url() . '/wp-admin/',
+        'weight' => 10000,
         'meta'  => array(
-            'title' => __('Visit your Dashboard'),
+            'title' => __('Dashboard'),
         ),
     ) );
-
     $admin_bar->add_menu( array(
         'id'    => 'pc-help',
         'parent' => 'root-default',
@@ -384,12 +380,6 @@ class ProudAdmin extends \ProudPlugin {
       ) );
 
     }
-  }
-
-  // Customize footer message
-  function custom_footer () {
-    $url = get_site_url();
-    echo "<a href='https://proudcity.com' target='_blank'>ProudCity</a> is proudly powered by <a href='http://wordpress.com' target='_blank'>WordPress</a> and Open Source software. <a href='$url/wp-admin/credits.php'>Credits</a> &middot; <a href='$url/wp-admin/freedoms.php'>Freedoms</a>.";
   }
 
   // Add classes to distinguish between admin, normal users.
