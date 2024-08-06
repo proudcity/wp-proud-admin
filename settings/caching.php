@@ -119,19 +119,22 @@ class Proud_Caching{
 	public function clear_cache(){
 		check_ajax_referer( 'proud_caching_ajax_nonce', 'security' );
 
-        $message = 'Cache did NOT clear. Please contact a site administrator.';
+		$message = 'Cache did NOT clear. Please contact a site administrator.';
+		$success = false;
 
         if ( function_exists( 'rocket_clean_domain') ){
             rocket_clean_domain();
-            $message = 'Domain cache was cleared. ';
+			$message = 'Domain cache was cleared. ';
+			$success = true;
         }
 
         if ( function_exists( 'rocket_clean_minify') ){
             rocket_clean_minify();
-            $message .= 'Scripts and styles were cleared.';
+			$message .= 'Scripts and styles were cleared.';
+			$success = true;
         }
 
-		$success = false;
+		//$success = false;
 		//$message = 'Cache was cleared. It may take a few minutes for changes to be seen.';
 
 		$data = array(
@@ -141,6 +144,20 @@ class Proud_Caching{
 
 		wp_send_json_success( $data );
 	} // clear_cache
+
+	public static function render_page(){
+		$html = '';
+		$html .= '<h2>Clear Cache</h2>';
+
+		$html .= '<form class="form-group">';
+			$html .= '<p>If you\'re experiencing issues with pages NOT loading new content clear your cache</p>';
+			$html .= '<a class="btn btn-default" id="pc_clear_cache" href="#">Clear Cache</a>';
+			$html .= '<p class="message"></p>';
+		$html .= '</form>';
+
+		echo $html;
+
+	}
 
 
 }
