@@ -50,8 +50,9 @@ class Proud_Test_Feature{
 			//update_option( 'sfn_test_absent', 'thing is NOT present ' . time());
 			self::send_slack_message( 'gf_captcha_setup_notification', 'CAPTCHA is NOT setup on ' . site_url() . '.', 2628000 );
 		} else {
+			// TODO: commented out because we do NOT want a notice for each site that has the value set
 			//update_option( 'sfn_test_present', 'thing IS present ' . time());
-			self::send_slack_message( 'gf_captcha_setup_notification', 'Testing CAPTCHA notice on ' . site_url() . '.', 2628000 );
+			//self::send_slack_message( 'gf_captcha_setup_notification', 'Testing CAPTCHA notice on ' . site_url() . '.', 2628000 );
 		}
 	}
 
