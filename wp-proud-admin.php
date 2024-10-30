@@ -3,7 +3,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2024.08.06.1339
+Version:            2024.10.30.0704
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 
@@ -35,6 +35,8 @@ require_once( plugin_dir_path(__FILE__) . 'lib/proud-customize-wp-profile.php' )
 require_once( plugin_dir_path(__FILE__) . 'lib/proud-cpt-customizations.php' );
 // Forcing Activation of Default Theme
 require_once( plugin_dir_path(__FILE__) . 'lib/proud-force-theme.php' );
+// Test for feature
+require_once( plugin_dir_path(__FILE__) . 'lib/proud-test-feature.php' );
 
 class ProudAdmin extends \ProudPlugin {
 
