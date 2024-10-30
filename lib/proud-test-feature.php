@@ -43,6 +43,8 @@ class Proud_Test_Feature{
 	 * @uses self::send_slack_message()			Sends the message
 	 */
 	public static function test_feature(){
+		// turned the alerts off
+		return;
 
 		$feature = get_option('rg_gforms_captcha_private_key');
 
