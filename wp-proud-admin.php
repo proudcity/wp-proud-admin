@@ -102,7 +102,12 @@ class ProudAdmin extends \ProudPlugin {
      * Changes the login text at the bottom of the login box
      */
     public static function proud_login_site_html_link( $text ){
-        if ( site_url() === 'https://www.colma.ca.gov' ) return $text;      // return early because COLMA needs to see this
+        $sites = array(
+            'https://www.colma.ca.gov',
+            'https://saintra.proudcity.com',
+        );
+
+        if (in_array(site_url(), $sites) ) return $text;      // return early because COLMA needs to see this
         return "You've been logged out of your website. To remedy this you need to  return to <a href=\"https://my.proudcity.com\">my.proudcity.com</a> and logout. Then log back into my.proudcity.com and click \"Manage Site\"";
     }
 
