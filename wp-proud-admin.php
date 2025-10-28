@@ -3,7 +3,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2025.09.10.1027
+Version:            2025.10.28.1525
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 
@@ -175,8 +175,6 @@ class ProudAdmin extends \ProudPlugin {
   // Add permissions to Editor role
   function add_caps( $allcaps, $cap = null, $args = [] ) {
     $editor_caps = array(
-      'activate_plugins',  //@todo: need to look at ramfications (left sidebar) before enabling
-      'switch_themes',
       'edit_files',
       'edit_theme_options',
       'edit_job_listing',
