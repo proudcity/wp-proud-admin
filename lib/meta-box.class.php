@@ -179,7 +179,7 @@ abstract class ProudMetaBox {
 // Abstract class for term MetaBox
 abstract class ProudTermMetaBox extends ProudMetaBox {
 
-	public $key;
+    public $key;
 
     /**
      * Start up
@@ -262,10 +262,12 @@ abstract class ProudTermMetaBox extends ProudMetaBox {
      * Saves form values
      */
     public function save_term_meta( $term_id, $taxonomy ) {
-      // Grab form values from Request
-      $values = $this->form->getFormValues( $_POST );
-      if( !empty( $values ) ) {
-        $this->save_all( $values, $term_id );
-      }
-    }
+        if (isset($_POST)) {
+            // Grab form values from Request
+            $values = $this->form->getFormValues($_POST);
+            if (!empty($values)) {
+                $this->save_all($values, $term_id);
+            } // ! empty $values
+        } // isset $_POST
+    } // save_term_meta
 }
