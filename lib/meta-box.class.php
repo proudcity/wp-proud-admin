@@ -262,7 +262,7 @@ abstract class ProudTermMetaBox extends ProudMetaBox {
      * Saves form values
      */
     public function save_term_meta( $term_id, $taxonomy ) {
-        if (isset($_POST)) {
+        if (isset($_POST) && null != $_POST) {
             // Grab form values from Request
             $values = $this->form->getFormValues($_POST);
             if (!empty($values)) {
