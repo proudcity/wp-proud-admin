@@ -147,7 +147,8 @@ class ProudAdmin extends \ProudPlugin {
       require_once( plugin_dir_path(__FILE__) . 'settings/integrations.php' );
       require_once( plugin_dir_path(__FILE__) . 'settings/social.php' );
       require_once( plugin_dir_path(__FILE__) . 'settings/alert.php' );
-      require_once( plugin_dir_path(__FILE__) . 'settings/caching.php' );
+	  require_once( plugin_dir_path(__FILE__) . 'settings/caching.php' );
+      require_once( plugin_dir_path(__FILE__) . 'settings/forms.php' );
     }
   }
 
