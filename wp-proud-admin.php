@@ -3,7 +3,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2025.11.10.1330
+Version:            2025.11.17.1031
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 
@@ -147,7 +147,7 @@ class ProudAdmin extends \ProudPlugin {
       require_once( plugin_dir_path(__FILE__) . 'settings/integrations.php' );
       require_once( plugin_dir_path(__FILE__) . 'settings/social.php' );
       require_once( plugin_dir_path(__FILE__) . 'settings/alert.php' );
-	  require_once( plugin_dir_path(__FILE__) . 'settings/caching.php' );
+      require_once( plugin_dir_path(__FILE__) . 'settings/caching.php' );
       require_once( plugin_dir_path(__FILE__) . 'settings/forms.php' );
     }
   }
@@ -176,6 +176,7 @@ class ProudAdmin extends \ProudPlugin {
   // Add permissions to Editor role
   function add_caps( $allcaps, $cap = null, $args = [] ) {
     $editor_caps = array(
+    'proud_admin',
       'edit_files',
       'edit_theme_options',
       'edit_job_listing',
@@ -227,7 +228,8 @@ class ProudAdmin extends \ProudPlugin {
     }
 
     $administrator_caps = array(
-      'edit_proud_options',
+        'proud_admin',
+        'edit_proud_options',
     );
     $role = get_role( 'administrator' );
     foreach ($administrator_caps as $item) {
