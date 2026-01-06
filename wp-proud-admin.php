@@ -184,11 +184,13 @@ class ProudAdmin extends \ProudPlugin
     return $classes;
   }*/
 
+<<<<<<< HEAD
 	// Add permissions to Editor role
 	function add_caps($allcaps, $cap = null, $args = [])
 	{
 		$editor_caps = array(
-			'proud_admin',
+            'proud_admin',
+            'proud_admin_cap',
 			'edit_files',
 			'edit_theme_options',
 			'edit_job_listing',
@@ -239,7 +241,7 @@ class ProudAdmin extends \ProudPlugin
 		$role = get_role('editor');
 		foreach ($editor_caps as $item) {
 			$role->add_cap($item);
-		}
+        }
 
 		$administrator_caps = array(
 			'proud_admin',
