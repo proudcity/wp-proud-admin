@@ -4,7 +4,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2026.01.06.1521
+Version:            2026.02.06.0937
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 License:            Affero GPL v3
@@ -235,6 +235,7 @@ class ProudAdmin extends \ProudPlugin
             'gravityflow_workflow_detail_admin_actions',
             'gravityforms_coupons',
             'gravityforms_coupons_plugin_page',
+            'gravityforms_mailerlite',
         );
         $role = get_role('editor');
         foreach ($editor_caps as $item) {
