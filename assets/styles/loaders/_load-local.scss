@@ -12,5 +12,5 @@
 // Load Proudcity vendor scss
 // ---------------------------------
 
-@import "pattern-scss/loaders/bourbon-loader";
+@import "../../../node_modules/bourbon/app/assets/stylesheets/bourbon";
 @import "pattern-scss/proudcity-mixins";
