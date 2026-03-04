@@ -1,0 +1,8 @@
+// Hide some specific sidebar links
+body:not(.role-admin) {
+  #menu-tools,
+  #menu-plugins,
+  .menu-icon-analytics {
+    display: none;
+  }
+}

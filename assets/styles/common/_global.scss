@@ -1,0 +1,8 @@
+// hides the support button in the admin
+iframe#launcher{display:none !important;}
+
+// Bootstap list mixin
+@mixin list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}

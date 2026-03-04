@@ -1,0 +1,9 @@
+#footer-upgrade{
+  display: none;
+}
+
+// Make chat play nice with ProudBar
+.zEWidget-launcher {
+  bottom: 55px !important;
+  z-index: 1000 !important;
+}

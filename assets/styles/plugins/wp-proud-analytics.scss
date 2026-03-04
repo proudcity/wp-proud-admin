@@ -1,0 +1,24 @@
+#adminmenu{
+    .toplevel_page_pc-analytics{
+
+        // forcing icon to show overriding default settings
+        .dashicons-before img{display:block;}
+
+        .wp-menu-image img{
+            width:15px;
+            margin-left:10px;
+        }
+
+
+    } // .toplevel_page_pc-analytics
+
+	.toplevel_page_googlesitekit-dashboard,
+    .toplevel_page_googlesitekit{display:none;}
+
+} // #adminmenu
+
+.role-admin #adminmenu{
+	.toplevel_page_googlesitekit-dashboard,
+    .toplevel_page_googlesitekit{display:block !important;}
+}
+

@@ -1,0 +1,16 @@
+// Loads only variables, mixins, and local styles
+// subtheme will include these
+// ---------------------------------------------------
+
+
+// Bootstrap variables
+// ---------------------------------
+
+@import "load-variables";
+@import "bootstrap/mixins";
+
+// Load Proudcity vendor scss
+// ---------------------------------
+
+@import "../../../node_modules/bourbon/app/assets/stylesheets/bourbon";
+@import "pattern-scss/proudcity-mixins";

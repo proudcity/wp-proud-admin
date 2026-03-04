@@ -1,0 +1,268 @@
+$inline-form-label-width: 150px;
+
+
+.form-group,
+.field-group {
+  margin-bottom: 1em;
+
+  select {
+    height: 40px;
+  }
+
+  .description {
+    color: $gray;
+  }
+}
+
+// Draggable checkboxes
+[data-draggable-checkboxes] .handle {
+  margin-right: .5em;
+  padding-top: 5px;
+  color: $gray;
+}
+
+
+.checkboxes {
+  margin-bottom: .5em;
+
+  input {
+    margin-right: .5em;
+  }
+}
+
+input {
+  border: 1px solid $gray-lighter;
+  border-radius: 2px;
+  color: $gray-dark;
+}
+
+body:not(.post-type-popup) #titlediv {
+  #title,
+  #title-prompt-text {
+    height: 5rem !important;
+    line-height: 5rem !important;
+  }
+
+  #title {
+    color: $gray-dark;
+  }
+
+  #title-prompt-text {
+    padding-top: 0;
+  }
+}
+
+.has-text-field #wp-link .query-results {
+  top: 240px;
+}
+
+
+// Popup, post settings form styling
+// converts form styles to horizontal
+@include respond($sm-up) {
+
+  // Form headers
+  .form-header {
+    width: 90%;
+  }
+
+  .proud-settings,
+  .so-content,
+  form#post,
+  form#edittag {
+    // Repeating groups
+    .repeating-group {
+      width: 90%; 
+    }
+
+    table.form-table tbody {
+      th {
+        width: $inline-form-label-width - 10px;
+      }
+
+      input:not(input[type="checkbox"], input[type="radio"]),
+      textarea,
+      select {
+        &, 
+        ~ .help-block {
+          padding: $padding-large-vertical $padding-large-horizontal;
+          min-width: 200px;
+          width: 33%;
+        }
+      }
+
+      select {
+        box-sizing: border-box;
+        height: initial;
+      }
+
+    }
+
+    // Limit widths
+    .form-group,
+    .field-group {
+      position: relative;
+
+      & > {
+        label {
+          font-weight: 400!important;
+          position: absolute;
+          padding-top: 5px;
+          left: 0;
+          width: $inline-form-label-width - 20;
+        }
+      }
+
+      & >, & > div > {
+        // Events override
+        #location-name,
+        .upload_file_name,
+        input,
+        textarea,
+        .radio,
+        .checkbox,
+        select {
+          position: relative;
+          margin-left: $inline-form-label-width;
+          top: -0em;
+        }
+
+        input,
+        textarea,
+        select {
+          &, 
+          ~ .help-block {
+            min-width: 200px;
+            width: 33%;
+          }
+        }
+
+        textarea {
+          &, 
+          ~ .help-block {
+            min-width: 200px;
+            width: 50%;
+          }
+        }
+
+        .wp-editor-wrap {
+          width: 98%;
+        }
+          
+        .description,
+        .help-block {
+          margin-left: $inline-form-label-width;
+        }
+  
+        .upload_file_name {
+          padding-bottom: 5px;
+        }
+
+        .radio,
+        .checkbox {
+          label {
+            position: relative;
+            padding-top: 2px;
+          }
+
+          input {
+            width: 16px;
+            min-width: 0;
+          }
+
+          .description,
+          .help-block {
+            margin-left: 0;
+          }
+
+          ~ .help-block {
+            min-width: 200px;
+            width: 50%;
+          }
+        }
+      }
+    }
+
+    // Jumbotron img upload field
+    img.custom_media_image {
+      margin-left: $inline-form-label-width !important;
+      margin-top: 10px !important;
+      margin-right: - $inline-form-label-width + 10px !important;
+    }
+    .upload_image_button {
+      margin-top: 10px;
+    }
+  }
+
+  // Site origins widget popup
+  .siteorigin-widget-form {
+
+    .siteorigin-widget-field:not(.siteorigin-widget-field-type-checkbox) {
+      position: relative;
+
+      &  > label {
+        font-weight: 400!important;
+        position: absolute;
+        padding-top: 5px;
+        left: 0;
+        width: $inline-form-label-width - 20px;
+      }
+      
+      & >, div > {
+        textarea,
+        input,
+        select,
+        .media-field-wrapper,
+        .siteorigin-widget-tinymce-container,
+        .siteorigin-widget-field-description {
+          margin-left: $inline-form-label-width;
+          max-width: 75%;
+        }
+      }
+
+      .existing-content-selector > input {
+        margin-left: 0!important;       
+      }
+
+      .media-field-wrapper ~ input {
+        margin-top: 0!important;
+      }
+    }
+
+    .siteorigin-widget-field-type-checkbox {
+      padding-left: $inline-form-label-width;
+    }
+  }
+}
+
+// Add event location field
+#em-event-where .col-sm-6 i {
+  display: none;
+}
+
+
+.login-action-password-protected-login #loginform {
+  display: block;
+}
+
+
+// Fixes due to changes in wp-core
+input[type="checkbox"]:checked::before,
+input[type="radio"], input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+input[type="radio"]:checked::before {
+  width: 10px;
+  height: 10px;
+}
+
+.help-block {
+  font-size: .8em;
+}
+
+.help-block code {
+  color: #666;
+  font-size: .9em;
+}

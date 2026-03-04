@@ -1,0 +1,86 @@
+// Taxonomy pages
+#col-left {
+  .term-slug-wrap, //@todo: do we really want to hide this?
+  .tagcloud {
+    display: none;
+  }
+}
+
+// Widget manager
+#widgets-right {
+  h2 {
+    font-size: 1em;
+  }
+}
+
+// Menu edit page
+.manage-menus,
+#nav-menus-frame {
+  label,
+  h3,
+  dt,
+  select,
+  .nav-tab-link,
+  .add-new-menu-action {
+    font-size: 13px;
+  }
+
+  .add-menu-item-tabs {
+    margin-bottom: 0;
+  }
+  
+  // Hide "Display location" checkbox https://github.com/proudcity/wp-proudcity/issues/1154
+  .menu-theme-locations {
+    display: none;
+  }
+}
+
+// Customizer
+#customize-theme-controls {
+  .upload-button {
+    float: none;
+  }
+  .thumbnail {
+    max-width: 100px;
+    height: auto;
+  }
+}
+
+
+// Menu Customizer panel
+#available-menu-items {
+  h4.accordion-section-title {
+    font-size: $base-font-size;
+    padding: 7px 15px;
+  }
+}
+#menu-to-edit {
+  .customize-control-title,
+  .assigned-menu-location,
+  .customize-control-nav_menu_auto_add {
+    display: none !important;
+  }
+
+  .menu-delete {
+    font-size: $base-font-size*.8;
+  }
+
+  .reorder {
+    font-size: $base-font-size;
+  }
+}
+
+
+// Gravity forms
+.tooltip.gf_tooltip {
+  position: relative;
+  display: inline;
+}
+#gf_form_toolbar .fa-lg {
+  font-size: 1em;
+  vertical-align: 0;
+  padding: 0 3px;
+}
+table .manage-column img{
+  max-width: inherit;
+}

@@ -1,0 +1,134 @@
+// Wysisyg
+#wp-content-editor-tools {
+  padding-top: 5px;
+
+  #insert-media-button {
+    margin-left: 5px;
+  }
+
+  .wp-editor-tabs {
+    margin-right: 5px;
+  }
+
+  #add_gform,
+  #-add_media,
+  #content-add_media {
+    display: none;
+  }
+}
+
+// Slug
+#edit-slug-box {
+  font-size: .8em;
+  padding: 0 0 10px 0;
+
+  #new-post-slug {
+    height: 26px;
+  }
+}
+
+// Sidebar
+#side-sortables {
+  #wp_quick_menu_meta_box {
+    h3 {
+      font-size: 1em;
+    }
+
+    .possible-position-100,
+    .advance_settings_extra,
+    .wp_quick_menu_advance_settings span {
+      display: none;
+    }
+
+    .wp_quick_menu_advance_settings {
+      font-weight: normal;
+    }
+  }
+
+  #pageparentdiv { // @todo: revisit this, we might want some of these features
+    //display: none !important;
+  }
+
+
+  #submitdiv {
+    #wpseo-score {
+      display: none; // @todo: do we actually want to show SEO score?
+    }
+
+    &.closed {
+      .inside {
+        display: block;
+
+        #minor-publishing {
+          //display: none;
+        }
+      }
+    }
+  }
+
+  #expirationdatediv {
+    table {
+      width: 100%;
+
+      td {
+        padding: 3px;
+
+        select {
+          width: 100%;
+        }
+      }
+    }
+
+  }
+
+}
+
+// Form builder popups
+#TB_window{
+
+  #TB_ajaxContent {
+    height: auto !important;
+  }
+
+  .control-box {
+    height: auto;
+
+    legend {
+      display: none;
+    }
+  }
+
+  .insert-box {
+    position: relative;
+    height: auto;
+    background: transparent;
+    border-top: 0;
+
+    .button {
+      float: none;
+      margin-top: 1em;
+    }
+  }
+}
+
+// Hide Yoast on Answer post edit page and listing
+.post-type-question {
+  #wpseo_meta,
+  th.column-wpseo-score,
+  td.column-wpseo-score,
+  th.column-wpseo-score-readability,
+  td.column-wpseo-score-readability {
+    display: none;
+  }
+}
+
+
+// Hide WYSIWYG Add media button on Meeting post type
+.post-type-meeting {
+  .wp-media-buttons {
+    display: none !important;
+  }
+}
+
+
+

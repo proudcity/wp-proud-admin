@@ -1,0 +1,75 @@
+#wpbody-content #dashboard-widgets {
+  #postbox-container-3,
+  #postbox-container-4 {
+    width: 100% !important;
+  }
+
+  #postbox-container-1,
+  #postbox-container-2 {
+    width: 50% !important;
+  }
+
+  #postbox-container-4 {
+    margin-top: 1em;
+  }
+
+  .empty-container {
+    //display: none;
+  }
+
+  .left,
+  .right {
+    float: left;
+  }
+
+  .left {
+    margin-right: 2rem;
+  }
+
+
+  /*
+  .proud-checklist {
+
+    .checklist-number {
+      display: inline-block;
+      width: 80px;
+      text-align: right;
+      font-size: 60px;
+      line-height: 60px;
+      color: $gray-lighter;
+      padding-right: 10px;
+    }
+
+    .completed {
+      .checklist-number,
+      h3,
+      a.btn {
+        //color: $alert-green;
+      }
+    }
+  }
+  */
+
+
+}
+
+
+// @todo: it would be nice to not need this...
+#dashboard-widgets h3,
+#dashboard-widgets h4,
+#dashboard_quick_press .drafts h2 {
+  font-weight: $font-weight-h2;
+}
+
+#dashboard-widgets h3 {
+  font-size: $font-size-h3;
+}
+
+#dashboard-widgets h4 {
+  font-size: $font-size-h4;
+}
+
+.metabox-holder h2.hndle {
+  font-size: 16px;
+  font-weight: bold;
+}

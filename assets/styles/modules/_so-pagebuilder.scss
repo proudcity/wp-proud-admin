@@ -1,0 +1,37 @@
+$dialog-font-size: 16px;
+
+.so-panels-dialog {
+
+  .so-right-sidebar {
+    h3,
+    h4 {
+      font-size: $dialog-font-size;
+    }
+  }
+
+  .so-buttons {
+    font-size: $dialog-font-size;
+  }
+
+
+  // Hide some of the prebuilt layout options
+  .so-sidebar-tabs {
+    li:nth-child(2),
+    li:nth-child(2),
+    li:nth-child(5) {
+       display:none;
+    }
+  }
+}
+
+.so-widget {
+  min-height: 65px !important;
+}
+
+// Hide the revert to editor, Premium, Addons, Theme buttonsœ
+a.so-switch-to-standard,
+a.so-siteorigin-premium,
+a.so-learn,
+body.sp-pagebuild-enabled #revisionsdiv{
+  display: none !important;
+}

@@ -1,0 +1,14 @@
+#wpwrap {
+  background-color: white;
+
+  .wrap {
+    padding-bottom: 50px; // for the support button
+  }
+}
+
+
+body.role-non-admin {
+  .update-nag {
+    display: none !important;
+  }
+}

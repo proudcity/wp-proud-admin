@@ -1,0 +1,26 @@
+.login h1 a {
+  background-image: url(https://my.proudcity.com/images/FullLogoBlack.png);
+  background-size: auto !important;
+  height: auto;
+  width: 100%;
+}
+
+#attributionBadge,
+.a0-sign-up,
+#extra-options {
+  display: none !important;
+}
+
+.login{
+
+	// hides the lost password text because we use Auth0 and everything should be there
+	#nav{display:none;}
+
+	#backtoblog{
+		padding:0;
+		font-size:16px;
+
+		a{color:#0071bc;}
+	}
+
+} // .login
