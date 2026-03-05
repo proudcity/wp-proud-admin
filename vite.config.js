@@ -8,7 +8,6 @@ export default defineConfig({
         api: 'legacy',
         includePaths: [
           'node_modules/bootstrap-sass/assets/stylesheets',
-          'node_modules/bourbon/app/assets/stylesheets',
           'node_modules/proudcity-patterns/app'
         ]
       }

@@ -1,0 +1,42 @@
+// Bourbon v4 replacement
+// Provides only the mixins actively used by this project.
+// Vendor prefixes omitted — transition, transform, animation, and keyframes
+// have been universally supported unprefixed since 2015.
+
+@mixin transition($properties...) {
+  transition: $properties;
+}
+
+@mixin transform($transforms) {
+  transform: $transforms;
+}
+
+@mixin animation($animations...) {
+  animation: $animations;
+}
+
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin transition-property($properties...) {
+  transition-property: $properties;
+}
+
+@mixin transition-duration($durations...) {
+  transition-duration: $durations;
+}
+
+@mixin transition-delay($delays...) {
+  transition-delay: $delays;
+}
+
+@mixin clearfix() {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
