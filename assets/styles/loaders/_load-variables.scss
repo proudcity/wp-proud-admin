@@ -1,6 +1,6 @@
 
 // Local overrides
-@import "../variables-override";
+@forward "../variables-override";
 
 // Proudcity-patterns
-@import "pattern-scss/local-variables";
+@forward "pattern-scss/local-variables";

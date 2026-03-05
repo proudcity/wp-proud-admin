@@ -1,3 +1,5 @@
+@use '../loaders/load-local' as *;
+
 // Taxonomy pages
 #col-left {
   .term-slug-wrap, //@todo: do we really want to hide this?

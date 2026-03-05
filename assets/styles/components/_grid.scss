@@ -1,10 +1,13 @@
+@use '../loaders/load-local' as *;
+@use '../loaders/bootstrap-mixins-bridge' as bs;
+
 // Grid system
 .main {
-  @include make-sm-column($main-sm-columns);
+  @include bs.make-sm-column($main-sm-columns);
   .sidebar-primary & {
-    @include make-sm-column($main-sm-columns - $sidebar-sm-columns);
+    @include bs.make-sm-column($main-sm-columns - $sidebar-sm-columns);
   }
 }
 .sidebar {
-  @include make-sm-column($sidebar-sm-columns);
+  @include bs.make-sm-column($sidebar-sm-columns);
 }

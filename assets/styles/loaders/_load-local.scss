@@ -3,14 +3,17 @@
 // ---------------------------------------------------
 
 
-// Bootstrap variables
+// Bootstrap variables + project variable overrides
 // ---------------------------------
 
-@import "load-variables";
-@import "bootstrap/mixins";
+@forward "load-variables";
 
 // Load Proudcity vendor scss
 // ---------------------------------
 
-@import "bourbon-replacement";
-@import "pattern-scss/proudcity-mixins";
+// bootstrap/mixins not forwarded here: conflicts with bourbon-replacement
+// (clearfix, transition, etc.). Use @use 'bootstrap/mixins' as bs directly
+// in the one file that needs it (components/_grid.scss).
+
+@forward "bourbon-replacement";
+@forward "pattern-scss/proudcity-mixins";

@@ -1,3 +1,5 @@
+@use '../loaders/load-local' as *;
+
 #wpbody-content #dashboard-widgets {
   #postbox-container-3,
   #postbox-container-4 {

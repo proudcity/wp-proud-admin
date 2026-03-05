@@ -1,0 +1,7 @@
+// Bootstrap mixins bridge (legacy mode)
+// Provides bootstrap grid mixins with variables properly in scope.
+// bootstrap/mixins uses @import internally and needs $grid-gutter-width etc.
+// as globals — this legacy wrapper ensures that works correctly.
+@import '../variables-override';
+@import 'pattern-scss/local-variables';
+@import 'bootstrap/mixins';

@@ -1,42 +1,42 @@
 // Init styles
 // ---------------------------
 
-@import "loaders/load-local";
+@use "loaders/load-local" as *;
 
 // Patterns
 // ---------------------------
-@import "pattern-scss/wp/admin-menu";
-@import "pattern-scss/wp/search";
-@import "pattern-scss/wp/widget-proud-jumbotron-header";
-@import "pattern-scss/wp/so-pagebuilder";
-@import "pattern-scss/wp/sidebar";
-@import "pattern-scss/wp/events-manager";
+@use "pattern-scss/wp/admin-menu";
+@use "pattern-scss/wp/search";
+@use "pattern-scss/wp/widget-proud-jumbotron-header";
+@use "pattern-scss/wp/so-pagebuilder" as wp-so-pagebuilder;
+@use "pattern-scss/wp/sidebar";
+@use "pattern-scss/wp/events-manager";
 
 // Local Styles
 // ---------------------------
-@import "common/global";
-@import "components/buttons";
-@import "components/forms";
-@import "components/grid";
-@import "components/wp-classes";
-@import "layouts/header";
-@import "layouts/toolbar";
-@import "layouts/footer";
-@import "layouts/pages";
-@import "layouts/posts";
-@import "layouts/terms";
-@import "layouts/tinymce";
-@import "layouts/misc";
-@import "layouts/login";
-@import "layouts/dashboard";
-@import "layouts/sidebar-links";
-@import "layouts/gravity-forms";
-@import "layouts/customizer";
+@use "common/global";
+@use "components/buttons";
+@use "components/forms";
+@use "components/grid";
+@use "components/wp-classes";
+@use "layouts/header";
+@use "layouts/toolbar";
+@use "layouts/footer";
+@use "layouts/pages";
+@use "layouts/posts";
+@use "layouts/terms";
+@use "layouts/tinymce";
+@use "layouts/misc";
+@use "layouts/login";
+@use "layouts/dashboard";
+@use "layouts/sidebar-links";
+@use "layouts/gravity-forms" as layouts-gravity-forms;
+@use "layouts/customizer";
 
-@import "modules/gravity-forms";
-@import "modules/so-pagebuilder";
-@import "modules/simple-staff-list";
-@import "modules/popup-maker";
+@use "modules/gravity-forms" as modules-gravity-forms;
+@use "modules/so-pagebuilder";
+@use "modules/simple-staff-list";
+@use "modules/popup-maker";
 
 // plugin specific customizations
-@import "plugins/wp-proud-analytics";
+@use "plugins/wp-proud-analytics";

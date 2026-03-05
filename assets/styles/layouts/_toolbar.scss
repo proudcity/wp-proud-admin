@@ -1,3 +1,5 @@
+@use '../loaders/load-local' as *;
+
 html.wp-toolbar {
   padding-top: $admin-bar-height !important;
 }

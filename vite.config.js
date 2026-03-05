@@ -5,10 +5,12 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        api: 'legacy',
-        includePaths: [
+        api: 'modern-compiler',
+        loadPaths: [
           'node_modules/bootstrap-sass/assets/stylesheets',
-          'node_modules/proudcity-patterns/app'
+          'node_modules/proudcity-patterns/app',
+          'node_modules',
+          'assets/styles'
         ]
       }
     }
