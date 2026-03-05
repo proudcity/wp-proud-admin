@@ -1,49 +1,85 @@
 # wp-proud-admin
+
 Administration theme, permissions tweaks, and ProudCity settings pages. [ProudCity](http://proudcity.com) is a Wordpress platform for modern, standards-compliant municipal websites.
 
 All bug reports, feature requests and other issues should be added to the [wp-proudcity Issue Queue](https://github.com/proudcity/wp-proudcity/issues).
 
-### Building notes
+## Development Setup
 
-This project uses Vite to compile SCSS assets.
+### Prerequisites
 
-#### Initial Setup
+- Node.js (v18+)
+- npm
 
-```bash
-# Install dependencies
-npm install --no-audit
-
-# Clone proudcity-patterns into node_modules
-git clone git@github.com:proudcity/proudcity-patterns.git node_modules/proudcity-patterns
-
-# Build the CSS
-npm run build
-```
-
-Or use the combined setup script (note: you must clone patterns separately after):
+### First-time setup
 
 ```bash
 npm run projectsetup
 ```
 
-#### Build Commands
+This single command:
+1. Runs `npm install` (installs Vite, sass, bootstrap-sass, FontAwesome, patch-package)
+2. Applies `patch-package` patches automatically via the `postinstall` hook
+3. Clones `proudcity-patterns` into `node_modules/proudcity-patterns`
+4. Runs `patch-patterns` to apply required compatibility fixes to proudcity-patterns
+
+### Build commands
 
 ```bash
-# Production build
+# One-time production build
 npm run build
 
-# Watch mode (rebuilds on file changes)
+# Watch mode — rebuilds automatically on file changes
 npm run dev
 ```
 
-#### Updating ProudCity Patterns
+Built CSS is output to `dist/styles/proud-admin.css`.
 
-To update the patterns library to the latest version:
+### Updating proudcity-patterns
 
 ```bash
 npm run projectupdate
 ```
 
-#### Output
+Re-clones proudcity-patterns and re-applies all patches.
 
-Built CSS is output to `dist/styles/proud-admin.css`.
+---
+
+## Architecture notes
+
+### Build system
+
+Vite v6 compiles `assets/styles/proud-admin.scss` → `dist/styles/proud-admin.css`.
+
+SCSS is compiled with the modern Sass compiler API (`api: 'modern-compiler'`). Third-party
+dependencies (bootstrap-sass, FontAwesome, proudcity-patterns) still use the legacy `@import`
+syntax, which is silenced via `silenceDeprecations` in `vite.config.js`.
+
+### proudcity-patterns
+
+`proudcity-patterns` is a git clone, not an npm package. It lives at
+`node_modules/proudcity-patterns` and must be cloned manually (or via `projectsetup`/`projectupdate`).
+
+After cloning, `npm run patch-patterns` applies sed patches to make it compatible with
+FontAwesome v6:
+- Inserts `@import "functions.scss"` before `@import "variables.scss"` in `_font-awesome.scss`
+  (FA v6 requires functions to load first)
+- Strips the `node_modules/` prefix from FontAwesome paths in `_font-awesome-loader.scss`
+- Updates the CDN font path from FA v5.13.0 to v6.7.0
+
+### patch-package patches
+
+Two patches in `patches/` are applied automatically on `npm install`:
+
+- `patches/@fortawesome+fontawesome-free+6.7.2.patch` — fixes deprecated `unquote()` calls
+  in FontAwesome's Sass files to use `string.unquote()` from the modern Sass module system
+- `patches/bootstrap-sass+3.4.3.patch` — fixes deprecated `percentage()`, `ceil()`, and
+  `floor()` calls in bootstrap-sass to use `math.*()` equivalents; also removes a legacy
+  asset helper conditional in `_image.scss`
+
+### bourbon
+
+bourbon v4 has been removed. The mixins it provided are replaced by
+`assets/styles/loaders/_bourbon-replacement.scss`, which covers the 8 mixins used in this
+project: `transition`, `transform`, `animation`, `keyframes`, `transition-property`,
+`transition-duration`, `transition-delay`, and `clearfix`.
