@@ -4,11 +4,11 @@
     <h3>Live chat</h3>
   </a></div>
   <div class="card-wrap"><a href="https://proudcity.com/support/create" class="card text-center card-btn card-block" target="_blank">
-    <i class="fa fa-sticky-note-o fa-3x"></i>
+    <i class="fa fa-note-sticky fa-3x"></i>
     <h3>Create a ticket</h3>
   </a></div>
   <div class="card-wrap"><a href="https://proudcity.com/support/create" class="card text-center card-btn card-block" target="_blank">
-    <i class="fa fa-plus-circle fa-3x"></i>
+    <i class="fa fa-circle-plus fa-3x"></i>
     <h3>Request a feature</h3>
   </a></div>
   <div class="card-wrap"><a href="https://proudcity.com/support/create" class="card text-center card-btn card-block" target="_blank">

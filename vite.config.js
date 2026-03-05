@@ -6,6 +6,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         api: 'modern-compiler',
+        silenceDeprecations: ['import', 'if-function'],
         loadPaths: [
           'node_modules/bootstrap-sass/assets/stylesheets',
           'node_modules/proudcity-patterns/app',

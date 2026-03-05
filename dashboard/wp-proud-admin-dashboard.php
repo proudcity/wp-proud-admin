@@ -106,25 +106,25 @@ class ProudAdminDashboard extends \ProudPlugin {
     return array(
       'editor' => array(
         'title' => 'Learn about The Editor',
-        'icon' => 'fa-list-alt',
+        'icon' => 'fa-rectangle-list',
         'link' => null,
         'video' => 'v2Hm-XkZ0WY',
       ),
       'media' => array(
         'title' => 'Add imagery',
-        'icon' => 'fa-picture-o',
+        'icon' => 'fa-image',
         'link' => '/wp-admin/upload.php',
         'video' => null,
       ),
       'appearance' => array(
         'title' => 'Configure appearance',
-        'icon' => 'fa-paint-brush',
+        'icon' => 'fa-paintbrush',
         'link' => 'wp-admin/customize.php?return=/wp-admin',
         'video' => null,
       ),
       'integrations' => array(
         'title' => 'Select integrations',
-        'icon' => 'fa-share-square',
+        'icon' => 'fa-square-share-nodes',
         'link' => '/wp-admin/admin.php?page=integrations',
         'video' => null,
       ),
@@ -136,13 +136,13 @@ class ProudAdminDashboard extends \ProudPlugin {
       ),
       'home' => array(
         'title' => 'Edit homepage',
-        'icon' => 'fa-th-large',
+        'icon' => 'fa-table-cells-large',
         'link' => '/wp-admin/post.php?post=139&action=edit', // @todo: use get_option('page_on_front')?
         'video' => null,
       ),
       'answers' => array(
         'title' => 'Add answers',
-        'icon' => 'fa-list-alt',
+        'icon' => 'fa-rectangle-list',
         'link' => '/wp-admin/edit.php?post_type=question', // @todo: use get_option('page_on_front')?
         'video' => 'rGPs8nPEA4E',
       ),
@@ -154,13 +154,13 @@ class ProudAdminDashboard extends \ProudPlugin {
       ),
       'agencies' => array(
         'title' => 'Create agencies',
-        'icon' => 'fa-university',
+        'icon' => 'fa-building-columns',
         'link' => '/wp-admin/edit.php?post_type=agency', // @todo: use get_option('page_on_front')?
         'video' => 'gWDzE7O5uro',
       ),
       'forms' => array(
         'title' => 'Add forms',
-        'icon' => 'fa-check-square-o',
+        'icon' => 'fa-square-check',
         'link' => '/wp-admin/admin.php?page=wpcf7', // @todo: use get_option('page_on_front')?
         //'video' => '_sCEkbaX6eE',
       ),
