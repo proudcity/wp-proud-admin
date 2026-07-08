@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-07-08
+
+- Added "Expiration date" field to the Alert bar settings page (Proud Settings > Alert bar). Rendered as a native HTML5 date picker via a small inline admin script; stored in new `alert_expiration` option as YYYY-MM-DD. Blank or unparseable value means no expiration (previous behavior preserved).
+- Added `lib/proud-alert-expiration.php` implementing a new hourly wp-cron event `proud_alert_expiration_check` (scheduled defensively on init). On expiry the cron callback sets `alert_active` off, clears `alert_expiration` so re-enabling later does not instantly re-expire, and runs the same cache-clearing routine used on settings save (WP Rocket). Expiry is evaluated as end-of-day in the site's configured timezone (`wp_timezone()`), so the bar stays visible through the chosen day.
+- Changed `ProudSettingsPage::clear_cache()` visibility from private to public static so the cron callback can reuse it without duplication.
+- Added PHPUnit + Brain Monkey test harness (composer.json, phpunit.xml, tests/) with 9 tests covering the cron callback; run via `composer install && vendor/bin/phpunit`.
+
+References: https://github.com/proudcity/wp-proudcity/issues/2850
+
+## 2026-05-27
+
+- Fixed `vite.config.js` to include `assets/scripts/proud-admin.js` as a Rollup input. The PHP side enqueues `dist/scripts/proud-admin.js` but the Vite config previously only built CSS, causing the JS to 404 in production. Discovered during manual testing of the Embed Document widget (#2744); not part of that feature work.
+
+References: https://github.com/proudcity/wp-proudcity/issues/2744
+
 ## [Unreleased]
 
 ### Changed

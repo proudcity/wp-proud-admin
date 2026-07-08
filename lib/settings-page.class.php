@@ -260,7 +260,7 @@ abstract class ProudSettingsPage {
      * @author Curtis McHale
      * @link https://docs.wp-rocket.me/article/494-how-to-clear-cache-via-cron-job#clear-cache
      */
-    private static function clear_cache(){
+    public static function clear_cache(){
 
         if( function_exists('rocket_clean_domain') ){
           update_option( 'proud_alert_bar_cleaned', time() );

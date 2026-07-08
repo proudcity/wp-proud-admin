@@ -4,7 +4,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2026.03.06.1546
+Version:            2026.07.08.1428
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 License:            Affero GPL v3
@@ -37,6 +37,8 @@ require_once(plugin_dir_path(__FILE__) . 'lib/proud-cpt-customizations.php');
 require_once(plugin_dir_path(__FILE__) . 'lib/proud-force-theme.php');
 // Test for feature
 require_once(plugin_dir_path(__FILE__) . 'lib/proud-test-feature.php');
+// Alert bar expiration via wp-cron (loaded unconditionally so cron fires on all requests)
+require_once(plugin_dir_path(__FILE__) . 'lib/proud-alert-expiration.php');
 
 class ProudAdmin extends \ProudPlugin
 {

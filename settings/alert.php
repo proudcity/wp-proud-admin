@@ -23,6 +23,7 @@ class ProudAlertPage extends ProudSettingsPage
           'alert_active' => '',
           'alert_message' => '',
           'alert_severity' => '',
+          'alert_expiration' => '',
         )
       );
 
@@ -73,7 +74,15 @@ class ProudAlertPage extends ProudSettingsPage
           '#type' => 'editor',
           '#title' => __pcHelp('Message'),
           '#description' => __pcHelp('HTML code and tokens are allowed. Should be no more than one or two sentences with a link.'),
-        ]
+        ],
+        'alert_expiration' => [
+          '#type' => 'text',
+          '#title' => __pcHelp('Expiration date'),
+          '#description' => __pcHelp('Optional. The alert bar turns off automatically at the end of this day (site timezone). Leave blank for no expiration.'),
+          '#args' => array(
+            'placeholder' => 'YYYY-MM-DD',
+          ),
+        ],
       ];
 
       /**

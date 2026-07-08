@@ -20,10 +20,12 @@ export default defineConfig({
     outDir: 'dist',
     rollupOptions: {
       input: {
-        'styles/proud-admin': resolve(__dirname, 'assets/styles/proud-admin.scss')
+        'styles/proud-admin':  resolve(__dirname, 'assets/styles/proud-admin.scss'),
+        'scripts/proud-admin': resolve(__dirname, 'assets/scripts/proud-admin.js')
       },
       output: {
-        assetFileNames: '[name][extname]'
+        assetFileNames: '[name][extname]',
+        entryFileNames: '[name].js'
       }
     },
     sourcemap: true,
