@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026.07.09.0846
+
+- Replaced the wp-cron based alert bar expiration with a request-time check. `Proud_Alert_Expiration::check()` now runs on `init`, so an expired alert bar turns off on the next request to the site — wp-cron proved unreliable across environments (loopback spawn failures) and was more complexity than the feature needed. The `proud_alert_expiration_check` cron event and its scheduling were removed; any already-scheduled event is an orphaned no-op.
+- Expiry behavior is otherwise unchanged: end-of-day in the site timezone, `alert_expiration` cleared when the bar deactivates, and the settings-save cache-clearing routine runs so cached pages regenerate without the bar.
+
+References: https://github.com/proudcity/wp-proudcity/issues/2850
+
 ## 2026-07-08
 
 - Added "Expiration date" field to the Alert bar settings page (Proud Settings > Alert bar). Rendered as a native HTML5 date picker via a small inline admin script; stored in new `alert_expiration` option as YYYY-MM-DD. Blank or unparseable value means no expiration (previous behavior preserved).
