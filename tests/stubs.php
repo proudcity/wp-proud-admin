@@ -15,12 +15,6 @@ namespace {
     if (!function_exists('add_filter')) {
         function add_filter() { return true; }
     }
-    if (!function_exists('wp_next_scheduled')) {
-        function wp_next_scheduled() { return false; }
-    }
-    if (!function_exists('wp_schedule_event')) {
-        function wp_schedule_event() { return true; }
-    }
     if (!function_exists('get_option')) {
         function get_option($option, $default = false) { return $default; }
     }

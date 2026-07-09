@@ -18,5 +18,5 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/stubs.php';
 
 // proud-alert-expiration.php defines Proud_Alert_Expiration and registers
-// the cron hook. add_action is stubbed so no side effects.
+// hooks on init. add_action is stubbed so no side effects.
 require_once __DIR__ . '/../lib/proud-alert-expiration.php';

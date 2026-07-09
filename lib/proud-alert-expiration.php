@@ -1,18 +1,19 @@
 <?php
 
 /**
- * Alert bar expiration via wp-cron.
+ * Alert bar expiration via request-time check.
  *
- * Schedules an hourly cron event that checks whether the stored
- * alert_expiration date has passed and deactivates the alert bar
- * automatically when it has.
+ * Hooks Proud_Alert_Expiration::check() onto 'init' so the expiry check runs
+ * on every WordPress load (front-end render, admin, AJAX). An expired alert
+ * bar turns off on the next request to the site; the cache clear ensures
+ * cached pages regenerate without the bar.
  *
  * Expiry semantics: the alert bar stays visible through the entire chosen
  * day (in the site timezone) and turns off after midnight. The stored value
  * must be a date string in Y-m-d format. Datetime strings are not accepted.
  *
- * This file is required unconditionally in wp-proud-admin.php so the cron
- * event is registered and fires on every request, not only admin requests.
+ * This file is required unconditionally in wp-proud-admin.php so the hook
+ * is registered on every request, not only admin requests.
  */
 
 class Proud_Alert_Expiration {
@@ -32,29 +33,17 @@ class Proud_Alert_Expiration {
 	} // instance
 
 	/**
-	 * Registers the cron scheduling on init and hooks the callback.
+	 * Registers the expiry check and date-picker enqueue on WordPress init.
 	 */
 	public function init() {
 
-		add_action( 'init', array( $this, 'schedule' ) );
-		add_action( 'proud_alert_expiration_check', array( 'Proud_Alert_Expiration', 'check' ) );
+		add_action( 'init', array( 'Proud_Alert_Expiration', 'check' ) );
 		// Priority 20: this file loads (and registers hooks) before ProudAdmin
 		// enqueues proud-admin/js at priority 10, and wp_add_inline_script()
 		// silently fails if the handle is not yet registered.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_date_picker' ), 20 );
 
 	} // init
-
-	/**
-	 * Schedules the hourly cron event if it is not already scheduled.
-	 */
-	public function schedule() {
-
-		if ( ! wp_next_scheduled( 'proud_alert_expiration_check' ) ) {
-			wp_schedule_event( time(), 'hourly', 'proud_alert_expiration_check' );
-		}
-
-	} // schedule
 
 	/**
 	 * On the alert bar settings page, converts the alert_expiration text input
@@ -89,8 +78,12 @@ class Proud_Alert_Expiration {
 	} // enqueue_date_picker
 
 	/**
-	 * Cron callback: checks whether the stored expiration date has passed and
-	 * deactivates the alert bar if so.
+	 * Request-time check: compares the stored expiration date against the current
+	 * time and deactivates the alert bar if it has passed.
+	 *
+	 * Runs on every WordPress request via the 'init' hook. The check is a cheap
+	 * no-op when the alert is inactive or no expiration date is stored (both
+	 * options are autoloaded).
 	 *
 	 * Accepts only the Y-m-d date format. The comparison uses end-of-day
 	 * semantics (23:59:59 in the site timezone) so the bar stays visible

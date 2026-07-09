@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Tests for Proud_Alert_Expiration::check() in lib/proud-alert-expiration.php.
  *
- * Verifies that the cron callback correctly compares the stored expiration
+ * Verifies that the request-time check correctly compares the stored expiration
  * date (in the site timezone) against the current time and deactivates
  * the alert bar when the end of the chosen day has passed.
  */
