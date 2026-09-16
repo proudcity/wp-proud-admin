@@ -36,3 +36,22 @@ namespace {
         }
     }
 }
+
+namespace {
+    // Needed by wp-proud-core's FormHelper, loaded in bootstrap.php.
+    if (!function_exists('plugin_dir_path')) {
+        function plugin_dir_path($file) { return dirname($file) . '/'; }
+    }
+    if (!function_exists('esc_attr')) {
+        function esc_attr($text) { return htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8'); }
+    }
+    if (!function_exists('esc_html')) {
+        function esc_html($text) { return htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8'); }
+    }
+    if (!function_exists('wp_parse_args')) {
+        function wp_parse_args($args, $defaults = []) { return array_merge($defaults, (array) $args); }
+    }
+    if (!function_exists('add_meta_box')) {
+        function add_meta_box() {}
+    }
+}

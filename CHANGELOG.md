@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026.09.16.0942
+
+- Hardened the metabox save path in `lib/meta-box.class.php`. `save_post` fires for every post save on the site and carries no authorization of its own, so `ProudMetaBox::save_meta()` now bails on autosaves and revisions, requires its own nonce, and requires `current_user_can( 'edit_post', $post_id )` before writing. `ProudTermMetaBox::save_term_meta()` gained the same guards against `current_user_can( 'edit_term', $term_id )`. Previously any user who could save any post could write any metabox's meta onto it — this is the input side of the stored-XSS findings in wp-proud-agency (social accounts, contact name link, phone/email).
+- Fixed a post-type scoping bug in `ProudMetaBox::validate_values()`. The guard read `!empty( $screen )` — an undefined local variable — instead of `!empty( $this->screen )`, so the post-type check never ran and a metabox registered for one screen would write its fields onto any post type.
+- `print_form()` now emits a nonce field (`proud_metabox_nonce_{key}`, action `proud_metabox_save_{key}`) to pair with those checks. A metabox form rendered before this release and submitted after it will silently skip saving that one time; reloading the edit screen fixes it.
+- Changed `ProudMetaBox::$key` from `private` to `protected` and removed the shadowing `public $key` redeclaration in `ProudTermMetaBox`. The two were separate properties, so parent methods reading `$this->key` saw an unset value on term metaboxes.
+- Moved the guard stack into a `final save_meta_gate()` wrapper hooked to `save_post`, with the checks themselves in `can_save()`. **Nine subclasses** across wp-proud-agency, wp-proud-meeting, wp-proud-location and wp-proud-topic override `save_meta()` and none call `parent::save_meta()`, so guards placed in the base method were skipped entirely for them — including `AgencySection`, which calls `wp_create_nav_menu()` from a post save. A wrapper that cannot be overridden means a new subclass is safe by default rather than safe only if someone remembers the `parent::` call.
+- Lowercased the key in `nonce_action()`, `nonce_name()` and `form_was_submitted()`. `FormHelper` lowercases it when building field names, so a mixed-case metabox key would have silently stopped saving. Latent — every key in the tree is already lowercase.
+- Added 17 tests covering the save path (`tests/MetaBoxSaveTest.php`), including one asserting that an overriding `save_meta()` cannot skip the guards and one asserting `save_meta_gate()` is `final`, and loaded the real `Proud\Core\FormHelper` from wp-proud-core in the test bootstrap rather than stubbing it, since `getFormValues()` is part of what is being verified.
+
+References: https://github.com/proudcity/wp-proudcity/issues/2933
+
 ## 2026.07.09.0846
 
 - Replaced the wp-cron based alert bar expiration with a request-time check. `Proud_Alert_Expiration::check()` now runs on `init`, so an expired alert bar turns off on the next request to the site — wp-cron proved unreliable across environments (loopback spawn failures) and was more complexity than the feature needed. The `proud_alert_expiration_check` cron event and its scheduling were removed; any already-scheduled event is an orphaned no-op.

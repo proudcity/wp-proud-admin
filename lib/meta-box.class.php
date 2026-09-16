@@ -6,7 +6,10 @@
 abstract class ProudMetaBox {
 
     public $options = []; // Holds the values to be used in the fields callbacks, MUST be overridden
-    private $key; // for forms, nonce, ect
+    // protected, not private: ProudTermMetaBox used to redeclare its own public
+    // $key, which shadowed this one, so parent methods reading $this->key saw an
+    // unset property. One property, visible to both.
+    protected $key; // for forms, nonce, ect
     public $post; // Content for meta fields
     public $fields; // Form fields
     public $form; // FormHelper
@@ -32,7 +35,11 @@ abstract class ProudMetaBox {
       $this->priority = $priority;
 
       // Add save option
-      add_action( 'save_post', array( $this, 'save_meta' ), 10, 3 );
+      // The gate, not save_meta() directly: nine subclasses across wp-proud-agency,
+      // wp-proud-meeting, wp-proud-location and wp-proud-topic override save_meta()
+      // and none call parent::save_meta(), so guards living in the base method were
+      // simply skipped for them. Hooking a final wrapper makes them unskippable.
+      add_action( 'save_post', array( $this, 'save_meta_gate' ), 10, 3 );
       add_action( 'admin_init', array( $this, 'register_box' ) );
     }
 
@@ -130,6 +137,8 @@ abstract class ProudMetaBox {
       // Set fields, displaying
       $this->set_fields( true );
       $this->build_options( );
+      // Paired with nonce_is_valid() in save_meta()/save_term_meta().
+      wp_nonce_field( $this->nonce_action(), $this->nonce_name() );
       // Print fields
       $this->form->printFields( $this->options, $this->fields, 1, 'form' );
     }
@@ -142,11 +151,56 @@ abstract class ProudMetaBox {
     }
 
     /**
+     * Nonce action for this metabox's form.
+     */
+    public function nonce_action() {
+      return 'proud_metabox_save_' . strtolower( $this->key );
+    }
+
+    /**
+     * Nonce field name for this metabox's form.
+     */
+    public function nonce_name() {
+      return 'proud_metabox_nonce_' . strtolower( $this->key );
+    }
+
+    /**
+     * Was this metabox's own form the thing that was submitted?
+     *
+     * Fields are namespaced form-{key}[{number}][...], so their absence means
+     * this is a programmatic save (REST, WP-CLI, wp_update_post) or another
+     * metabox's submission, and there is nothing here for us to write.
+     */
+    protected function form_was_submitted() {
+      // FormHelper lowercases the key when building field names, so match that.
+      return isset( $_POST[ 'form-' . strtolower( $this->key ) ] );
+    }
+
+    /**
+     * Verifies this metabox's nonce.
+     */
+    protected function nonce_is_valid() {
+      $name = $this->nonce_name();
+      if ( empty( $_POST[ $name ] ) ) {
+        return false;
+      }
+      return (bool) wp_verify_nonce(
+        sanitize_text_field( wp_unslash( $_POST[ $name ] ) ),
+        $this->nonce_action()
+      );
+    }
+
+    /**
      * Validate and return values
      */
     public function validate_values( $post ) {
-      // We have screen requirements not met
-      if( empty( $this->form ) || ( !empty( $screen ) && $post->post_type !== $screen ) ) {
+      if( empty( $this->form ) ) {
+        return false;
+      }
+      // This used to read `!empty( $screen )` -- an undefined local variable,
+      // not $this->screen -- so the post-type check never ran and any metabox
+      // would write its fields onto any post type.
+      if( !empty( $this->screen ) && $post->post_type !== $this->screen ) {
         return false;
       }
       // Return values
@@ -165,7 +219,49 @@ abstract class ProudMetaBox {
     }
 
     /**
-     * Saves form values
+     * Authorisation gate for a post save.
+     *
+     * save_post fires for every post save on the site -- autosaves, revisions,
+     * REST, WP-CLI -- and carries no authorisation of its own.
+     *
+     * @return bool Whether save_meta() may run.
+     */
+    protected function can_save( $post_id, $post ) {
+      if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return false;
+      }
+      if ( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) ) {
+        return false;
+      }
+      if ( !$this->form_was_submitted() ) {
+        return false;
+      }
+      if ( !$this->nonce_is_valid() ) {
+        return false;
+      }
+      return (bool) current_user_can( 'edit_post', $post_id );
+    }
+
+    /**
+     * What is actually hooked to save_post.
+     *
+     * final on purpose. Subclasses override save_meta() freely and none of them
+     * call parent::save_meta(), so any guard placed there is one forgotten
+     * parent:: call away from being skipped. Putting the guard in a wrapper
+     * that cannot be overridden means a new subclass is safe by default.
+     */
+    public final function save_meta_gate( $post_id, $post, $update ) {
+      if ( !$this->can_save( $post_id, $post ) ) {
+        return;
+      }
+      $this->save_meta( $post_id, $post, $update );
+    }
+
+    /**
+     * Saves form values.
+     *
+     * Reached only through save_meta_gate(), which has already established that
+     * this is our own authorised form submission.
      */
     public function save_meta( $post_id, $post, $update ) {
       // Grab form values from Request
@@ -178,8 +274,6 @@ abstract class ProudMetaBox {
 
 // Abstract class for term MetaBox
 abstract class ProudTermMetaBox extends ProudMetaBox {
-
-    public $key;
 
     /**
      * Start up
@@ -262,12 +356,24 @@ abstract class ProudTermMetaBox extends ProudMetaBox {
      * Saves form values
      */
     public function save_term_meta( $term_id, $taxonomy ) {
-        if (isset($_POST) && null != $_POST) {
-            // Grab form values from Request
-            $values = $this->form->getFormValues($_POST);
-            if (!empty($values)) {
-                $this->save_all($values, $term_id);
-            } // ! empty $values
-        } // isset $_POST
+        // edited_{taxonomy} / create_{taxonomy} carry no authorisation of their
+        // own, so the same guards as save_meta() apply here.
+        if ( !$this->form_was_submitted() ) {
+            return;
+        }
+        if ( !$this->nonce_is_valid() ) {
+            return;
+        }
+        if ( !current_user_can( 'edit_term', $term_id ) ) {
+            return;
+        }
+        if ( empty( $this->form ) ) {
+            return;
+        }
+        // Grab form values from Request
+        $values = $this->form->getFormValues( $_POST );
+        if ( !empty( $values ) ) {
+            $this->save_all( $values, $term_id );
+        }
     } // save_term_meta
 }
