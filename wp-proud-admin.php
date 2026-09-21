@@ -4,7 +4,7 @@
 Plugin Name:        Proud Admin
 Plugin URI:         http://getproudcity.com
 Description:        ProudCity WordPress Admin theme and customizations
-Version:            2026.09.16.0942
+Version:            2026.09.21.1408
 Author:             ProudCity
 Author URI:         http://getproudcity.com
 License:            Affero GPL v3
@@ -153,13 +153,20 @@ class ProudAdmin extends \ProudPlugin
      */
     public function register_setting_pages()
     {
+        // forms.php loads on every request, not just admin. Besides the admin
+        // settings screen it registers the gform_notification filter that keeps
+        // notification From headers on our authenticated sending domain
+        // (#2937), and form submissions happen on the front end where
+        // is_admin() is false. Its admin UI is hooked to admin_menu/admin_init,
+        // so loading it here costs nothing on a front-end request.
+        require_once(plugin_dir_path(__FILE__) . 'settings/forms.php');
+
         if (is_admin()) {
             require_once(plugin_dir_path(__FILE__) . 'settings/settings.php');
             require_once(plugin_dir_path(__FILE__) . 'settings/integrations.php');
             require_once(plugin_dir_path(__FILE__) . 'settings/social.php');
             require_once(plugin_dir_path(__FILE__) . 'settings/alert.php');
             require_once(plugin_dir_path(__FILE__) . 'settings/caching.php');
-            require_once(plugin_dir_path(__FILE__) . 'settings/forms.php');
         }
     }
 

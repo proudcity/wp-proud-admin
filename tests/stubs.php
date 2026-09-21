@@ -18,6 +18,11 @@ namespace {
     if (!function_exists('get_option')) {
         function get_option($option, $default = false) { return $default; }
     }
+    // settings/forms.php calls this at include time via instance()->init() to
+    // decide which hooks to register. False keeps the admin-only hooks off.
+    if (!function_exists('is_admin')) {
+        function is_admin() { return false; }
+    }
     if (!function_exists('update_option')) {
         function update_option() { return true; }
     }

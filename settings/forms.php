@@ -21,15 +21,41 @@ class ProudGFSettings
 
     public function init()
     {
-        // Admin UI
-        add_action('admin_menu', [$this, 'registerAdminPages']);
-        add_action('admin_init', [$this, 'registerSettings']);
+        // This file loads on every request so the notification filter below is
+        // registered for front-end form submissions. Everything that only ever
+        // runs in the admin or the form editor stays behind is_admin() so a
+        // front-end request registers nothing it cannot use -- in particular
+        // forceDefaultLabelPlacement(), which calls GFAPI::update_form() and
+        // relies entirely on its caller for authorization.
+        if (is_admin()) {
+            // Admin UI
+            add_action('admin_menu', [$this, 'registerAdminPages']);
+            add_action('admin_init', [$this, 'registerSettings']);
 
-        // Apply setting to future Gravity Forms via defaults filter
-        add_action('plugins_loaded', [$this, 'hookGravityformsDefaults']);
+            // Apply setting to future Gravity Forms via defaults filter
+            add_action('plugins_loaded', [$this, 'hookGravityformsDefaults']);
 
-        add_action('gform_after_save_form', [$this, 'forceDefaultLabelPlacement'], 10, 2);
+            add_action('gform_after_save_form', [$this, 'forceDefaultLabelPlacement'], 10, 2);
+        }
+
+        // Keep notification From headers on our authenticated sending domain.
+        add_filter('gform_notification', [__CLASS__, 'filterNotificationSender'], 10, 3);
     }
+
+    /**
+     * Domains we are able to DKIM-sign for through Mailgun.
+     *
+     * A From address outside these is not merely cosmetic: DMARC aligns against
+     * the From header domain, so such a notification fails authentication no
+     * matter which domain our SMTP credential authenticates.
+     */
+    const SENDER_DOMAINS = ['proudcity.com'];
+
+    /**
+     * The merge tag that resolves to the site admin address, which is always on
+     * a domain we can sign for.
+     */
+    const ADMIN_EMAIL_TAG = '{admin_email}';
 
     /**
      * Adds our admin pages
@@ -204,6 +230,168 @@ class ProudGFSettings
 
         // Persist the change.
         GFAPI::update_form($form);
+    }
+
+    /**
+     * Keeps notification From headers on a domain we can authenticate for.
+     *
+     * Two problems this solves, both seen in production (#2937):
+     *
+     *   1. Notifications configured to send *as* someone else -- a resident via
+     *      {Email:6}, or a city address such as townclerk@wendellmass.us. DMARC
+     *      aligns against the From header domain, so these fail authentication
+     *      no matter which domain our SMTP credential authenticates. The
+     *      original address is preserved as Reply-To when it is usable, so
+     *      replying still reaches the intended person.
+     *
+     *   2. From names built from resident-name merge tags, producing headers
+     *      like "Bruce Ferguson <notify@proudcity.com>". A personal display
+     *      name over an unrelated domain is a phishing signal that Microsoft in
+     *      particular weights heavily.
+     *
+     * Gravity Forms fires gform_notification before merge-tag replacement
+     * (common.php:2064, replacement at ~2107), so values arrive raw. That is
+     * what makes detection reliable: a From name containing a merge tag is
+     * resident-derived by definition, and no name-shaped guessing is needed.
+     * Static names an admin typed deliberately are left alone.
+     *
+     * @param array $notification The notification about to be sent.
+     * @param array $form         The form object.
+     * @param array $entry        The entry being notified about.
+     *
+     * @return array
+     */
+    public static function filterNotificationSender($notification, $form, $entry)
+    {
+        if (! is_array($notification)) {
+            return $notification;
+        }
+
+        $notification += ['from' => '', 'fromName' => '', 'replyTo' => ''];
+
+        $from = trim((string) $notification['from']);
+        if (! self::isAuthenticatedSender($from)) {
+            // Only promote the displaced address when it can actually receive
+            // mail. A malformed tag such as {admin-email} would land in Reply-To
+            // as a literal broken string.
+            if ('' === trim((string) $notification['replyTo']) && self::isUsableReplyTo($from)) {
+                $notification['replyTo'] = $from;
+            }
+            $notification['from'] = self::ADMIN_EMAIL_TAG;
+        }
+
+        $fromName = trim((string) $notification['fromName']);
+        if ('' !== $fromName && self::containsMergeTag($fromName)) {
+            $notification['fromName'] = self::organisationName($form);
+        }
+
+        /**
+         * Filters the notification after sender normalisation.
+         *
+         * Escape hatch for a site that genuinely needs different handling.
+         * Overriding the From address back off our sending domains will break
+         * DMARC for that notification.
+         */
+        return apply_filters('proud_gf_notification_sender', $notification, $form, $entry);
+    }
+
+    /**
+     * Whether a From value will produce a DMARC-aligned message.
+     *
+     * True for the admin-email merge tag, which always resolves to an address
+     * on a domain we sign for, and for literal addresses on those domains or
+     * any subdomain of them.
+     */
+    protected static function isAuthenticatedSender(string $from): bool
+    {
+        if ('' === $from) {
+            return false;
+        }
+
+        // WordPress' is_email() validates the local part with a pattern lacking
+        // the D modifier, so PCRE's $ matches before a trailing newline and
+        // "abc\n@proudcity.com" is accepted. From is the one value Gravity
+        // Forms does not pass through remove_extra_commas(), so reject control
+        // characters here rather than relying on is_email() for header safety.
+        if (preg_match('/[\x00-\x1F\x7F]/', $from)) {
+            return false;
+        }
+
+        if (self::ADMIN_EMAIL_TAG === $from) {
+            return true;
+        }
+
+        if (! is_email($from)) {
+            return false;
+        }
+
+        $domain = strtolower(substr(strrchr($from, '@'), 1));
+
+        foreach (self::SENDER_DOMAINS as $allowed) {
+            $allowed = strtolower($allowed);
+            if ($domain === $allowed || str_ends_with($domain, '.' . $allowed)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Whether a displaced From value is worth keeping as Reply-To.
+     *
+     * Accepts real addresses, and field merge tags of the form {Label:ID} which
+     * Gravity Forms resolves to the submitted value. Rejects anything else,
+     * including malformed tags like {admin-email} that resolve to nothing.
+     */
+    protected static function isUsableReplyTo(string $from): bool
+    {
+        if ('' === $from) {
+            return false;
+        }
+
+        if (preg_match('/[\x00-\x1F\x7F]/', $from)) {
+            return false;
+        }
+
+        if (is_email($from)) {
+            return true;
+        }
+
+        // Allowlist the label rather than blocklisting, so header-hostile
+        // characters (quotes, angle brackets, commas, @, semicolons) cannot
+        // appear even though CR/LF are already excluded above. Spaces and
+        // parentheses must be permitted: real field labels look like
+        // "Work Email" and "Name (First)". \A and \z rather than ^ and $, which
+        // would allow a trailing newline. The field ID is a number with at most
+        // one decimal place, so "..." and "." are correctly rejected.
+        return (bool) preg_match('/\A\{[A-Za-z0-9 ()\-_.\/&\']+:\d+(?:\.\d+)?\}\z/', $from);
+    }
+
+    /**
+     * Whether a value contains a Gravity Forms merge tag.
+     */
+    protected static function containsMergeTag(string $value): bool
+    {
+        return false !== strpos($value, '{') && false !== strpos($value, '}');
+    }
+
+    /**
+     * The name to show in place of a resident-derived From name.
+     *
+     * The site name identifies the sending organisation, which is the whole
+     * point -- it matches the domain the message is signed with. Falls back to
+     * the form title on the rare site with no blogname set.
+     */
+    protected static function organisationName($form): string
+    {
+        $name = trim((string) get_bloginfo('name'));
+
+        if ('' === $name && is_array($form)) {
+            $name = trim((string) ($form['title'] ?? ''));
+        }
+
+        return $name;
     }
 }
 

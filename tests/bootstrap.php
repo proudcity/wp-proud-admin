@@ -37,3 +37,10 @@ if (!is_readable($formHelper)) {
     exit(1);
 }
 require_once $formHelper;
+
+// settings/forms.php defines ProudGFSettings and calls instance() at the end,
+// which registers hooks via the stubbed add_action/add_filter -- no side
+// effects. NotificationSenderTest covers filterNotificationSender(), the
+// gform_notification filter that keeps notification From headers on our
+// authenticated sending domain (#2937).
+require_once __DIR__ . '/../settings/forms.php';
