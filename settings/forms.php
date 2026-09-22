@@ -9,6 +9,7 @@ class ProudGFSettings
     const OPTION = 'proud_gf_label_placement';
     const SETTINGS_GROUP = 'proud_gf_settings';
     const PAGE_SLUG = 'form-settings';
+    const CAPABILITY = 'edit_proud_options';
 
     public static function instance()
     {
@@ -29,13 +30,18 @@ class ProudGFSettings
         // relies entirely on its caller for authorization.
         if (is_admin()) {
             // Admin UI
-            add_action('admin_menu', [$this, 'registerAdminPages']);
+            // Priority 11: the 'proudsettings' parent menu is registered by
+            // ProudGeneralSettingsPage (settings/settings.php) on admin_menu
+            // at the default priority 10, and wp-proud-admin.php requires
+            // this file before settings/settings.php. At equal priority,
+            // callback order is registration order, so this submenu would
+            // register before its parent exists.
+            add_action('admin_menu', [$this, 'registerAdminPages'], 11);
             add_action('admin_init', [$this, 'registerSettings']);
 
-            // Apply setting to future Gravity Forms via defaults filter
-            add_action('plugins_loaded', [$this, 'hookGravityformsDefaults']);
-
             add_action('gform_after_save_form', [$this, 'forceDefaultLabelPlacement'], 10, 2);
+
+            add_filter('option_page_capability_' . self::SETTINGS_GROUP, [$this, 'optionPageCapability']);
         }
 
         // Keep notification From headers on our authenticated sending domain.
@@ -68,10 +74,78 @@ class ProudGFSettings
             'proudsettings',                   // parent slug (menu slug, not URL)
             __('Form Settings', 'proudcity'),  // page title
             __('Form Settings', 'proudcity'),  // menu title
-            'manage_options',                  // capability
+            self::CAPABILITY,                  // capability
             self::PAGE_SLUG,                   // menu slug
             [$this, 'renderSettingsPage']    // callback
         );
+    }
+
+    /**
+     * Fixes the capability required to save this settings group via
+     * options.php, which otherwise defaults to manage_options regardless of
+     * the submenu capability above.
+     *
+     * option_page_capability_{$option_page} gates the whole of
+     * wp-admin/options.php, not just the save: a bare authenticated GET to
+     * options.php?option_page=proud_gf_settings, with no action and no
+     * nonce, passes this same filter and falls through to the undocumented
+     * "All Settings" screen, which dumps every non-serialized row of
+     * wp_options -- including secrets such as the WP-Stateless GCP service
+     * account key. So this must only relax the capability for a request we
+     * have positive proof is our own nonce-verified save POST -- not merely
+     * one that looks like it based on $_REQUEST['action'].
+     *
+     * DESYNC HAZARD (#2939), do not "fix" this back: an earlier version of
+     * this method computed $action via
+     * sanitize_text_field(wp_unslash($_REQUEST['action'])) and compared it
+     * to 'update'. Core computes its own $action at
+     * wp-admin/options.php:25 with sanitize_text_field($_REQUEST['action'])
+     * directly -- no wp_unslash() first. wp_magic_quotes()
+     * (wp-includes/load.php) rebuilds $_GET/$_POST/$_REQUEST with
+     * addslashes(), which turns a raw NUL byte into the two literal
+     * characters "\" and "0". A request for
+     * ?action=update%00 therefore arrives as the slashed string "update\0"
+     * (8 chars). Core's check sees "update\0" !== 'update' and is false, so
+     * check_admin_referer() at wp-admin/options.php:246 never runs and the
+     * request falls through to the "All Settings" dump. But wp_unslash() on
+     * that same value restores a real NUL byte, and sanitize_text_field()'s
+     * trim() strips NUL (it is in PHP's default trim() charlist), collapsing
+     * it back to a clean 'update' -- granting edit_proud_options for a
+     * request core itself refused to treat as a save. Six equivalent
+     * payloads exist (%00update, update%00, %00%20update, update%00%20,
+     * %20%00update, update%20%00), all NUL-based.
+     *
+     * The fix below never derives a value to compare against core's: it
+     * requires REQUEST_METHOD === 'POST' and compares $_POST['action']
+     * against 'update' RAW -- no wp_unslash(), no sanitize_text_field(), no
+     * normalization of any kind -- plus a valid nonce for
+     * self::SETTINGS_GROUP . '-options', the same nonce action
+     * settings_fields() emits via wp_nonce_field() and
+     * check_admin_referer() verifies at wp-admin/options.php:246. 'update'
+     * contains no character addslashes() touches, so the slashed and raw
+     * values of that literal are always byte-identical: there is no
+     * sanitizer pair left to desync. Do not reintroduce
+     * wp_unslash()/sanitize_text_field() on $_POST['action'] -- that
+     * reintroduces the bypass.
+     *
+     * @return string
+     */
+    public function optionPageCapability($capability)
+    {
+        if ('POST' !== ($_SERVER['REQUEST_METHOD'] ?? '')) {
+            return $capability;
+        }
+
+        if (! isset($_POST['action']) || 'update' !== $_POST['action']) {
+            return $capability;
+        }
+
+        if (! isset($_POST['_wpnonce'])
+            || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), self::SETTINGS_GROUP . '-options')) {
+            return $capability;
+        }
+
+        return self::CAPABILITY;
     }
 
     /**
@@ -160,7 +234,7 @@ class ProudGFSettings
      */
     public function renderSettingsPage()
     {
-        if (! current_user_can('manage_options')) {
+        if (! current_user_can(self::CAPABILITY)) {
             wp_die(__('You do not have permission to access this page.', 'proudcity'));
         }
 
@@ -172,34 +246,6 @@ class ProudGFSettings
         submit_button();
         echo '</form>';
         echo '</div>';
-    }
-
-    /**
-     * Hooks the GF defaults to change it
-     *
-     * @return $defaults
-     */
-    public function hookGravityformsDefaults()
-    {
-
-        // Only run the filter if Gravity Forms is present (defensive, but optional)
-        if (! has_filter('gform_form_settings_defaults')) {
-            // Even if GF isn’t loaded yet, adding the filter is safe.
-        }
-
-
-        add_filter('gform_form_settings_defaults', function ($defaults) {
-            $placement = get_option(self::OPTION, 'top_label');
-
-            // Validate again at runtime to be extra safe in case the option changed externally.
-            $allowed = ['top_label', 'left_label', 'right_label', 'hidden_label'];
-            if (! in_array($placement, $allowed, true)) {
-                $placement = 'top_label';
-            }
-
-            $defaults['labelPlacement'] = $placement;
-            return $defaults;
-        });
     }
 
     /**
